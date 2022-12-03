@@ -1,0 +1,36 @@
+<form [formGroup]="cardForm" (ngSubmit)="submit()" #formdG="ngForm">
+    <div class="card">
+        <div class="title">
+            <h2>{{title}}</h2>
+        </div>
+    <div class="form-group" *ngIf="!cardData ? code.invalid : code.valid " >
+        <label for="code">Código:</label>
+        <input type="number" name="code" id="code" formControlName="code"/>
+        <div *ngIf="code.invalid && formdG.submitted" class="validation">
+            <p>O código é obirgatório!</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="title">Titulo</label>
+        <input type="text" name="title" id="title" formControlName="title" />
+        <div *ngIf="name && formdG.submitted" class="validation">
+            <p>O nome é obirgatório!</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="list">Lista</label>
+        <select name="list" id="list" formControlName="list">
+            <option *ngFor="let item of states" [value]="item">{{item}}</option>           
+        </select>
+
+    </div>
+    <div class="form-group">
+        <label for="deliveryDate">Data de Entrega</label>
+        <input type="date" name="deliveryDate" id="deliveryDate" formControlName="deliveryDate" />
+    </div>
+    <div class="button">
+        <input type="submit" value="{{btnText}}">
+        <input type="submit" value="Cancelar" (click)="back()" class="cancel">
+    </div>
+</div>
+</form>

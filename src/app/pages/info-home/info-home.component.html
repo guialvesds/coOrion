@@ -1,0 +1,59 @@
+<div class="container">
+    <div class="buttonsAction">
+        <div class="search">
+            <label for="search">Pesquisa</label>
+            <input type="text" name="search" id="" (input)="searchs($event)">
+        </div>
+        <div class="new">
+            <input type="button" value="+ Adicionar" routerLink="/newCard">
+        </div>
+    </div>
+    
+    <!-- Tabela -->
+    <div class="tableSection">
+        <section>
+            <div class="tbl-header">
+              <table cellpadding="0" cellspacing="0">
+                <thead class="thead">
+                  <tr>
+                    <th>Código</th>
+                    <th>Cartão</th>
+                    <th>Lista</th>                    
+                    <th>Data de Entrega</th>
+                    <th>ações</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+            <div class="tbl-content">
+              <table cellpadding="0" cellspacing="0" class="tableBody">
+                <tbody id="tabela-contas" *ngIf="cards.length > 0; else noProducts">
+                    <tr *ngFor="let card of cards" class="tr">
+                        <td>{{card.code}}</td>
+                        <td>{{card.title}}</td>
+                        <td>{{card.list}}</td>
+                        <td>{{card. delivery_date}}</td>                       
+                        <td class="action">
+                            <button type="button"  class="edit" routerLink="card/edit/{{card.id}}">
+                              <fa-icon [icon]="editIcon"></fa-icon>
+                            </button>
+                            <button type="button"  class="exclui" (click)="remove(card.id)">
+                              <fa-icon [icon]="removeIcon"></fa-icon>
+                            </button>                         
+                            <button type="button"  class="view" routerLink="card/view/{{card.id}}">
+                              <fa-icon [icon]="vewIcon"></fa-icon>
+                            </button>                         
+                        </td>                    
+                    </tr>                    
+                </tbody>
+              </table>              
+            </div>
+          </section>
+    </div>
+    <div class="footerProduct">
+        <h3 clas>Total de Cartões cadastrados: {{totalP}}</h3>        
+    </div>
+    <ng-template #noProducts>
+      <h1>Carregando...</h1>
+    </ng-template>
+</div>

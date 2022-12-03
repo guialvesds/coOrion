@@ -1,0 +1,20 @@
+<app-alert></app-alert>
+<div class="containerNav">
+  <a routerLink="/" class="title">
+  <div class="img" >
+      <img src="../../../assets/icon.png" alt="logo">
+  <h3>Orion</h3>
+  </div>  
+</a>  
+  <nav>
+      <a routerLink="/">Início</a>
+      <!-- <a routerLink="/sobre">Sobre</a> -->
+      <a (click)="sair()" >Sair</a>
+  </nav>
+</div>
+<main class="container">
+ <router-outlet></router-outlet>
+</main>
+<footer>
+  <p>Orion <span>@ 2022</span></p>
+</footer>
