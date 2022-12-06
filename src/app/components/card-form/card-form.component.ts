@@ -39,7 +39,7 @@ export class CardFormComponent implements OnInit {
     this.cardForm = this.formBuild.group({
       code: new FormControl(this.cardData ? this.cardData.code : '0'),
       title: new FormControl( this.cardData ? this.cardData.title : ''),
-      list: new FormControl( this.cardData ? this.cardData.list : ''),
+      tag: new FormControl( this.cardData ? this.cardData.tag : ''),
       deliveryDate: new FormControl( this.cardData ? this.cardData.delivery_date : ''),
     });
 

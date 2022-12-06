@@ -50,8 +50,7 @@ export class LoginComponent implements OnInit {
             if(err.status !== 200){              
                 this.validation = true;
                 this.validationText = err.error.message;              
-            }
-            
+            }            
         }
       );
     } catch (error) {

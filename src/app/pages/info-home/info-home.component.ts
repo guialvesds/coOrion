@@ -64,7 +64,7 @@ export class  InfoHomeComponent implements OnInit {
     this.cards = this.allCards.filter((item) => {
       return (
         item.title!.toLowerCase().includes(value) ||
-        item.list!.toLowerCase().includes(value) ||
+        item.tag!.toLowerCase().includes(value) ||
         item.code?.toString().includes(value) ||
         item.delivery_date?.toString().includes(value)
       );

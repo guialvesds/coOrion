@@ -1,0 +1,273 @@
+.container {  
+    width: 100vw;
+    height: 85vh;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; 
+    
+}
+.card{
+    background-color: #fff;
+    width: 60%;  
+    padding: 1rem;
+    border-radius: .5rem;
+    box-shadow: 2px 3px 5px #52525252;
+    /* background-color: #a5a5a552; */
+}
+
+.headerContent {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; 
+    align-items: center;
+}
+
+button:hover {
+    box-shadow: 2px 3px 5px #919191;
+}
+
+.clearC button {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    cursor: pointer;
+    outline: 0;
+    border: none;
+    margin-left: 10px;
+}
+
+.clear fa-icon {
+    font-size: 2em;
+    color: #535353;
+}
+.viewPort{
+    width: 100%;
+    height: 400px;
+}
+
+.conteinerContent{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;   
+    
+}
+
+.title h1 {
+    margin-bottom: -3px;
+    font-size: 2em;
+    font-weight: 500;
+    color: #020202;
+}
+.title p {
+    margin-left: 5px;
+}
+
+.header h3{
+    margin-bottom: -5px;
+    font-weight: 500;
+    color: #6e6e6e;
+    font-size: 1em;
+}
+.header p{
+  background-color: #ebebeb;
+  width: 90px;
+  text-align: center;
+}
+
+.addContent {   
+    display: flex;        
+    flex-direction: column;
+    width: 30%;
+}
+
+.addContent h3{   
+    margin-bottom: -5px;
+    font-weight: 500;
+    color: #6e6e6e;
+}
+
+.addContent button {   
+    margin-top: 5px;
+    height: 30px;
+    border: none;
+    outline: 0;
+    cursor:  pointer;
+    background-color: #e2e2e2;
+}
+.addContent button:hover {   
+    background-color: #c4c4c4;
+}
+
+
+.vewContent{
+    display: flex;   
+    flex-direction: column;
+    width: 60%;
+}
+
+.formGroup {
+    margin-bottom: 10px;
+}
+.formGroup h2{
+    margin-bottom:  -3px;
+}
+
+.formGroup .descriptionText{
+    width: 100%;
+    height: 80px;
+    background-color:#eeeeee;
+    border: none;
+    outline: 0;
+    padding-left: 5px;
+    padding-top: 5px;
+    margin-bottom: 5px;
+}
+
+.comment {
+    height: 40px;
+    width: 100%;
+    background-color:#eeeeee;
+    border: none;
+    outline: 0;
+    padding-left: 5px;
+    padding-top: 5px;
+    margin-bottom: 5px;
+}
+
+.buttons > button {
+    padding: 3px;
+    border-radius: 2px;    
+    border: none;
+    outline: 0;
+    cursor:  pointer;
+    background-color: #eeeeee;
+
+}
+
+.buttonsComment > button {
+    padding: 3px;
+    border-radius: 2px;    
+    border: none;
+    outline: 0;
+    cursor:  pointer;
+    /* background-color: #eeeeee; */
+    font-size: 0.8em;
+}
+.buttonsComment > button:last-child {
+   margin-left: 5px;
+}
+
+.buttonsComment > fa-icon {
+    font-size: 0.8em;
+}
+
+.formGroup:last-child{
+    margin-top: 30px;
+}
+
+.checkList {
+    margin-top: 30px;
+}
+
+
+.buttons button:last-child {
+    margin-left: 10px;
+}
+
+.member button  {    
+    margin-top: 10px;
+    margin-left: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 8px;
+    background-color: rgb(36, 216, 132);
+    font-size: 1.1em;
+    font-weight: 400;
+    color: rgb(44, 44, 44);
+
+}
+
+.member button:hover  { 
+    background-color: rgb(36, 216, 132);
+}
+
+.memberes {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+   
+}
+
+/* .member button:last-child {    
+   width: 40px;
+   height: 40px;
+   border-radius: 50%;
+   background-color: #c9c9c9; 
+} */
+
+.commentUsers {
+    display: flex;
+    flex-direction: column;
+}
+
+.commentUsers h3 {
+    margin-bottom: -5px;
+    font-size: 1em;
+    font-weight: 500;
+}
+.commentUsers > textarea {
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid rgba(90, 172, 90, 0.226);
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+.descDiv {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+.btnEditDesc {
+    display: flex;
+    align-items: center;
+}
+.btnEditDesc button {
+    margin-left:  10px;
+    border: 0;
+    outline: none;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.menuContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* .editDesc input, .descDiv p {
+   
+} */
+
+.checkbox{
+    width: 25px;
+    background-color: rgb(93, 173, 93);
+}
+
+ 
+::-webkit-scrollbar {
+    width: 6px;
+} 
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(2, 68, 13, 0.3); 
+} 
+::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+}

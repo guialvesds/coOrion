@@ -31,16 +31,16 @@
                     <tr *ngFor="let card of cards" class="tr">
                         <td>{{card.code}}</td>
                         <td>{{card.title}}</td>
-                        <td>{{card.list}}</td>
+                        <td>{{card.tag}}</td>
                         <td>{{card. delivery_date}}</td>                       
                         <td class="action">
-                            <button type="button"  class="edit" routerLink="card/edit/{{card.id}}">
+                            <button type="button"  class="edit" routerLink="card/edit/{{card._id}}">
                               <fa-icon [icon]="editIcon"></fa-icon>
                             </button>
-                            <button type="button"  class="exclui" (click)="remove(card.id)">
+                            <button type="button"  class="exclui" (click)="remove(card._id)">
                               <fa-icon [icon]="removeIcon"></fa-icon>
                             </button>                         
-                            <button type="button"  class="view" routerLink="card/view/{{card.id}}">
+                            <button type="button"  class="view" routerLink="card/view/{{card._id}}">
                               <fa-icon [icon]="vewIcon"></fa-icon>
                             </button>                         
                         </td>                    

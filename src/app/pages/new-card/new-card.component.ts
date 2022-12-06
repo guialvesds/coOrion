@@ -29,13 +29,13 @@ export class NewCardComponent implements OnInit {
     
     const codRandon: number =  9999;
   
-    console.log("value da lista", data.list);
+    console.log("value da lista", data.tag);
     
     try {
       const dados = {
         code:  Math.floor(Math.random() * codRandon),
         title: data.title,
-        list: data.list, 
+        tag: data.tag, 
         delivery_date: data.delivery_date,
       };
 

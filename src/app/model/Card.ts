@@ -1,8 +1,8 @@
 export class Card {
-    id?: string;
+    _id?: string;
     code?: number;
     title?: string;
-    list?: string;
+    tag?: string;
     created_at?: Date;
     delivery_date?: Date;
     user?: String;
@@ -29,7 +29,7 @@ export class Card {
         }, 
       }
     ];
-    comments?: [{ text: string; username?: string }];
-    members?: [{ username: string; email: string }];
+    comments?: [{ comment: string; userName?: string; userId: string; idComment: any}];
+    members?: [{ member: string; email: string }];
   }
   

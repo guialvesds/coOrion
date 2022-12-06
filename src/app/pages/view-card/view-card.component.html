@@ -1,1 +1,107 @@
-<p>view-card works!</p>
+<div class="container">
+    <div class="card">
+        <div class="headerContent">
+            <div class="title">
+                <h1>{{cardData.title}}</h1>
+                <p>Na lista {{cardData.tag!}}</p>
+            </div>
+            <div class="clearC">
+                <button class="clear">
+                    <fa-icon [icon]="faFloppyDisk"></fa-icon>
+                </button>
+                <button class="clear" routerLink="/">
+                    <fa-icon [icon]="faXmark"></fa-icon>
+                </button>
+            </div>
+        </div>
+        <cdk-virtual-scroll-viewport class="viewPort" itemSize="1">
+            <div class="conteinerContent">
+                <div class="vewContent">
+                    <div class="header">
+                        <h3>Data de entrega</h3>
+                        <p>{{cardData.delivery_date!}}</p>
+                    </div>
+                    <form [formGroup]="viewForm" #formG="ngForm">
+                        <div class="formGroup">
+                            <div class="btnEditDesc">
+                                <h2>Descrição</h2>
+                                <button (click)="showDesc()">
+                                    <fa-icon [icon]="faPen"></fa-icon>
+                                </button>
+                            </div>
+                            <div class="descDiv" *ngIf="cardData.description">
+                                <p>{{cardData.description}}</p>
+                            </div>
+                            <div class="editDesc" *ngIf="nShowDesc || !cardData.description">
+                                <textarea type="text" placeholder="Escreva uma descrição mais detalhada..."
+                                    class="descriptionText" formControlName="description"></textarea>
+                                <div class="buttons">
+                                    <button (click)="putDescription()" type="submit">
+                                        <fa-icon [icon]="faFloppyDisk"></fa-icon> Salvar
+                                    </button>
+                                    <button (click)="noShowDesc()" type="submit">
+                                        <fa-icon [icon]="faXmark"></fa-icon> Cancelar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="formGroup" *ngIf="cardData.tasks">
+                            <h2>Checklist</h2>
+                            <div class="contentLisy" *ngFor="let item of cardData.tasks">
+                                <h2>{{item.title}}</h2>
+                                <ul>
+                                    <li *ngFor="let item of cardData.tasks">
+                                        {{item.title}}
+                                    </li>
+                                </ul>
+                                <div class="buttons">
+                                    <button type="submit">
+                                        <fa-icon [icon]="faFloppyDisk"></fa-icon>Adicionar um item
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="formGroup">
+                            <h2>Comentários</h2>
+                            <input type="text" placeholder="Escreva uma descrição detalhada..." class="comment"
+                                formControlName="comment" />
+                            <div class="buttons">
+                                <button type="submit" (click)="addComments()">
+                                    <fa-icon [icon]="faFloppyDisk"></fa-icon> Salvar
+                                </button>
+                                <button type="submit" >
+                                    <fa-icon [icon]="faXmark"></fa-icon> Cancelar
+                                </button>
+                            </div>
+                        </div>
+                        <div class="commentUsers" *ngFor="let commentUser of cardData.comments">
+                            <h3>{{commentUser.userName}}</h3>
+                            <textarea type="text" class="comments" value="{{commentUser.comment}}"></textarea> 
+                            <div class="buttonsComment">
+                                <button type="submit" (click)="addComments()">
+                                    <fa-icon [icon]="faPen"></fa-icon> Editar
+                                </button>
+                                <button type="submit" (click)="deleteComment(commentUser.idComment)">
+                                    <fa-icon [icon]="faXmark"></fa-icon> Excluir
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="addContent">
+                    <h3>Adiconar ao Cartão</h3>
+                    <button>Membros</button>
+                    <button>CheckList</button>
+                    <button>Anexo</button>
+                    <div class="member">
+                        <h3>Membros</h3>
+                        <div class="memberes" *ngFor="let member of cardData.members">
+                            <button>{{member.member}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </cdk-virtual-scroll-viewport>
+    </div>
+</div>

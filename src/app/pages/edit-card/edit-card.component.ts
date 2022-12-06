@@ -13,7 +13,7 @@ import { CardService } from 'src/app/services/card.service';
 })
 export class EditCardComponent implements OnInit {
 
-  productData!: Card;
+  cardData!: Card;
   btnText = 'Editar';
   title = 'Editar Cartão';
 
@@ -28,28 +28,31 @@ export class EditCardComponent implements OnInit {
     const id = String(this.route.snapshot.paramMap.get('id'));
 
     this.cardServices.getP(id).subscribe((item) => {
-      this.productData = item.data;
+      this.cardData = item.data;
 
       // console.log(this.productData);
     });
 
-    const codP = this.productData.code;
+    const codP = this.cardData.code;
 
     console.log('Editando o produto', codP);
   }
 
-   editP(productData: Card) {
-    const id = this.productData.id;
+   editP(cardtData: Card) {
+    const id = this.cardData._id;
 
     const dados = {
-      code: productData.code,
-      name: productData.title,
-      list: productData.list,  
-      delivery_date: productData.delivery_date    
+      code: cardtData.code,
+      name: cardtData.title,
+      tag: cardtData.tag,  
+        
     };
 
+    console.log("dados", dados);
+    
+
     this.cardServices.editCard(id!, dados).subscribe();
-    this.alert.add(`produto ${this.productData.code} alterado com sucesso!`);
+    this.alert.add(`produto ${this.cardData.code} alterado com sucesso!`);
     this.router.navigate(['/']);
   }
 }

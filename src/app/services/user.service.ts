@@ -24,6 +24,10 @@ export class UserService {
   getUsers(): Observable<Response<User[]>> {
     return this.http.get<Response<User[]>>(this.apiUrl);
   }
+
+  getUserId(id: any): Observable<Response<User[]>>{
+    return this.http.get<Response<User[]>>(`${this.apiUrl}/${id}`)
+  }
   
   login( dados: FormData){  
     return this.http.post<any>(`${this.baseAPiUrl}/auth`, dados, {observe: 'response'});  
