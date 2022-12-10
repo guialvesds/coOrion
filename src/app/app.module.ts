@@ -24,6 +24,8 @@ import { MatSelectModule} from '@angular/material/select'
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatMenuModule} from '@angular/material/menu';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MemberComponent } from './pages/view-card/member/member.component';
+import {MatListModule} from '@angular/material/list';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +37,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     EditCardComponent,
     AlertComponent,
     CardFormComponent,
-    ViewCardComponent
+    ViewCardComponent,
+    MemberComponent
   ],
   imports: [
     BrowserModule,
@@ -50,6 +53,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatCheckboxModule,
     MatMenuModule,
     BrowserAnimationsModule, 
+    MatListModule,
      
   ],
   providers: [],

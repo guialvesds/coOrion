@@ -1,26 +1,26 @@
-import { Component, OnInit, Input, Output } from "@angular/core";
-import { MatDialog } from "@angular/material/dialog";
+import { Component, OnInit, Input, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 
-import { CardService } from "src/app/services/card.service";
-import { AlertService } from "src/app/services/alert.service";
-import { UserService } from "src/app/services/user.service";
+import { CardService } from 'src/app/services/card.service';
+import { AlertService } from 'src/app/services/alert.service';
+import { UserService } from 'src/app/services/user.service';
 
-import { User } from "src/app/model/User";
-import { Card } from "src/app/model/Card";
+import { User } from 'src/app/model/User';
+import { Card } from 'src/app/model/Card';
 
 import {
   faPen,
   faXmark,
   faNoteSticky,
-} from "@fortawesome/free-solid-svg-icons";
-
+} from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-info-home',
   templateUrl: './info-home.component.html',
-  styleUrls: ['./info-home.component.css']
+  styleUrls: ['./info-home.component.css'],
 })
-export class  InfoHomeComponent implements OnInit {
+export class InfoHomeComponent implements OnInit {
   allCards: Card[] = [];
   cards: Card[] = [];
   user: User[] = [];
@@ -29,7 +29,7 @@ export class  InfoHomeComponent implements OnInit {
   idCard!: Card;
 
   totalP!: number;
-  search: any = "";
+  search: any = '';
 
   editIcon = faPen;
   removeIcon = faXmark;
@@ -37,22 +37,31 @@ export class  InfoHomeComponent implements OnInit {
 
   constructor(
     private cardServices: CardService,
-    private alert: AlertService,    
+    private alert: AlertService,
     private userServices: UserService,
-    private dialogService: MatDialog
+    private dialogService: MatDialog,
+    private route: Router
   ) {}
 
   ngOnInit(): void {
     //inicializado a busca do produtos para exibilos no html
-    this.cardServices.getCard().subscribe((item) => {
-      const data = item.data;
+    this.cardServices.getCard().subscribe(
+      (item) => {
+        const data = item.data;
 
-      this.cards = data;
-      this.allCards = data;
-      this.totalP = data.length;
-      console.log(data);
-    });    
-    
+        this.cards = data;
+        this.allCards = data;
+        this.totalP = data.length;
+        console.log(data);
+      },
+      (error) => {
+        const dataError = error.statusText;
+        if (dataError === 'Unauthorized') {
+          this.route.navigate(['login']);
+        }
+      }
+    );
+
     this.userServices.getUsers();
   }
 
@@ -74,7 +83,7 @@ export class  InfoHomeComponent implements OnInit {
   async remove(id: any) {
     await this.cardServices.removeCard(id).subscribe();
 
-    console.log("Card excluído com sucesso!");
+    console.log('Card excluído com sucesso!');
 
     setTimeout(() => {
       this.cardServices.getCard().subscribe((item) => {
@@ -82,7 +91,7 @@ export class  InfoHomeComponent implements OnInit {
         this.cards = data;
         this.totalP = data.length;
 
-        this.alert.add("Card excluído com sucesso!");
+        this.alert.add('Card excluído com sucesso!');
       });
     }, 600);
   }
@@ -91,9 +100,8 @@ export class  InfoHomeComponent implements OnInit {
   //   const dialogRef = this.dialogService.open(ViewComponent, {
   //     width: '40rem',
   //     data: { data: this.cards}
-  //   });   
+  //   });
 
   //   dialogRef.afterClosed().subscribe();
   // }
 }
-

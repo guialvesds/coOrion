@@ -15,6 +15,7 @@ import { UserService } from 'src/app/services/user.service';
 import { Card } from 'src/app/model/Card';
 
 import { ActivatedRoute, Router } from '@angular/router';
+import { MemberComponent } from './member/member.component';
 
 @Component({
   selector: 'app-view-card',
@@ -52,10 +53,12 @@ export class ViewCardComponent implements OnInit {
     this.getCard();
 
     this.viewForm = this.formBuild.group({
-      description: new FormControl(),
-      comment: new FormControl(),
+      description: new FormControl(''),
+      comment: new FormControl(''),
+      commentText: new FormControl(''),
       // userComments: new FormControl(this.cardData ? this.comments.text : ''),
     });
+
   }
 
   get description() {
@@ -68,7 +71,17 @@ export class ViewCardComponent implements OnInit {
       this.cardData = item.data;
       this.comments = this.cardData.comments;
       this.idUser = this.comments.userId;
-      console.log('CardData', this.cardData);
+      console.log('CardData', this.cardData.comments);
+     });
+  }
+
+
+  openDialogMember(enterAnimationDuration: string, exitAnimationDuration: string): void{
+    this.activeModal.open(MemberComponent, {
+      data: {data: this.cardData},
+      width: "420px",
+      enterAnimationDuration,
+      exitAnimationDuration,
     });
   }
 
@@ -103,8 +116,6 @@ export class ViewCardComponent implements OnInit {
       this.getCard();
     }, 500);
 
-    this.viewForm.value.comment.value = '';
-
     this.nShowDesc = false;
     console.log('deu certo');
   }
@@ -126,6 +137,28 @@ export class ViewCardComponent implements OnInit {
 
       console.log('commentário id', idComment);
       await this.cardServices.deleteComeentService(idCard, idC).subscribe();
+
+      setTimeout(() => {
+        this.getCard();
+      }, 500);
+    } catch (error) {
+      console.log('erro: ', error);
+    }
+  }
+
+  async editComment(idComment: any){
+    try {
+      const idCard = this.cardData._id;
+
+      const idC = idComment;
+      const textComemnt = this.viewForm.value;
+
+      const dados = {
+        comment: textComemnt.comment,
+      };
+
+    
+      await this.cardServices.editCommentService(idCard, idC, dados).subscribe();
 
       setTimeout(() => {
         this.getCard();

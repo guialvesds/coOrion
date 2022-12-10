@@ -57,4 +57,9 @@ export class CardService {
     const url = `${this.apiUrl}/comment/${idCard}/${idComment}`;
     return this.http.patch(url, idCard, { headers: this.head_obj });
   }
+
+  editCommentService(idCard: any, idComment: any, dados: any) {
+    const url = `${this.apiUrl}/editComment/${idCard}/${idComment}`;
+    return this.http.patch(url, dados, { headers: this.head_obj });
+  }
 }

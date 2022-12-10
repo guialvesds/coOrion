@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>Adiconar membro ao card.</h1>
+<div class="search">
+    <input type="text" name="search" id="" (input)="searchs($event)" placeholder="Pesquise por um membro.">
+</div>
+<form [formGroup]="memberForm">
+<div mat-dialog-content>
+    <mat-selection-list formControlName="memberList" *ngFor="let item of userData">
+        <mat-list-option  checkboxPosition="before" >
+         <p >{{item.name}}</p>
+        </mat-list-option>
+      </mat-selection-list>
+</div>
+<div mat-dialog-actions>
+  <button (click)="addMember($event)">Adicionar</button>
+  <button mat-button mat-dialog-close cdkFocusInitial>Cancelar</button>
+</div>
+</form>

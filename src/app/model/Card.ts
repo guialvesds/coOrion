@@ -29,7 +29,7 @@ export class Card {
         }, 
       }
     ];
-    comments?: [{ comment: string; userName?: string; userId: string; idComment: any}];
+    comments?: [{ comment: string; userName?: string; userId: string; idComment: any; created_At: any}];
     members?: [{ member: string; email: string }];
   }
   

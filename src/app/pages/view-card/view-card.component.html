@@ -29,7 +29,7 @@
                                     <fa-icon [icon]="faPen"></fa-icon>
                                 </button>
                             </div>
-                            <div class="descDiv" *ngIf="cardData.description">
+                            <div class="descDiv" *ngIf="cardData.description && !nShowDesc ">
                                 <p>{{cardData.description}}</p>
                             </div>
                             <div class="editDesc" *ngIf="nShowDesc || !cardData.description">
@@ -70,28 +70,48 @@
                                 <button type="submit" (click)="addComments()">
                                     <fa-icon [icon]="faFloppyDisk"></fa-icon> Salvar
                                 </button>
-                                <button type="submit" >
+                                <button type="submit">
                                     <fa-icon [icon]="faXmark"></fa-icon> Cancelar
                                 </button>
                             </div>
                         </div>
                         <div class="commentUsers" *ngFor="let commentUser of cardData.comments">
-                            <h3>{{commentUser.userName}}</h3>
-                            <textarea type="text" class="comments" value="{{commentUser.comment}}"></textarea> 
-                            <div class="buttonsComment">
-                                <button type="submit" (click)="addComments()">
-                                    <fa-icon [icon]="faPen"></fa-icon> Editar
-                                </button>
-                                <button type="submit" (click)="deleteComment(commentUser.idComment)">
-                                    <fa-icon [icon]="faXmark"></fa-icon> Excluir
-                                </button>
+                            <div class="container-comment">
+                                <div class="comment-main-level">
+                                    <!-- Avatar -->
+                                    <div class="comment-avatar"><img src="../../../assets/663338.png" alt=""></div>
+                                    <!-- Contenedor del Comentario -->
+
+                                </div>
+                                <div class="comment-box">
+                                    <div class="comment-head">
+                                        <div class="comment-conteiner">
+                                            <div>
+                                                <h6 class="comment-name by-author">{{commentUser.userName}}</h6>
+                                                <span>Em: {{commentUser.created_At.toLocaleString('pt-BR').substring(0 ,
+                                                    10).split('-').reverse().join('/')}}</span>
+                                            </div>
+                                            <div class="buttonsComment">
+                                                <button type="submit" (click)="addComments()">
+                                                    <fa-icon [icon]="faPen"></fa-icon> Editar
+                                                </button>
+                                                <button type="submit" (click)="deleteComment(commentUser.idComment)">
+                                                    <fa-icon [icon]="faXmark"></fa-icon> Excluir
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <textarea type="text" class="comment-content"
+                                        value="{{commentUser.comment}}"></textarea>
+                                </div>
                             </div>
+
                         </div>
                     </form>
                 </div>
                 <div class="addContent">
                     <h3>Adiconar ao Cartão</h3>
-                    <button>Membros</button>
+                    <button (click)="openDialogMember('400ms', '400ms')">Membros</button>
                     <button>CheckList</button>
                     <button>Anexo</button>
                     <div class="member">
