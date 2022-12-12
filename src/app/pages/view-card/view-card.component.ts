@@ -1,10 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import {
   faTimes,
   faFloppyDisk,
   faXmark,
   faPen,
   faRupiahSign,
+  faArrowsRotate,
+  faTrashAlt
 } from '@fortawesome/free-solid-svg-icons';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -16,19 +18,24 @@ import { Card } from 'src/app/model/Card';
 
 import { ActivatedRoute, Router } from '@angular/router';
 import { MemberComponent } from './member/member.component';
+import { Subscription } from 'rxjs';
+
+import { SnackBarComponent } from 'src/app/components/snack-bar/snack-bar.component';
 
 @Component({
   selector: 'app-view-card',
   templateUrl: './view-card.component.html',
   styleUrls: ['./view-card.component.css'],
 })
-export class ViewCardComponent implements OnInit {
-  @Input() cardData!: Card;
+export class ViewCardComponent implements OnInit, OnDestroy {
+  @Input() cardData!: any;
 
   faTimes = faTimes;
   faFloppyDisk = faFloppyDisk;
+  faArrowsRotate = faArrowsRotate;
   faXmark = faXmark;
   faPen = faPen;
+  faTrashAlt = faTrashAlt;
 
   viewForm!: FormGroup;
 
@@ -39,8 +46,12 @@ export class ViewCardComponent implements OnInit {
   comments!: any;
 
   nShowDesc: boolean = false;
+  showComment: boolean = false;
+
+  private subScriptions: Subscription[] = [];
 
   constructor(
+    private snackBar: SnackBarComponent,
     private cardServices: CardService,
     private userServices: UserService,
     private route: ActivatedRoute,
@@ -55,10 +66,18 @@ export class ViewCardComponent implements OnInit {
     this.viewForm = this.formBuild.group({
       description: new FormControl(''),
       comment: new FormControl(''),
-      commentText: new FormControl(''),
+      commentText: new FormControl(),
       // userComments: new FormControl(this.cardData ? this.comments.text : ''),
     });
+  }
 
+  // Destroi as chamadas de subscribe
+  ngOnDestroy(): void {
+    this.subScriptions.forEach((item) => item.unsubscribe());
+  }
+
+  refresh(){
+    this.getCard();
   }
 
   get description() {
@@ -72,14 +91,16 @@ export class ViewCardComponent implements OnInit {
       this.comments = this.cardData.comments;
       this.idUser = this.comments.userId;
       console.log('CardData', this.cardData.comments);
-     });
+    });
   }
 
-
-  openDialogMember(enterAnimationDuration: string, exitAnimationDuration: string): void{
+  openDialogMember(
+    enterAnimationDuration: string,
+    exitAnimationDuration: string
+  ): void {
     this.activeModal.open(MemberComponent, {
-      data: {data: this.cardData},
-      width: "420px",
+      data: this.cardData,
+      width: '420px',
       enterAnimationDuration,
       exitAnimationDuration,
     });
@@ -92,7 +113,11 @@ export class ViewCardComponent implements OnInit {
     const dados = {
       description: desc.description,
     };
-    await this.cardServices.editCard(id!, dados).subscribe();
+
+    await this.subScriptions.push(
+      this.cardServices.editCard(id!, dados).subscribe()
+    );
+    this.snackBar.openSnackBar("Descrição adicionada com sucesso!");
 
     setTimeout(() => {
       this.getCard();
@@ -111,6 +136,7 @@ export class ViewCardComponent implements OnInit {
     };
 
     await this.cardServices.addCommentService(id!, dados).subscribe();
+    this.snackBar.openSnackBar("Comentário adicionado com sucesso!");
 
     setTimeout(() => {
       this.getCard();
@@ -136,7 +162,16 @@ export class ViewCardComponent implements OnInit {
       const idC = idComment;
 
       console.log('commentário id', idComment);
-      await this.cardServices.deleteComeentService(idCard, idC).subscribe();
+      await this.cardServices.deleteComeentService(idCard, idC).subscribe(() => {
+        this.snackBar.openSnackBar("Comentário removido com sucesso!");
+      }, (err) => {
+        console.log(err);
+
+        const message = err.error.message;
+        this.snackBar.openSnackBar(message);
+        
+      });
+     
 
       setTimeout(() => {
         this.getCard();
@@ -146,7 +181,15 @@ export class ViewCardComponent implements OnInit {
     }
   }
 
-  async editComment(idComment: any){
+  openeditComment() {
+    this.showComment = true;
+  }
+
+  unshoweditComment() {
+    this.showComment = false;
+  }
+
+  async editComment(idComment: any) {
     try {
       const idCard = this.cardData._id;
 
@@ -157,8 +200,11 @@ export class ViewCardComponent implements OnInit {
         comment: textComemnt.comment,
       };
 
-    
-      await this.cardServices.editCommentService(idCard, idC, dados).subscribe();
+      console.log(dados);
+
+      await this.cardServices
+        .editCommentService(idCard, idC, dados)
+        .subscribe();
 
       setTimeout(() => {
         this.getCard();
@@ -166,5 +212,17 @@ export class ViewCardComponent implements OnInit {
     } catch (error) {
       console.log('erro: ', error);
     }
+  }
+
+  deleteMember(idCard: any, idMember: any){
+    const cardId = idCard;
+    const memberId = idMember
+
+    this.cardServices.deleteMember(cardId, memberId).subscribe();
+
+    this.snackBar.openSnackBar("Membro Excluído com sucesso!");
+
+    this.getCard();
+
   }
 }

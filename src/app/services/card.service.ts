@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import { User } from '../model/User';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +19,16 @@ export class CardService {
   apiUrl = `${this.baseApiUrl}/card`;
 
   constructor(private http: HttpClient) {}
+
+  addMmeber(idCard: any, dados: any){
+    const url = `${this.apiUrl}/member/${idCard}`;
+    return this.http.patch(url, dados, { headers: this.head_obj})
+  }
+
+  deleteMember(idCard: any, idMember: any){
+    const url = `${this.apiUrl}/member/${idCard}/${idMember}`;
+    return this.http.patch(url, idCard, { headers: this.head_obj})
+  }
 
   getCard(): Observable<Response<Card[]>> {
     return this.http.get<Response<Card[]>>(this.apiUrl, {

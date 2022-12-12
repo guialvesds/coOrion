@@ -1,4 +1,5 @@
 export class User {
+  _id?: string;
     name!: String;
     email!: String;
     password!: String;
@@ -6,5 +7,8 @@ export class User {
     passwordResetToken?: String;
     passwordResetExpires?: String;
     created_At?: Date;
+    member?: Boolean;
+    selected?: Boolean;
+  
   }
   

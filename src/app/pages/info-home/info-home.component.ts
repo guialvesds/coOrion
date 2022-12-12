@@ -22,7 +22,7 @@ import { Router } from '@angular/router';
 })
 export class InfoHomeComponent implements OnInit {
   allCards: Card[] = [];
-  cards: Card[] = [];
+  cards!: Card[] | any;
   user: User[] = [];
   @Output() cardData!: Card;
 
@@ -34,6 +34,8 @@ export class InfoHomeComponent implements OnInit {
   editIcon = faPen;
   removeIcon = faXmark;
   vewIcon = faNoteSticky;
+
+  dateDelivery!: any;
 
   constructor(
     private cardServices: CardService,
@@ -53,6 +55,7 @@ export class InfoHomeComponent implements OnInit {
         this.allCards = data;
         this.totalP = data.length;
         console.log(data);
+   
       },
       (error) => {
         const dataError = error.statusText;
@@ -62,7 +65,8 @@ export class InfoHomeComponent implements OnInit {
       }
     );
 
-    this.userServices.getUsers();
+    this.userServices.findUsers();
+    
   }
 
   //Pesquisa
@@ -79,6 +83,13 @@ export class InfoHomeComponent implements OnInit {
       );
     });
   }
+
+// async getData(){
+//    const dateDelivery = await this.cardData.delivery_date;
+
+//     this.dateDelivery = dateDelivery.toLocaleString('pt-BR').substring(0 ,
+//       10).split('-').reverse().join('/')
+//   }
 
   async remove(id: any) {
     await this.cardServices.removeCard(id).subscribe();

@@ -186,22 +186,48 @@ button:hover {
     padding-left: 5px;
     padding-right: 5px;
     border-radius: 8px;
-    background-color: rgb(36, 216, 132);
+    background-color: rgb(111, 184, 150);
     font-size: 1.1em;
     font-weight: 400;
-    color: rgb(44, 44, 44);
+    color: rgb(255, 255, 255);
+    letter-spacing: 1px;
 
 }
 
 .member button:hover  { 
-    background-color: rgb(36, 216, 132);
+    background-color:  rgb(95, 158, 129);
 }
 
-.memberes {
+.memberesConteiner {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-   
+    flex-direction: row;
+
+}
+
+.buttom-member{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.buttom-member button:last-child{
+    /* margin-left: 0px; */
+    background-color: white;
+    font-size: 1em;
+    border: 1px solid rgb(118, 187, 135);
+    width: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    padding: 0;
+    color: #020202;
+}
+.buttom-member button:last-child:hover {
+    /* margin-left: 0px; */
+    color: rgb(184, 114, 114);
+
 }
 
 /* .member button:last-child {    
@@ -397,10 +423,12 @@ button:hover {
 	font-weight: 700;
 	float: left;
 	margin-right: 10px;
+    letter-spacing: 1px;
 }
 
 .comment-box .comment-name a {
 	color: #283035;
+    letter-spacing: 1px;
 }
 
 .comment-box .comment-head span {
@@ -440,6 +468,7 @@ button:hover {
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
+   
 }
 
 .comment-conteiner {
@@ -452,7 +481,7 @@ button:hover {
 /** =====================
  * Responsive
  ========================*/
-/* @media only screen and (max-width: 766px) {
+@media only screen and (max-width: 766px) {
 	.comments-container {
 		width: 480px;
 	}
@@ -464,4 +493,4 @@ button:hover {
 	.reply-list .comment-box {
 		width: 320px;
 	}
-} */
+}

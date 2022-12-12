@@ -4,7 +4,9 @@ export class Card {
     title?: string;
     tag?: string;
     created_at?: Date;
-    delivery_date?: Date;
+    delivery_date?: {
+      type: Date,
+    } 
     user?: String;
     description?: string;
     tasks?: [
@@ -30,6 +32,6 @@ export class Card {
       }
     ];
     comments?: [{ comment: string; userName?: string; userId: string; idComment: any; created_At: any}];
-    members?: [{ member: string; email: string }];
+    members?: [{ MemberName: string; memberEmail: string, userId: any }];
   }
   

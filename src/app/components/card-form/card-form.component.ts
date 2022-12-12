@@ -8,10 +8,9 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-card-form',
   templateUrl: './card-form.component.html',
-  styleUrls: ['./card-form.component.css']
+  styleUrls: ['./card-form.component.css'],
 })
 export class CardFormComponent implements OnInit {
-
   @Output() onsubmit = new EventEmitter<Card>();
   @Input() cardData!: Card;
   @Input() btnText!: string;
@@ -28,19 +27,19 @@ export class CardFormComponent implements OnInit {
     'Em andamento',
     'Revisão de código',
     'Fase de teste',
-    'Concluído 🎉',  
+    'Concluído 🎉',
   ];
 
-  constructor(private formBuild: FormBuilder, private router: Router) { }
+  constructor(private formBuild: FormBuilder, private router: Router) {}
 
   ngOnInit(): void {
-
- 
     this.cardForm = this.formBuild.group({
-      code: new FormControl(this.cardData ? this.cardData.code : '0'),
-      title: new FormControl( this.cardData ? this.cardData.title : ''),
-      tag: new FormControl( this.cardData ? this.cardData.tag : ''),
-      deliveryDate: new FormControl( this.cardData ? this.cardData.delivery_date : ''),
+      code: new FormControl(this.cardData ? this.cardData.code : ''),
+      title: new FormControl(this.cardData ? this.cardData.title : ''),
+      tag: new FormControl(this.cardData ? this.cardData.tag : ''),
+      delivery_date: new FormControl(
+        this.cardData ? this.cardData.delivery_date : ''
+      ),
     });
 
     // if(!this.productData){
@@ -55,21 +54,16 @@ export class CardFormComponent implements OnInit {
     return this.cardForm.get('title')!;
   }
 
-
-
-  submit(){
-      // if(!this.name.valid){
-      //     return;
-      // }
-      console.log(this.cardForm.value);
-      this.onsubmit.emit(this.cardForm.value);
-      console.log(this.cardForm.value);
-          
+  submit() {
+    // if(!this.name.valid){
+    //     return;
+    // }
+    console.log(this.cardForm.value);
+    this.onsubmit.emit(this.cardForm.value);
+    console.log(this.cardForm.value);
   }
 
-  back(){
+  back() {
     this.router.navigate(['/']);
   }
- 
-
 }

@@ -27,12 +27,13 @@
             </div>
             <div class="tbl-content">
               <table cellpadding="0" cellspacing="0" class="tableBody">
-                <tbody id="tabela-contas" *ngIf="cards.length > 0; else noProducts">
+                <tbody id="tabela-contas" *ngIf="cards; else noProducts">
                     <tr *ngFor="let card of cards" class="tr">
                         <td>{{card.code}}</td>
                         <td>{{card.title}}</td>
                         <td>{{card.tag}}</td>
-                        <td>{{card. delivery_date}}</td>                       
+                        <td><span>{{card.delivery_date.toLocaleString('pt-BR').substring(0 ,
+                          10).split('-').reverse().join('/')}}</span></td>                       
                         <td class="action">
                             <button type="button"  class="edit" routerLink="card/edit/{{card._id}}">
                               <fa-icon [icon]="editIcon"></fa-icon>

@@ -45,6 +45,9 @@ form {
     outline: 0;   
 
 }
+ .form-group .datePicker {
+    width: 50%;
+}
 
 .select {
     margin-left: 10px;

@@ -39,13 +39,14 @@ export class NewCardComponent implements OnInit {
         delivery_date: data.delivery_date,
       };
 
-      if (data.code && data.title) {
+      console.log("Data", dados);
+      
+
+      if (data.title) {
         await this.cardServices.createCard(dados).subscribe();
 
         this.alert.add('Card cadastrado com sucesso!');
-
-        console.log("dados data de entrega", dados.delivery_date);
-        
+       
 
         setTimeout(() => {
           this.router.navigate(['/']);
@@ -53,7 +54,7 @@ export class NewCardComponent implements OnInit {
 
         console.log('Card cadastrado com sucesso!');
       } else {
-        this.alert.add('Campos de title é obrigatórios!');
+        this.alert.add('Campos title é obrigatórios!');
       }
     } catch (error) {
       this.alert.add('Error ao cadastrar Card!');

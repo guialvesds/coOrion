@@ -3,11 +3,11 @@
         <div class="headerContent">
             <div class="title">
                 <h1>{{cardData.title}}</h1>
-                <p>Na lista {{cardData.tag!}}</p>
+                <p>Na lista: {{cardData.tag}}</p>
             </div>
             <div class="clearC">
-                <button class="clear">
-                    <fa-icon [icon]="faFloppyDisk"></fa-icon>
+                <button class="clear" (click)="refresh()">
+                    <fa-icon [icon]="faArrowsRotate"></fa-icon>
                 </button>
                 <button class="clear" routerLink="/">
                     <fa-icon [icon]="faXmark"></fa-icon>
@@ -19,7 +19,8 @@
                 <div class="vewContent">
                     <div class="header">
                         <h3>Data de entrega</h3>
-                        <p>{{cardData.delivery_date!}}</p>
+                        <p>{{cardData.delivery_date!.toLocaleString('pt-BR').substring(0 ,
+                            10).split('-').reverse().join('/')}}</p>
                     </div>
                     <form [formGroup]="viewForm" #formG="ngForm">
                         <div class="formGroup">
@@ -45,7 +46,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="formGroup" *ngIf="cardData.tasks">
+                        <div class="formGroup" *ngIf="cardData.tasks.lenght > 0">
                             <h2>Checklist</h2>
                             <div class="contentLisy" *ngFor="let item of cardData.tasks">
                                 <h2>{{item.title}}</h2>
@@ -64,7 +65,7 @@
                         </div>
                         <div class="formGroup">
                             <h2>Comentários</h2>
-                            <input type="text" placeholder="Escreva uma descrição detalhada..." class="comment"
+                            <input type="text" placeholder="Escreva uma comentário..." class="comment"
                                 formControlName="comment" />
                             <div class="buttons">
                                 <button type="submit" (click)="addComments()">
@@ -92,17 +93,23 @@
                                                     10).split('-').reverse().join('/')}}</span>
                                             </div>
                                             <div class="buttonsComment">
-                                                <button type="submit" (click)="addComments()">
+                                                <!-- <button type="submit" (click)="openeditComment()">
                                                     <fa-icon [icon]="faPen"></fa-icon> Editar
-                                                </button>
+                                                </button> -->
                                                 <button type="submit" (click)="deleteComment(commentUser.idComment)">
                                                     <fa-icon [icon]="faXmark"></fa-icon> Excluir
                                                 </button>
                                             </div>
                                         </div>
                                     </div>
-                                    <textarea type="text" class="comment-content"
+                                    <p type="text" class="comment-content" *ngIf="!showComment">{{commentUser.comment}}
+                                    </p>
+                                    <!-- <div class="editComment" *ngIf="showComment">
+                                        <textarea type="text" class="comment-content"
                                         value="{{commentUser.comment}}"></textarea>
+                                        <button>Salvar</button>
+                                        <button (click)="unshoweditComment()">Cancelar</button>
+                                    </div>                                     -->
                                 </div>
                             </div>
 
@@ -116,8 +123,13 @@
                     <button>Anexo</button>
                     <div class="member">
                         <h3>Membros</h3>
-                        <div class="memberes" *ngFor="let member of cardData.members">
-                            <button>{{member.member}}</button>
+                        <div class="memberesConteiner">
+                            <div class="members" *ngFor="let member of cardData.members">
+                                <div class="buttom-member">
+                                    <button>{{member.MemberName}}</button><button (click)="deleteMember(cardData._id, member.idMember)"><fa-icon
+                                            [icon]="faTrashAlt"></fa-icon> </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -26,6 +26,11 @@ import {MatMenuModule} from '@angular/material/menu';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MemberComponent } from './pages/view-card/member/member.component';
 import {MatListModule} from '@angular/material/list';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule, MAT_DATE_LOCALE} from '@angular/material/core';
+
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { SnackBarComponent } from './components/snack-bar/snack-bar.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +43,8 @@ import {MatListModule} from '@angular/material/list';
     AlertComponent,
     CardFormComponent,
     ViewCardComponent,
-    MemberComponent
+    MemberComponent,
+    SnackBarComponent
   ],
   imports: [
     BrowserModule,
@@ -54,9 +60,13 @@ import {MatListModule} from '@angular/material/list';
     MatMenuModule,
     BrowserAnimationsModule, 
     MatListModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSnackBarModule, 
      
   ],
-  providers: [],
+  providers: [{provide: MAT_DATE_LOCALE, useValue: 'pt-BR'},
+  SnackBarComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

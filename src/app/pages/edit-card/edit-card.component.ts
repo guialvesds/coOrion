@@ -45,6 +45,7 @@ export class EditCardComponent implements OnInit {
       code: cardtData.code,
       name: cardtData.title,
       tag: cardtData.tag,  
+      delivery_date: cardtData.delivery_date,
         
     };
 
