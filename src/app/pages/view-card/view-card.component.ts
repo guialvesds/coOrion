@@ -47,6 +47,7 @@ export class ViewCardComponent implements OnInit, OnDestroy {
 
   nShowDesc: boolean = false;
   showComment: boolean = false;
+  showTask: boolean = false;
 
   private subScriptions: Subscription[] = [];
 
@@ -84,13 +85,12 @@ export class ViewCardComponent implements OnInit, OnDestroy {
     return this.viewForm.get('description')!;
   }
 
-  async getCard() {
+   getCard() {
     const id = String(this.route.snapshot.paramMap.get('id'));
-    await this.cardServices.getP(id!).subscribe((item) => {
+     this.cardServices.findProducts(id).subscribe((item) => {
       this.cardData = item.data;
       this.comments = this.cardData.comments;
       this.idUser = this.comments.userId;
-      console.log('CardData', this.cardData.comments);
     });
   }
 
@@ -224,5 +224,16 @@ export class ViewCardComponent implements OnInit, OnDestroy {
 
     this.getCard();
 
+  }
+
+  verifyTask(){    
+    const dataT = this.cardData;
+    for(let item of dataT){
+        if(item.tasks.lenght > 0){
+          return true
+        }
+        return false
+    }
+    return
   }
 }

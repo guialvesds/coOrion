@@ -46,7 +46,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="formGroup" *ngIf="cardData.tasks.lenght > 0">
+                        <div class="formGroup" *ngIf="cardData.tasks">
                             <h2>Checklist</h2>
                             <div class="contentLisy" *ngFor="let item of cardData.tasks">
                                 <h2>{{item.title}}</h2>

@@ -27,7 +27,7 @@ export class EditCardComponent implements OnInit {
   ngOnInit(): void {
     const id = String(this.route.snapshot.paramMap.get('id'));
 
-    this.cardServices.getP(id).subscribe((item) => {
+    this.cardServices.findProducts(id).subscribe((item) => {
       this.cardData = item.data;
 
       // console.log(this.productData);

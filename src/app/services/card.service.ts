@@ -36,7 +36,7 @@ export class CardService {
     });
   }
 
-  getP(id: string): Observable<Response<any>> {
+  findProducts(id: string): Observable<Response<any>> {
     const url = `${this.apiUrl}/${id}`;
     return this.http.get<Response<any>>(url, { headers: this.head_obj });
   }
