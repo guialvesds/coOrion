@@ -49,6 +49,10 @@ export class ViewCardComponent implements OnInit, OnDestroy {
   showComment: boolean = false;
   showTask: boolean = false;
 
+  allFiles!: any;
+
+  showFile!: string;
+
   private subScriptions: Subscription[] = [];
 
   constructor(
@@ -91,6 +95,14 @@ export class ViewCardComponent implements OnInit, OnDestroy {
       this.cardData = item.data;
       this.comments = this.cardData.comments;
       this.idUser = this.comments.userId;
+
+     
+          if(this.cardData.files.file.location.slice(this.cardData.files.file.location.length -4) !== ".png" || ".jpg"){
+            this.showFile = "../../../assets/Arquivo.jpg"
+          }
+          this.showFile = this.cardData.files.file.location;
+      
+    
     });
   }
 

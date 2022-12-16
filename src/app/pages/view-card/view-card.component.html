@@ -46,6 +46,7 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- CHECKLIST -->
                         <div class="formGroup" *ngIf="cardData.tasks">
                             <h2>Checklist</h2>
                             <div class="contentLisy" *ngFor="let item of cardData.tasks">
@@ -61,10 +62,34 @@
                                     </button>
                                 </div>
                             </div>
-
                         </div>
+                        <!-- ARQUIVOS -->
+                        <div class="file-class" *ngIf="cardData.files.length > 0">
+                            <h1>Arquivos</h1>
+                            <div *ngFor="let file of cardData.files" class="file-contianer">
+                                <div class="for" class="file-img">
+                                    <img src="{{showFile}}" alt="">
+                                </div>
+                                <div class="file-content">
+                                    <div class="file-title">
+                                        <h2>{{file.file.originalname}}</h2>
+                                    </div>
+                                    <div class="file-desc">
+                                        <h4>Adiconado em: {{file.created_at.toLocaleString('pt-BR').substring(0 ,
+                                            10).split('-').reverse().join('/')
+                                            }}</h4>
+                                        <div class="file-buttons">
+                                            <button>Download</button>
+                                            <button>Editar</button>
+                                            <button>Excluir</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- COMENTÁRIOS -->
                         <div class="formGroup">
-                            <h2>Comentários</h2>
+                            <h2>Comentários - {{cardData.comments.length}}</h2>
                             <input type="text" placeholder="Escreva uma comentário..." class="comment"
                                 formControlName="comment" />
                             <div class="buttons">
@@ -116,6 +141,7 @@
                         </div>
                     </form>
                 </div>
+                <!-- MEMBROS -->
                 <div class="addContent">
                     <h3>Adiconar ao Cartão</h3>
                     <button (click)="openDialogMember('400ms', '400ms')">Membros</button>
@@ -126,7 +152,8 @@
                         <div class="memberesConteiner">
                             <div class="members" *ngFor="let member of cardData.members">
                                 <div class="buttom-member">
-                                    <button>{{member.MemberName}}</button><button (click)="deleteMember(cardData._id, member.idMember)"><fa-icon
+                                    <button>{{member.MemberName}}</button><button
+                                        (click)="deleteMember(cardData._id, member.idMember)"><fa-icon
                                             [icon]="faTrashAlt"></fa-icon> </button>
                                 </div>
                             </div>

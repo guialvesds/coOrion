@@ -33,5 +33,13 @@ export class Card {
     ];
     comments?: [{ comment: string; userName?: string; userId: string; idComment: any; created_At: any}];
     members?: [{ MemberName: string; memberEmail: string, userId: any }];
+    files?: [{
+      created_at: Date,
+      file: [{
+        originalname: any;
+        path: any,
+        filename: any;
+      }]   
+    }]
   }
   
