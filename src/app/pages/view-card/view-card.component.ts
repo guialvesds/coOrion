@@ -51,7 +51,7 @@ export class ViewCardComponent implements OnInit, OnDestroy {
 
   allFiles!: any;
 
-  showFile!: string;
+  showFile!: any;
 
   private subScriptions: Subscription[] = [];
 
@@ -67,9 +67,10 @@ export class ViewCardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getCard();
+  
 
     this.viewForm = this.formBuild.group({
-      description: new FormControl(''),
+      description: new FormControl(this.cardData ? this.cardData.description: ''),
       comment: new FormControl(''),
       commentText: new FormControl(),
       // userComments: new FormControl(this.cardData ? this.comments.text : ''),
@@ -94,17 +95,19 @@ export class ViewCardComponent implements OnInit, OnDestroy {
      this.cardServices.findProducts(id).subscribe((item) => {
       this.cardData = item.data;
       this.comments = this.cardData.comments;
-      this.idUser = this.comments.userId;
+      this.idUser = this.comments.userId;  
 
-     
-          if(this.cardData.files.file.location.slice(this.cardData.files.file.location.length -4) !== ".png" || ".jpg"){
-            this.showFile = "../../../assets/Arquivo.jpg"
-          }
-          this.showFile = this.cardData.files.file.location;
+      console.log(this.cardData.description);
       
-    
     });
   }
+
+  // getFile(){
+  //   if(this.cardData.files.file.location!.slice(this.cardData.files.file.location!.length -4) !== ".png" || ".jpg"){
+  //     this.showFile = "../../../assets/Arquivo.jpg"
+  //   }
+  //   this.showFile = this.cardData.files.file.location!;
+  // }
 
   openDialogMember(
     enterAnimationDuration: string,
@@ -159,9 +162,7 @@ export class ViewCardComponent implements OnInit, OnDestroy {
   }
 
   showDesc() {
-    this.nShowDesc = true;
-    const desc = this.viewForm.value;
-    return (desc.description = this.cardData.description);
+       this.nShowDesc = true;
   }
   noShowDesc() {
     this.nShowDesc = false;

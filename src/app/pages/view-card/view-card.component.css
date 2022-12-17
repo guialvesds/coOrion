@@ -434,7 +434,7 @@ button:hover {
 .comment-box .comment-head span {
 	float: left;
 	position: relative;
-    background: #03658c;
+    background: #038c53;
 	color: #FFF;
 	font-size: 12px;
 	padding: 0px 5px;
@@ -456,10 +456,10 @@ button:hover {
 	border-radius: 0 0 4px 4px;
 }
 
-.comment-box .comment-name.by-author, .comment-box .comment-name.by-author a {color: #03658c;}
+.comment-box .comment-name.by-author, .comment-box .comment-name.by-author a {color: #038c53;}
 .comment-box .comment-name.by-author:after {
 	/* content: 'Criando em:'; */
-	background: #03658c;
+	background: #038c53;
 	color: #FFF;
 	font-size: 12px;
 	padding: 3px 5px;
@@ -546,3 +546,22 @@ button:hover {
     margin-top: 10px;
 }
 
+.file-buttons {
+    width: 45%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+ 
+
+.file-buttons > button {
+   border: none;
+   border-bottom: solid 1px grey;
+   cursor: pointer;
+   background-color: transparent;
+}
+
+.file-buttons > button:hover {
+    box-shadow: none;
+    color: rgb(177, 177, 177);
+ }

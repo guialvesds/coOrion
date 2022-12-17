@@ -35,7 +35,7 @@
                             </div>
                             <div class="editDesc" *ngIf="nShowDesc || !cardData.description">
                                 <textarea type="text" placeholder="Escreva uma descrição mais detalhada..."
-                                    class="descriptionText" formControlName="description"></textarea>
+                                    class="descriptionText" formControlName="description" [ngModel]="cardData.description"></textarea>
                                 <div class="buttons">
                                     <button (click)="putDescription()" type="submit">
                                         <fa-icon [icon]="faFloppyDisk"></fa-icon> Salvar
@@ -68,7 +68,7 @@
                             <h1>Arquivos</h1>
                             <div *ngFor="let file of cardData.files" class="file-contianer">
                                 <div class="for" class="file-img">
-                                    <img src="{{showFile}}" alt="">
+                                    <img src="{{file.file.location}}" alt="">
                                 </div>
                                 <div class="file-content">
                                     <div class="file-title">
