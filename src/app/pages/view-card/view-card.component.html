@@ -35,7 +35,8 @@
                             </div>
                             <div class="editDesc" *ngIf="nShowDesc || !cardData.description">
                                 <textarea type="text" placeholder="Escreva uma descrição mais detalhada..."
-                                    class="descriptionText" formControlName="description" [ngModel]="cardData.description"></textarea>
+                                    class="descriptionText" formControlName="description"
+                                    [ngModel]="cardData.description"></textarea>
                                 <div class="buttons">
                                     <button (click)="putDescription()" type="submit">
                                         <fa-icon [icon]="faFloppyDisk"></fa-icon> Salvar
@@ -67,12 +68,17 @@
                         <div class="file-class" *ngIf="cardData.files.length > 0">
                             <h1>Arquivos</h1>
                             <div *ngFor="let file of cardData.files" class="file-contianer">
-                                <div class="for" class="file-img">
-                                    <img src="{{file.file.location}}" alt="">
+                                <div class="file-img" *ngIf="(file.detail.type !== '.pdf'); else arqui">
+                                    <img src="{{file.detail.location}}" alt="Imagem do arquivo">
                                 </div>
+                                <ng-template #arqui>
+                                    <div class="file-img">
+                                        <img src="../../../assets/Arquivo.jpg" alt="Imagem do arquivo">
+                                    </div>
+                                </ng-template>
                                 <div class="file-content">
                                     <div class="file-title">
-                                        <h2>{{file.file.originalname}}</h2>
+                                        <h2>{{file.detail.originalname}}</h2>
                                     </div>
                                     <div class="file-desc">
                                         <h4>Adiconado em: {{file.created_at.toLocaleString('pt-BR').substring(0 ,
@@ -146,7 +152,7 @@
                     <h3>Adiconar ao Cartão</h3>
                     <button (click)="openDialogMember('400ms', '400ms')">Membros</button>
                     <button>CheckList</button>
-                    <button>Anexo</button>
+                    <button (click)="openDialogAnexo('400ms', '400ms')">Anexo</button>
                     <div class="member">
                         <h3>Membros</h3>
                         <div class="memberesConteiner">

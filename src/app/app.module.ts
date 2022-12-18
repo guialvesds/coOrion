@@ -31,6 +31,7 @@ import { MatNativeDateModule, MAT_DATE_LOCALE} from '@angular/material/core';
 
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { SnackBarComponent } from './components/snack-bar/snack-bar.component';
+import { AttachComponent } from './pages/view-card/attach/attach.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +45,8 @@ import { SnackBarComponent } from './components/snack-bar/snack-bar.component';
     CardFormComponent,
     ViewCardComponent,
     MemberComponent,
-    SnackBarComponent
+    SnackBarComponent,
+    AttachComponent
   ],
   imports: [
     BrowserModule,
