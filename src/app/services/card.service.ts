@@ -73,4 +73,18 @@ export class CardService {
     const url = `${this.apiUrl}/editComment/${idCard}/${idComment}`;
     return this.http.patch(url, dados, { headers: this.head_obj });
   }
+
+  uploadArq(idCard: any, dados: FormData){
+    const url = `${this.apiUrl}/upload/${idCard}`;
+    return this.http.post(url, dados, { headers: this.head_obj });
+  }
+
+  deleteArqAws(filename: any){
+    const url = `${this.apiUrl}/awsDelete/${filename}`;
+    return this.http.delete(url, { headers: this.head_obj });
+  }
+  deleteArqMongo(idCard: any, idFile: any){
+    const url = `${this.apiUrl}/fileDelete/${idCard}/${idFile}`;
+    return this.http.patch(url, { headers: this.head_obj });
+  }
 }

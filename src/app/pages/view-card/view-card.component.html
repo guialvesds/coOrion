@@ -2,7 +2,7 @@
     <div class="card">
         <div class="headerContent">
             <div class="title">
-                <h1>{{cardData.title}}</h1>
+                <h1>{{cardData.title!}}</h1>
                 <p>Na lista: {{cardData.tag}}</p>
             </div>
             <div class="clearC">
@@ -68,7 +68,7 @@
                         <div class="file-class" *ngIf="cardData.files.length > 0">
                             <h1>Arquivos</h1>
                             <div *ngFor="let file of cardData.files" class="file-contianer">
-                                <div class="file-img" *ngIf="(file.detail.type !== '.pdf'); else arqui">
+                            <div class="file-img" *ngIf="(file.detail.type !== '.pdf'); else arqui">
                                     <img src="{{file.detail.location}}" alt="Imagem do arquivo">
                                 </div>
                                 <ng-template #arqui>
@@ -85,12 +85,12 @@
                                             10).split('-').reverse().join('/')
                                             }}</h4>
                                         <div class="file-buttons">
-                                            <button>Download</button>
-                                            <button>Editar</button>
-                                            <button>Excluir</button>
+                                            <a href="{{file.detail.location}}" target="_blank">Download</a>
+                                            <!-- <button>Editar</button> -->
+                                            <button (click)="deleteArch(file.detail.key, cardData._id, file.idFile)">Excluir</button>
                                         </div>
                                     </div>
-                                </div>
+                                </div>                          
                             </div>
                         </div>
                         <!-- COMENTÁRIOS -->

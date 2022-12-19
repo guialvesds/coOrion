@@ -49,17 +49,49 @@ button {
     box-shadow: 1px 1px 3px rgb(110, 110, 110);
   }
 
-  .conteinerMember {
+  .conteinerFile {
     display: flex;
     flex-direction: row;
     margin-top: 10px;
   }
-  .conteinerMember input {
-    width: 1rem;
+  .conteinerFile input {
+    width: 100%;
+    border: none;
+    outline: none;
+    
   }
 
-  .conteinerMember label {
+  .conteinerFile label {
     margin-left: 10px;
     font-size: 1.3em;
     font-weight: 400;
   }
+  
+  .importedTilte{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .importedTilte > h2{
+   margin-top: 10px;
+    font-size: 1em;
+    color: rgb(63, 114, 63);
+    height: 1.5rem;
+  }
+  .importedTilte > button{
+    width: 6.5rem;
+    height: 1.5rem;
+    margin-left: 10px;
+    border: none;
+    outline: none;
+    background-color: rgb(63, 114, 63);
+    color: rgb(255, 255, 255);
+  }
+
+  .importedTilte > button:hover {
+    background-color: rgb(52, 90, 52);
+  }
+

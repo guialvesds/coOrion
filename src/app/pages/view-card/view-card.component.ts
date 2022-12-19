@@ -237,9 +237,9 @@ export class ViewCardComponent implements OnInit, OnDestroy {
 
     this.cardServices.deleteMember(cardId, memberId).subscribe();
 
-    this.snackBar.openSnackBar('Membro Excluído com sucesso!');
-
     this.getCard();
+
+    this.snackBar.openSnackBar('Membro Excluído com sucesso!');
   }
 
   verifyTask() {
@@ -251,5 +251,21 @@ export class ViewCardComponent implements OnInit, OnDestroy {
       return false;
     }
     return;
+  }
+
+  deleteArch(filen: string, idC: any, idF: any) {
+    const filename = filen;
+
+    const idCard = idC;
+    const idFile = idF;
+
+    this.cardServices.deleteArqAws(filename).subscribe();
+    this.cardServices.deleteArqMongo(idCard, idFile).subscribe();
+
+    this.getCard();
+
+    this.snackBar.openSnackBar("Arquivo excluído com sucesso!");
+
+    console.log(filename, idFile);
   }
 }

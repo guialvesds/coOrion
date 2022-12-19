@@ -16,27 +16,25 @@ import {
   faPen,
   faRupiahSign,
   faArrowsRotate,
-  faTrashAlt
+  faTrashAlt,
 } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-attach',
   templateUrl: './attach.component.html',
-  styleUrls: ['./attach.component.css']
+  styleUrls: ['./attach.component.css'],
 })
 export class AttachComponent implements OnInit {
-
   cardData!: Card;
-
-  userData!: User[] | any;
-  allUserData!: User[] | any;
-
   memberForm!: FormGroup;
-  memberList: any;
 
   faXmark = faXmark;
 
+  file!: File;
+
   constructor(
+    private router: Router,
     private snackBar: SnackBarComponent,
     private cardServices: CardService,
     private formBuid: FormBuilder,
@@ -48,26 +46,41 @@ export class AttachComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getUsers();
-
     this.memberForm = this.formBuid.group({
-      memberList: new FormControl(),
-    });
-
-    console.log(this.cardData);
-  }
-
-  async getUsers() {
-    await this.UserService.findUsers().subscribe((item) => {
-      this.userData = item;
-      this.allUserData = item;
-
-      console.log('userdata', item);
+      uploadArq: new FormControl(),
     });
   }
 
-  closeDialog(){
+  onFileSelected(e: Event) {
+    if (!e?.target) {
+      return;
+    }
+    const target = e?.target! as any;
+    this.file = target.files[0];
+    console.log(this.file);
+    console.log(e);
+  }
+
+  hasFile(): boolean {
+    return !!this.file;
+  }
+
+  closeDialog() {
     this.dialogRef.close();
   }
 
+  upload(idCard: any) {
+    try {
+      const idC = idCard;
+      const dados = new FormData();
+      dados.append('uploads', this.file);
+
+      this.cardServices.uploadArq(idC, dados).subscribe();
+
+      this.snackBar.openSnackBar('Arquivo adicionado com sucesso!');
+      this.closeDialog();
+    } catch (error) {
+      this.snackBar.openSnackBar('Ops! Tente novamente.');
+    }
+  }
 }

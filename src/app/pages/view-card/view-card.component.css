@@ -554,14 +554,15 @@ button:hover {
 }
  
 
-.file-buttons > button {
+.file-buttons > a, button {
    border: none;
    border-bottom: solid 1px grey;
    cursor: pointer;
    background-color: transparent;
+   color: #000;
 }
 
-.file-buttons > button:hover {
+.file-buttons > a:hover , button:hover {
     box-shadow: none;
     color: rgb(177, 177, 177);
  }
