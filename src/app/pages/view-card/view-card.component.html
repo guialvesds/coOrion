@@ -48,19 +48,20 @@
                             </div>
                         </div>
                         <!-- CHECKLIST -->
-                        <div class="formGroup" *ngIf="cardData.tasks">
+                        <div class="formGroup" *ngIf="!cardData.tasks">
                             <h2>Checklist</h2>
-                            <div class="contentLisy" *ngFor="let item of cardData.tasks">
-                                <h2>{{item.title}}</h2>
-                                <ul>
-                                    <li *ngFor="let item of cardData.tasks">
-                                        {{item.title}}
-                                    </li>
-                                </ul>
-                                <div class="buttons">
-                                    <button type="submit">
-                                        <fa-icon [icon]="faFloppyDisk"></fa-icon>Adicionar um item
-                                    </button>
+                            <div class="content-list-task">
+                                <div class="title-list-task">
+                                    <h1>Tarefa teste</h1>
+                                </div>
+                                <div class="card-task" *ngFor="let shoe of typesOfShoes">
+                                    <div class="title-task">
+                                     <label><h3>teste de task criada</h3></label>                                   
+                                    </div>
+                                    <div class="button-tasks">
+                                        <button>Data de entrega</button>
+                                        <button>Membro</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -68,7 +69,7 @@
                         <div class="file-class" *ngIf="cardData.files.length > 0">
                             <h1>Arquivos</h1>
                             <div *ngFor="let file of cardData.files" class="file-contianer">
-                            <div class="file-img" *ngIf="(file.detail.type !== '.pdf'); else arqui">
+                                <div class="file-img" *ngIf="(file.detail.type == typeOfArq); else arqui">
                                     <img src="{{file.detail.location}}" alt="Imagem do arquivo">
                                 </div>
                                 <ng-template #arqui>
@@ -81,16 +82,17 @@
                                         <h2>{{file.detail.originalname}}</h2>
                                     </div>
                                     <div class="file-desc">
-                                        <h4>Adiconado em: {{file.created_at.toLocaleString('pt-BR').substring(0 ,
+                                        <h4>Adiconado em: {{file.created_at.toLocaleString('').substring(0 ,
                                             10).split('-').reverse().join('/')
                                             }}</h4>
                                         <div class="file-buttons">
                                             <a href="{{file.detail.location}}" target="_blank">Download</a>
-                                            <!-- <button>Editar</button> -->
-                                            <button (click)="deleteArch(file.detail.key, cardData._id, file.idFile)">Excluir</button>
+                                            <button>Editar</button>
+                                            <button
+                                                (click)="deleteArch(file.detail.key, cardData._id, file.idFile)">Excluir</button>
                                         </div>
                                     </div>
-                                </div>                          
+                                </div>
                             </div>
                         </div>
                         <!-- COMENTÁRIOS -->

@@ -32,6 +32,9 @@ import { MatNativeDateModule, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { SnackBarComponent } from './components/snack-bar/snack-bar.component';
 import { AttachComponent } from './pages/view-card/attach/attach.component';
+import {MatExpansionModule} from '@angular/material/expansion';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,7 +68,7 @@ import { AttachComponent } from './pages/view-card/attach/attach.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSnackBarModule, 
-     
+    MatExpansionModule,
   ],
   providers: [{provide: MAT_DATE_LOCALE, useValue: 'pt-BR'},
   SnackBarComponent],

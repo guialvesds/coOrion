@@ -1,5 +1,5 @@
 .container {
-    height: 87.3vh;
+    height: 87vh;
     background-color: rgb(231, 231, 231);
     
   }
@@ -7,7 +7,7 @@
     color: white;
   }
   .containerNav {
-    background-color: #038c53;
+    background-color: #1C6758;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -39,13 +39,13 @@
   }
   
   footer {
-    border-top: 1px solid #38b0b4;
+    border-top: 1px solid #1C6758;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    height: 35px;
-    padding-top: 10px;
+    height: 40px;
+    /* padding-top: 10px; */
     
   }
   
@@ -60,5 +60,5 @@
   
   footer span {
     font-weight: bold;
-    color: #38b0b4;
+    color: #1C6758;
   }
