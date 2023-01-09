@@ -54,7 +54,6 @@ export class ViewCardComponent implements OnInit, OnDestroy {
 
   typesOfShoes: string[] = ['Boots', 'Clogs', 'Loafers'];
 
-  typeOfArq: string[] = ['.jpg' || '.jpeg' || '.png',]
 
   private subScriptions: Subscription[] = [];
 

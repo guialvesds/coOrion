@@ -48,7 +48,7 @@
                             </div>
                         </div>
                         <!-- CHECKLIST -->
-                        <div class="formGroup" *ngIf="!cardData.tasks">
+                        <!-- <div class="formGroup" *ngIf="!cardData.tasks">
                             <h2>Checklist</h2>
                             <div class="content-list-task">
                                 <div class="title-list-task">
@@ -64,15 +64,15 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- ARQUIVOS -->
                         <div class="file-class" *ngIf="cardData.files.length > 0">
                             <h1>Arquivos</h1>
                             <div *ngFor="let file of cardData.files" class="file-contianer">
-                                <div class="file-img" *ngIf="(file.detail.type == typeOfArq); else arqui">
+                                <div class="file-img" *ngIf="file.detail.type === '.jpg' || '.png' || '.jpeg'; else noImage">
                                     <img src="{{file.detail.location}}" alt="Imagem do arquivo">
                                 </div>
-                                <ng-template #arqui>
+                                <ng-template class="file-contianer" #noImage>
                                     <div class="file-img">
                                         <img src="../../../assets/Arquivo.jpg" alt="Imagem do arquivo">
                                     </div>
