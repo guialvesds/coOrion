@@ -1,0 +1,23 @@
+<div class="clearC">
+    <h1 mat-dialog-title>Criar nova Lista.</h1>
+    <button class="clear" (click)="closeDialog()">
+        <fa-icon [icon]="faXmark"></fa-icon>
+    </button>
+  </div>
+  <form [formGroup]="listForm">
+    <div >
+      <div class="conteiner">
+        <div class="validation" *ngIf="titleFormat">
+          <p>Título é obrigatório.</p>
+        </div> 
+        <div class="inputs">          
+            <label for="title">Titulo</label>
+            <input type="text" name="title" id="title" formControlName="title" />         
+        </div>
+        <div class="buttons">
+            <button type="submit" (click)="createList()">Salvar</button>
+            <button type="submit" (click)="closeDialog()">Cancelar</button>
+        </div>
+      </div>  
+    </div>  
+  </form>

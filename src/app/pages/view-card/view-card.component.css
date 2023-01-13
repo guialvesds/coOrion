@@ -533,6 +533,10 @@ button:hover {
     padding: 10px 5px;
 }
 
+.file-class h1 {
+    margin-bottom: -10px;
+}
+
 .file-img {
     /* background-color: #A6A6A6; */
     width: 5.6rem;
@@ -596,51 +600,90 @@ button:hover {
 
  .card-task {
     background-color: #fafafa;
-    margin-top: 5px;
-    border-bottom: 1px solid rgb(214, 214, 214);
+    margin-bottom: 5px;
+    border-bottom: 1px solid rgb(155, 155, 155);
     height: 2rem;
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
     align-items: center;
     padding-left: 5px;
     padding-right: 5px;
    }
 
-   .task-name {
-    background-color: red;
-    width: 70%;
-   }
 
-.title-list-task {
+.title-list-task {    
+    display: flex;    
+    align-items: center;
+    justify-content: space-between;
     margin-bottom: -10px;
+}
+
+.title-list-task button {
+    margin-left: 10px;
+    border: 0;
+    outline: none;
+    margin-top: -15px;
+    border-radius: 5px;
 }
 
 .title-list-task h1{
     font-size: 1.3em;
     font-weight: 500;
+    margin-right: 10px;
 }
 
-.title-task label {
+.title-task{
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
+    align-items: center
+
 }
 .title-task h3 {
     font-size: 1em;
     
 }
 
+.title-task label {
+    margin-left: 2px;
+    
+}
+
 .complete {
-   text-decoration: line-through;
+   background-color: rgba(127, 209, 184, 0.596);
 }
 .button-tasks {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 30%;
+    justify-content: space-around;
+    align-items: center;   
     padding-left: 5px;
     padding-right: 5px;
+}
+
+.button-tasks button {
+    margin-left: 10px;
+}
+
+.editList{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 60px;
+    width: 90%;
+}
+
+.editList input {
+    border: none;
+    width: 80%;  
+    outline: none;  
+    padding: 3px;
+}
+
+.editList button {
+    margin-top: 5px;
+    margin-bottom: 15px;
+    font-size: 0.8em;
+}
+
+.addNewList button {
+    color: #038c53;
 }

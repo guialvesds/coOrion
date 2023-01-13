@@ -33,6 +33,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { SnackBarComponent } from './components/snack-bar/snack-bar.component';
 import { AttachComponent } from './pages/view-card/attach/attach.component';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { ListComponent } from './pages/view-card/list/list.component';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     ViewCardComponent,
     MemberComponent,
     SnackBarComponent,
-    AttachComponent
+    AttachComponent,
+    ListComponent
   ],
   imports: [
     BrowserModule,

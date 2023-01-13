@@ -48,28 +48,63 @@
                             </div>
                         </div>
                         <!-- CHECKLIST -->
-                        <!-- <div class="formGroup" *ngIf="!cardData.tasks">
+                        <div *ngIf="listData.length > 0">
+                        <div class="formGroup" >
                             <h2>Checklist</h2>
-                            <div class="content-list-task">
+                            <div class="content-list-task" *ngFor="let list of listData">
                                 <div class="title-list-task">
-                                    <h1>Tarefa teste</h1>
+                                    <div *ngIf="!showEditList; else editList">
+                                        <h1>{{list.title}}</h1>
+                                    </div>
+                                    <ng-template #editList >
+                                        <div class="editList">
+                                            <input type="text" name="titleList" formControlName="titleList"
+                                        [ngModel]="list.title"
+                                        >
+                                        <div class="buttons">
+                                            <button (click)="editLists(list._id)" type="submit">
+                                                <fa-icon [icon]="faFloppyDisk"></fa-icon> Salvar
+                                            </button>
+                                            <button (click)="noShowEList()" type="submit">
+                                                <fa-icon [icon]="faXmark"></fa-icon> Cancelar
+                                            </button>
+                                        </div>
+                                        </div>                                        
+                                    </ng-template>
+                                    <div *ngIf="!showEditList">
+                                        <button (click)="showEList()">
+                                            <fa-icon [icon]="faPen"></fa-icon>
+                                        </button>
+                                        <button (click)="deleteList(list._id)">
+                                            <fa-icon  [icon]="faTrashAlt"></fa-icon>
+                                        </button>
+                                    </div>                                
                                 </div>
-                                <div class="card-task" *ngFor="let shoe of typesOfShoes">
+                                <div class="card-task"*ngFor="let shoe of typesOfShoes">
                                     <div class="title-task">
-                                     <label><h3>teste de task criada</h3></label>                                   
+                                        <input type="checkbox" name="task" id="task">
+                                        <label>teste de task criada</label>
                                     </div>
                                     <div class="button-tasks">
-                                        <button>Data de entrega</button>
-                                        <button>Membro</button>
+                                        <button><fa-icon [icon]="faClock"></fa-icon></button>
+                                        <button><fa-icon [icon]="faUser"></fa-icon></button>
                                     </div>
                                 </div>
+                                <div class="addNewList">                                    
+                                    <button>
+                                        <fa-icon  [icon]="faPlus"></fa-icon>
+                                        Adicionar novo item
+                                    </button>
+                                </div>
                             </div>
-                        </div> -->
+                        </div>
+                    </div>
                         <!-- ARQUIVOS -->
                         <div class="file-class" *ngIf="cardData.files.length > 0">
                             <h1>Arquivos</h1>
                             <div *ngFor="let file of cardData.files" class="file-contianer">
-                                <div class="file-img" *ngIf="file.detail.type === '.jpg' || '.png' || '.jpeg'; else noImage">
+                                <div class="file-img"
+                                    *ngIf="file.detail.type === '.jpg' || '.png' || '.jpeg'; else noImage">
                                     <img src="{{file.detail.location}}" alt="Imagem do arquivo">
                                 </div>
                                 <ng-template class="file-contianer" #noImage>
@@ -153,7 +188,7 @@
                 <div class="addContent">
                     <h3>Adiconar ao Cartão</h3>
                     <button (click)="openDialogMember('400ms', '400ms')">Membros</button>
-                    <button>CheckList</button>
+                    <button (click)="openDialogList('400ms', '400ms')">CheckList</button>
                     <button (click)="openDialogAnexo('400ms', '400ms')">Anexo</button>
                     <div class="member">
                         <h3>Membros</h3>

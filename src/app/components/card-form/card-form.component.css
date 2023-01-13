@@ -92,7 +92,7 @@ mat-select {
     cursor: pointer;
 }
 .button input:last-child {
-    background-color: #d48585;
+    background-color: #f79f9fd3;
     color: white;
 }
 

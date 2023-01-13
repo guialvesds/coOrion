@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { User } from '../model/User';
+
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +18,9 @@ export class CardService {
   baseApiUrl = environment.baseApiUrl;
   apiUrl = `${this.baseApiUrl}/card`;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+  private http: HttpClient  
+  ) {}
 
   addMmeber(idCard: any, dados: any){
     const url = `${this.apiUrl}/member/${idCard}`;
