@@ -661,6 +661,15 @@ button:hover {
 
 .button-tasks button {
     margin-left: 10px;
+    color: #595959;
+}
+
+.button-tasks button:hover {
+    color: #979797;
+}
+
+.buttons-action {
+    margin-right: 10px;
 }
 
 .editList{

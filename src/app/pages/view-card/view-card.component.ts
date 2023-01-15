@@ -10,7 +10,7 @@ import {
   faPlus,
   faCalendar,
   faUser,
-  faClock
+  faClock,
 } from '@fortawesome/free-solid-svg-icons';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -25,11 +25,12 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MemberComponent } from './member/member.component';
 import { Subscription } from 'rxjs';
 
-import { SnackBarComponent } from 'src/app/components/snack-bar/snack-bar.component';
 import { AttachComponent } from './attach/attach.component';
+import { SnackBarComponent } from 'src/app/components/snack-bar/snack-bar.component';
 import { ListComponent } from './list/list.component';
 import { TaskService } from 'src/app/services/task.service';
 import { Obj } from '@popperjs/core';
+import { TaskComponent } from './task/task.component';
 
 @Component({
   selector: 'app-view-card',
@@ -64,10 +65,10 @@ export class ViewCardComponent implements OnInit, OnDestroy {
 
   allFiles!: any;
 
-  typesOfShoes: string[] = ['Boots', 'Clogs', 'Loafers'];
+  typesOfShoes: string[] = ['Boots'];
 
-  listData!: Task | any;
-  tasks!: any[]
+  listData: Task | any = [];
+  tasks: Task | any = [];
 
   private subScriptions: Subscription[] = [];
 
@@ -83,7 +84,7 @@ export class ViewCardComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.getCard();    
+    this.getCard();
 
     this.viewForm = this.formBuild.group({
       description: new FormControl(
@@ -91,13 +92,12 @@ export class ViewCardComponent implements OnInit, OnDestroy {
       ),
       comment: new FormControl(''),
       commentText: new FormControl(),
-      titleList: new FormControl(this.listData ? this.listData!.title! : ''),
+      titleList: new FormControl(this.listData ? this.listData.title : ''),
       // userComments: new FormControl(this.cardData ? this.comments.text : ''),
     });
 
-    this.getList(); 
-    console.log(this.listData);
-    
+    this.getList();
+    this.getTasks();
   }
 
   // Destroi as chamadas de subscribe
@@ -108,6 +108,7 @@ export class ViewCardComponent implements OnInit, OnDestroy {
   refresh() {
     this.getCard();
     this.getList();
+    this.getTasks();
   }
 
   get description() {
@@ -142,6 +143,19 @@ export class ViewCardComponent implements OnInit, OnDestroy {
     this.activeModal.open(ListComponent, {
       data: this.cardData,
       width: '420px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+  }
+
+  openDialogTask(
+    enterAnimationDuration: string,
+    exitAnimationDuration: string,
+    listId: string
+  ): void {
+    this.activeModal.open(TaskComponent, {
+      data: listId,
+      width: '620px',
       enterAnimationDuration,
       exitAnimationDuration,
     });
@@ -285,66 +299,58 @@ export class ViewCardComponent implements OnInit, OnDestroy {
 
     this.cardServices.deleteArqAws(filename).subscribe();
     this.cardServices.deleteArqMongo(idCard, idFile).subscribe();
-    
-    this.snackBar.openSnackBar("Arquivo excluído com sucesso!");
-    this.getCard();
 
+    this.snackBar.openSnackBar('Arquivo excluído com sucesso!');
+    this.getCard();
   }
 
   // Tasks
 
   // List-Task
 
-  getList(){
+  getList() {
     const id = String(this.route.snapshot.paramMap.get('id'));
-   return this.taskService.getListService(id!).subscribe((item) => {        
-        this.listData = item.data; 
-        console.log('lista', item.data);  
-        
+     this.taskService.getListService(id!).subscribe((item) => {
+      this.listData = item.data;
+      console.log('lista', this.listData);
     });
   }
 
-  deleteList(id: string){
+  deleteList(id: string) {
     this.taskService.deleteListService(id).subscribe();
     this.getList();
     this.snackBar.openSnackBar('Lista excluída com sucesso!');
   }
 
-  showEList(){
-    return this.showEditList = true;    
+  showEList() {
+    return (this.showEditList = true);
   }
 
-  noShowEList(){
-    return this.showEditList = false;    
+  noShowEList() {
+    return (this.showEditList = false);
   }
 
-  editLists(_id: string){
-    const titleList = this.viewForm.value;   
+  editLists(_id: string) {
+    const titleList = this.viewForm.value;
     const dados = {
-      title: titleList.titleList
-    }
+      title: titleList.titleList,
+    };
     this.taskService.editListService(_id, dados).subscribe();
     this.snackBar.openSnackBar('Título alterado com sucesso!');
-   this.showEditList = false;    
+    this.showEditList = false;
     this.getList();
   }
 
   // Tasks item
 
-  getTasks(idCard: string){
-    
-    
-      const _id = idCard;
-
-      this.taskService.getTasksService(_id).subscribe((item: any) => {
-        this.tasks = item;
-
-        console.log('tasks', item);
-        
-      });
-    }
-
+  getTasks() {
+ 
+    const listId = this.listData._id;
+    this.taskService.getTasksService(listId).subscribe((item) => {
+      this.tasks = item.data;
+    });    
+ 
    
    
-  
+}
 }

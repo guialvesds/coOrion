@@ -26,9 +26,9 @@ export class TaskService {
     return this.http.post(url, dados, {headers: this.head_obj});
   };
   
-  getListService(idCard: any): Observable<Response<Task>>{
+  getListService(idCard: any): Observable<Response<Task[]>>{
     const url = `${this.apiUrl}/${idCard}/lists`;
-    return this.http.get<Response<Task>>(url, {headers: this.head_obj});
+    return this.http.get<Response<Task[]>>(url, {headers: this.head_obj});
   };
 
   editListService(_id: string, dados: Object){
@@ -44,9 +44,14 @@ export class TaskService {
 
   // Tasks
 
-  getTasksService(listId: string){
+  getTasksService(listId: string):Observable<Response<Task[]>>{
     const url = `${this.apiUrl}/${listId}/tasks`;
-    return this.http.get(url, {headers: this.head_obj})
+    return this.http.get<Response<Task[]>>(url, {headers: this.head_obj})
+  }
+
+  addTasksServices(listId: string, dados: Object){
+    const url = `${this.apiUrl}/${listId}/task`;
+    return this.http.post(url, dados, {headers: this.head_obj})
   }
 
 }

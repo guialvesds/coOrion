@@ -2,7 +2,7 @@
     <div class="card">
         <div class="headerContent">
             <div class="title">
-                <h1>{{cardData.title!}}</h1>
+                <h1>{{cardData.title}}</h1>
                 <p>Na lista: {{cardData.tag}}</p>
             </div>
             <div class="clearC">
@@ -71,7 +71,7 @@
                                         </div>
                                         </div>                                        
                                     </ng-template>
-                                    <div *ngIf="!showEditList">
+                                    <div *ngIf="!showEditList" class="buttons-action">
                                         <button (click)="showEList()">
                                             <fa-icon [icon]="faPen"></fa-icon>
                                         </button>
@@ -80,10 +80,10 @@
                                         </button>
                                     </div>                                
                                 </div>
-                                <div class="card-task"*ngFor="let shoe of typesOfShoes">
+                                <div class="card-task"*ngFor="let task of tasks">
                                     <div class="title-task">
                                         <input type="checkbox" name="task" id="task">
-                                        <label>teste de task criada</label>
+                                        <label>{{task.titleTask}}</label>
                                     </div>
                                     <div class="button-tasks">
                                         <button><fa-icon [icon]="faClock"></fa-icon></button>
@@ -91,7 +91,7 @@
                                     </div>
                                 </div>
                                 <div class="addNewList">                                    
-                                    <button>
+                                    <button (click)="openDialogTask('400ms', '400ms', list._id)">
                                         <fa-icon  [icon]="faPlus"></fa-icon>
                                         Adicionar novo item
                                     </button>
