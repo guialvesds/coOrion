@@ -2,7 +2,7 @@
     <div class="card">
         <div class="headerContent">
             <div class="title">
-                <h1>{{cardData.title}}</h1>
+                <h1>{{cardData.title!}}</h1>
                 <p>Na lista: {{cardData.tag}}</p>
             </div>
             <div class="clearC">
@@ -80,15 +80,19 @@
                                         </button>
                                     </div>                                
                                 </div>
-                                <div class="card-task"*ngFor="let task of tasks">
+                                <div class="card-task"*ngFor="let task of tasks[list._id]">
                                     <div class="title-task">
                                         <input type="checkbox" name="task" id="task">
                                         <label>{{task.titleTask}}</label>
                                     </div>
-                                    <div class="button-tasks">
-                                        <button><fa-icon [icon]="faClock"></fa-icon></button>
-                                        <button><fa-icon [icon]="faUser"></fa-icon></button>
+                                    <div class="info-tasks" *ngIf="task.delivery_date; else noDate">
+                                       <button><span class="spanTask">{{task.delivery_date.toLocaleString('pt-BR').substring(0 ,
+                                            10).split('-').reverse().join('/')}}</span></button> 
+                                           <button> <span>{{task.member}}</span></button>
                                     </div>
+                                        <ng-template #noDate>                                           
+                                            <button><fa-icon [icon]="faPen"></fa-icon></button>
+                                        </ng-template>
                                 </div>
                                 <div class="addNewList">                                    
                                     <button (click)="openDialogTask('400ms', '400ms', list._id)">

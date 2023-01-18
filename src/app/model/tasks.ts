@@ -1,5 +1,5 @@
 export class Task {
-      _id!: string;
+      _id?: string;
       idCard!: string;
       idUser!: String;
       title!: string;

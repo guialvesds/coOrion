@@ -610,6 +610,9 @@ button:hover {
     padding-right: 5px;
    }
 
+   .card-task > ng-template {
+    background-color: red;
+   }
 
 .title-list-task {    
     display: flex;    
@@ -650,6 +653,26 @@ button:hover {
 .complete {
    background-color: rgba(127, 209, 184, 0.596);
 }
+.info-tasks {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;   
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.info-tasks > button {
+    border: none;
+}
+
+
+.info-tasks > span {
+    font-size: 0.8em;
+    margin-left: 10px;
+    font-weight: bold;
+ }
+ 
 .button-tasks {
     display: flex;
     flex-direction: row;
@@ -659,13 +682,25 @@ button:hover {
     padding-right: 5px;
 }
 
-.button-tasks button {
-    margin-left: 10px;
+.button-tasks, .time {
+    /* margin-left: 10px; */
     color: #595959;
+    margin-right: -380px;
+    border: none;
+
+}
+
+.time2 {
+    margin-right: -30px;
+    border: none;
 }
 
 .button-tasks button:hover {
     color: #979797;
+}
+
+.button-tasks2{
+    background-color: blue;
 }
 
 .buttons-action {

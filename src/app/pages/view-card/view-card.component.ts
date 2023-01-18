@@ -39,7 +39,7 @@ import { TaskComponent } from './task/task.component';
 })
 export class ViewCardComponent implements OnInit, OnDestroy {
   @Input() cardData!: any;
-
+  
   faTimes = faTimes;
   faFloppyDisk = faFloppyDisk;
   faArrowsRotate = faArrowsRotate;
@@ -67,8 +67,8 @@ export class ViewCardComponent implements OnInit, OnDestroy {
 
   typesOfShoes: string[] = ['Boots'];
 
-  listData: Task | any = [];
-  tasks: Task | any = [];
+  listData!: any;
+  tasks: any = {};  
 
   private subScriptions: Subscription[] = [];
 
@@ -96,8 +96,9 @@ export class ViewCardComponent implements OnInit, OnDestroy {
       // userComments: new FormControl(this.cardData ? this.comments.text : ''),
     });
 
-    this.getList();
-    this.getTasks();
+    this.getList().then(() => {
+      // this.getTasks();
+    });
   }
 
   // Destroi as chamadas de subscribe
@@ -108,7 +109,7 @@ export class ViewCardComponent implements OnInit, OnDestroy {
   refresh() {
     this.getCard();
     this.getList();
-    this.getTasks();
+    // this.getTasks();
   }
 
   get description() {
@@ -309,10 +310,30 @@ export class ViewCardComponent implements OnInit, OnDestroy {
   // List-Task
 
   getList() {
-    const id = String(this.route.snapshot.paramMap.get('id'));
-     this.taskService.getListService(id!).subscribe((item) => {
-      this.listData = item.data;
-      console.log('lista', this.listData);
+    return new Promise<void>((resolve, reject) => {
+      const id = String(this.route.snapshot.paramMap.get('id'));
+      this.taskService.getListService(id!).subscribe((item) => {
+        this.listData = item.data;
+
+        // Get Tasks
+
+        const lists = this.listData; 
+      
+        for (let i of lists) {
+
+          const listId = i._id;
+
+          console.log('for', listId);        
+
+          this.taskService.getTasksService(listId).subscribe((tasks) => {
+            this.tasks[listId] = tasks.data;
+
+            console.log('get tasks', tasks.data);
+          });
+        }
+        console.log('log for',this.tasks);
+      });
+      resolve();
     });
   }
 
@@ -343,14 +364,21 @@ export class ViewCardComponent implements OnInit, OnDestroy {
 
   // Tasks item
 
-  getTasks() {
- 
-    const listId = this.listData._id;
-    this.taskService.getTasksService(listId).subscribe((item) => {
-      this.tasks = item.data;
-    });    
- 
-   
-   
-}
+  // async getTasks() {
+  //   const lists = this.listData;
+
+  //   console.log('lists', lists);
+
+  //   for (let i: any = 0; i < lists.length; i++) {
+  //     const listId = lists[i]._id;
+
+  //     console.log('for', listId);
+  //     console.log('for', lists);
+
+  //     await this.taskService.getTasksService(listId).subscribe((item) => {
+  //       this.tasks = item.data;
+  //     });
+  //   }
+  //   console.log(this.tasks);
+  // }
 }
