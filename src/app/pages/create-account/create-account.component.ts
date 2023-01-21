@@ -27,6 +27,7 @@ export class CreateAccountComponent implements OnInit {
   ngOnInit(): void {
     this.formulario = this.formBuild.group({
       name: [null],
+      sname: [null],
       email: [null],
       password: [null],
       rPassword: [null],
@@ -38,6 +39,7 @@ export class CreateAccountComponent implements OnInit {
   async submit() {
     if (
       this.formulario.value.name == null &&
+      this.formulario.value.sname == null &&
       this.formulario.value.email == null &&
       this.formulario.value.password == null
     ) {

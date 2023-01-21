@@ -4,5 +4,7 @@ export class Task {
       idUser!: String;
       title!: string;
       titleTask!: string;
+      completed?: boolean;
+      _listId?: string;
 }
   

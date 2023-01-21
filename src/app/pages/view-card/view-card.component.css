@@ -610,9 +610,13 @@ button:hover {
     padding-right: 5px;
    }
 
-   .card-task > ng-template {
-    background-color: red;
+   .completed {
+    background-color: #b3e0ce98;    
+    text-decoration: line-through;
    }
+   /* .card-task > ng-template {
+    background-color: red;
+   } */
 
 .title-list-task {    
     display: flex;    
@@ -669,8 +673,8 @@ button:hover {
 
 .info-tasks > span {
     font-size: 0.8em;
-    margin-left: 10px;
-    font-weight: bold;
+    margin-left: 6px;
+    font-weight: 600;
  }
  
 .button-tasks {
@@ -730,4 +734,23 @@ button:hover {
 
 .addNewList button {
     color: #038c53;
+}
+
+.mat-menu-content {    
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 30px;
+}
+
+.mat-menu > button {
+    border: none;
+    margin-top: 6px;
+    margin-left: -5px;
+    color: #747474;
+}
+
+.mat-menu > button:hover {
+    color: #333333;
 }

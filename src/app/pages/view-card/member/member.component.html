@@ -12,7 +12,7 @@
   <div >
     <div class="conteinerMember" *ngFor="let item of userData">
       <label>
-        <input type="checkbox" formControlName="memberList" (change)="onchange($event, item)"> {{item.name}}
+        <input type="checkbox" formControlName="memberList" (change)="onchange($event, item)"> {{item.name}} {{item.sname}}
       </label>
     </div>   
   </div>

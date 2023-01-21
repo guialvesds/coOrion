@@ -14,6 +14,7 @@ import {
   faNoteSticky,
 } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
+import { ViewCardComponent } from '../view-card/view-card.component';
 
 @Component({
   selector: 'app-info-home',
@@ -42,7 +43,8 @@ export class InfoHomeComponent implements OnInit {
     private alert: AlertService,
     private userServices: UserService,
     private dialogService: MatDialog,
-    private route: Router
+    private route: Router,
+    public activeModal: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -84,13 +86,6 @@ export class InfoHomeComponent implements OnInit {
     });
   }
 
-// async getData(){
-//    const dateDelivery = await this.cardData.delivery_date;
-
-//     this.dateDelivery = dateDelivery.toLocaleString('pt-BR').substring(0 ,
-//       10).split('-').reverse().join('/')
-//   }
-
   async remove(id: any) {
     await this.cardServices.removeCard(id).subscribe();
 
@@ -107,12 +102,15 @@ export class InfoHomeComponent implements OnInit {
     }, 600);
   }
 
-  // async openDialog(id: any) {
-  //   const dialogRef = this.dialogService.open(ViewComponent, {
-  //     width: '40rem',
-  //     data: { data: this.cards}
-  //   });
-
-  //   dialogRef.afterClosed().subscribe();
-  // }
+  openDialogMember(
+    enterAnimationDuration: string,
+    exitAnimationDuration: string
+  ): void {
+    this.activeModal.open(ViewCardComponent, {
+      data: this.cardData,
+      // width: '820px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+  }
 }

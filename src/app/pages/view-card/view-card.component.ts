@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, Inject } from '@angular/core';
 import {
   faTimes,
   faFloppyDisk,
@@ -25,12 +25,15 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MemberComponent } from './member/member.component';
 import { Subscription } from 'rxjs';
 
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+
 import { AttachComponent } from './attach/attach.component';
 import { SnackBarComponent } from 'src/app/components/snack-bar/snack-bar.component';
 import { ListComponent } from './list/list.component';
 import { TaskService } from 'src/app/services/task.service';
 import { Obj } from '@popperjs/core';
 import { TaskComponent } from './task/task.component';
+import { EditTaskComponent } from './edit-task/edit-task.component';
 
 @Component({
   selector: 'app-view-card',
@@ -69,6 +72,7 @@ export class ViewCardComponent implements OnInit, OnDestroy {
 
   listData!: any;
   tasks: any = {};  
+  allTasks: any;
 
   private subScriptions: Subscription[] = [];
 
@@ -81,10 +85,13 @@ export class ViewCardComponent implements OnInit, OnDestroy {
     private router: Router,
     public activeModal: MatDialog,
     private formBuild: FormBuilder
-  ) {}
+
+  ) {
+    
+  }
 
   ngOnInit(): void {
-    this.getCard();
+    this.refresh();
 
     this.viewForm = this.formBuild.group({
       description: new FormControl(
@@ -93,12 +100,8 @@ export class ViewCardComponent implements OnInit, OnDestroy {
       comment: new FormControl(''),
       commentText: new FormControl(),
       titleList: new FormControl(this.listData ? this.listData.title : ''),
-      // userComments: new FormControl(this.cardData ? this.comments.text : ''),
-    });
-
-    this.getList().then(() => {
-      // this.getTasks();
-    });
+      checkboxI: new FormControl(this.tasks ? this.tasks.completed : false)
+    });   
   }
 
   // Destroi as chamadas de subscribe
@@ -108,22 +111,27 @@ export class ViewCardComponent implements OnInit, OnDestroy {
 
   refresh() {
     this.getCard();
-    this.getList();
-    // this.getTasks();
+    this.getList();   
   }
 
   get description() {
     return this.viewForm.get('description')!;
   }
 
+  get title() {
+    return this.viewForm.get('title')!;
+  }
+
   getCard() {
-    const id = String(this.route.snapshot.paramMap.get('id'));
-    this.cardServices.findProducts(id).subscribe((item) => {
+    const id = String(this.route.snapshot.paramMap.get('id'));    
+    this.cardServices.findProducts(id!).subscribe((item: { data: any; }) => {
       this.cardData = item.data;
       this.comments = this.cardData.comments;
       this.idUser = this.comments.userId;
+      console.log(this.cardData);      
     });
   }
+
 
   openDialogMember(
     enterAnimationDuration: string,
@@ -162,6 +170,19 @@ export class ViewCardComponent implements OnInit, OnDestroy {
     });
   }
 
+  openDialogEditTask(
+    enterAnimationDuration: string,
+    exitAnimationDuration: string,
+    task: [],
+  ): void {
+    this.activeModal.open(EditTaskComponent, {
+      data: task,
+      width: '620px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+  }
+
   openDialogAnexo(
     enterAnimationDuration: string,
     exitAnimationDuration: string
@@ -188,10 +209,9 @@ export class ViewCardComponent implements OnInit, OnDestroy {
     this.snackBar.openSnackBar('Descrição adicionada com sucesso!');
 
     setTimeout(() => {
-      this.getCard();
+      this.refresh();
     }, 500);
-    this.nShowDesc = false;
-    console.log('deu certo');
+    this.nShowDesc = false;    
   }
 
   async addComments() {
@@ -207,11 +227,10 @@ export class ViewCardComponent implements OnInit, OnDestroy {
     this.snackBar.openSnackBar('Comentário adicionado com sucesso!');
 
     setTimeout(() => {
-      this.getCard();
+      this.refresh();
     }, 500);
 
-    this.nShowDesc = false;
-    console.log('deu certo');
+    this.nShowDesc = false;    
   }
 
   showDesc() {
@@ -221,19 +240,18 @@ export class ViewCardComponent implements OnInit, OnDestroy {
     this.nShowDesc = false;
   }
 
-  async deleteComment(idComment: any) {
+   deleteComment(idComment: any) {
     try {
       const idCard = this.cardData._id;
 
       const idC = idComment;
 
       console.log('commentário id', idComment);
-      await this.cardServices.deleteComeentService(idCard, idC).subscribe(
+       this.cardServices.deleteComeentService(idCard, idC).subscribe(
         () => {
           this.snackBar.openSnackBar('Comentário removido com sucesso!');
         },
-        (err) => {
-          console.log(err);
+        (err) => {        
 
           const message = err.error.message;
           this.snackBar.openSnackBar(message);
@@ -241,7 +259,7 @@ export class ViewCardComponent implements OnInit, OnDestroy {
       );
 
       setTimeout(() => {
-        this.getCard();
+        this.refresh();
       }, 500);
     } catch (error) {
       console.log('erro: ', error);
@@ -256,7 +274,7 @@ export class ViewCardComponent implements OnInit, OnDestroy {
     this.showComment = false;
   }
 
-  async editComment(idComment: any) {
+   editComment(idComment: any) {
     try {
       const idCard = this.cardData._id;
 
@@ -269,12 +287,12 @@ export class ViewCardComponent implements OnInit, OnDestroy {
 
       console.log(dados);
 
-      await this.cardServices
+      this.cardServices
         .editCommentService(idCard, idC, dados)
         .subscribe();
 
       setTimeout(() => {
-        this.getCard();
+        this.refresh();
       }, 500);
     } catch (error) {
       console.log('erro: ', error);
@@ -287,7 +305,7 @@ export class ViewCardComponent implements OnInit, OnDestroy {
 
     this.cardServices.deleteMember(cardId, memberId).subscribe();
 
-    this.getCard();
+    this.refresh();
 
     this.snackBar.openSnackBar('Membro Excluído com sucesso!');
   }
@@ -302,7 +320,7 @@ export class ViewCardComponent implements OnInit, OnDestroy {
     this.cardServices.deleteArqMongo(idCard, idFile).subscribe();
 
     this.snackBar.openSnackBar('Arquivo excluído com sucesso!');
-    this.getCard();
+    this.refresh();
   }
 
   // Tasks
@@ -327,11 +345,9 @@ export class ViewCardComponent implements OnInit, OnDestroy {
 
           this.taskService.getTasksService(listId).subscribe((tasks) => {
             this.tasks[listId] = tasks.data;
-
-            console.log('get tasks', tasks.data);
+            this.allTasks = tasks.data;            
           });
         }
-        console.log('log for',this.tasks);
       });
       resolve();
     });
@@ -339,7 +355,7 @@ export class ViewCardComponent implements OnInit, OnDestroy {
 
   deleteList(id: string) {
     this.taskService.deleteListService(id).subscribe();
-    this.getList();
+    this.refresh();
     this.snackBar.openSnackBar('Lista excluída com sucesso!');
   }
 
@@ -359,26 +375,27 @@ export class ViewCardComponent implements OnInit, OnDestroy {
     this.taskService.editListService(_id, dados).subscribe();
     this.snackBar.openSnackBar('Título alterado com sucesso!');
     this.showEditList = false;
-    this.getList();
+    this.refresh();
   }
 
   // Tasks item
 
-  // async getTasks() {
-  //   const lists = this.listData;
+   removeTask(listId: string, taskId: string){
 
-  //   console.log('lists', lists);
+    this.taskService.removeTaskservice(listId, taskId).subscribe(
+      () => {
+        this.snackBar.openSnackBar('Tarefa removida com sucesso!');  
+        this.getList();            
+      },
+      (err) => {
+        console.log(err);        
+      }
+    );
+   } 
 
-  //   for (let i: any = 0; i < lists.length; i++) {
-  //     const listId = lists[i]._id;
-
-  //     console.log('for', listId);
-  //     console.log('for', lists);
-
-  //     await this.taskService.getTasksService(listId).subscribe((item) => {
-  //       this.tasks = item.data;
-  //     });
-  //   }
-  //   console.log(this.tasks);
-  // }
+   onTaskClick(task: Task){
+    this.taskService.completeTaskService(task).subscribe(() => {      
+      task.completed = !task.completed;
+    });
+   }
 }

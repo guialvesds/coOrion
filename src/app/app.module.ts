@@ -35,7 +35,8 @@ import { AttachComponent } from './pages/view-card/attach/attach.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { ListComponent } from './pages/view-card/list/list.component';
 import { TaskComponent } from './pages/view-card/task/task.component';
-
+import {MatIconModule} from '@angular/material/icon';
+import { EditTaskComponent } from './pages/view-card/edit-task/edit-task.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { TaskComponent } from './pages/view-card/task/task.component';
     SnackBarComponent,
     AttachComponent,
     ListComponent,
-    TaskComponent
+    TaskComponent,
+    EditTaskComponent
   ],
   imports: [
     BrowserModule,
@@ -73,6 +75,7 @@ import { TaskComponent } from './pages/view-card/task/task.component';
     MatNativeDateModule,
     MatSnackBarModule, 
     MatExpansionModule,
+    MatIconModule,
   ],
   providers: [{provide: MAT_DATE_LOCALE, useValue: 'pt-BR'},
   SnackBarComponent],

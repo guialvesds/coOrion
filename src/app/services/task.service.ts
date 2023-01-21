@@ -54,4 +54,21 @@ export class TaskService {
     return this.http.post(url, dados, {headers: this.head_obj})
   }
 
+  removeTaskservice(listId: string, taskId: string){
+    const url = `${this.apiUrl}/${listId}/task/${taskId}`;
+    return this.http.delete(url, {headers: this.head_obj})
+  }
+
+  editTaskservice(listId: string, taskId: string, dados: any){
+    const url = `${this.apiUrl}/${listId}/task/${taskId}`;
+    return this.http.patch(url, dados, {headers: this.head_obj})
+  }
+
+  completeTaskService(task: Task){
+    const url = `${this.apiUrl}/${task._listId}/task/${task._id}`;
+    return this.http.patch(url, {
+      completed: !task.completed
+    });
+  }
+
 }

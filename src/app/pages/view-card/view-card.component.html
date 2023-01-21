@@ -19,9 +19,12 @@
                 <div class="vewContent">
                     <div class="header">
                         <h3>Data de entrega</h3>
-                        <p>{{cardData.delivery_date!.toLocaleString('pt-BR').substring(0 ,
+                        <p *ngIf="cardData.delivery_date; else noData">{{cardData.delivery_date!.toLocaleString('pt-BR').substring(0 ,
                             10).split('-').reverse().join('/')}}</p>
                     </div>
+                    <ng-template #noData>
+                        <p>--/--/----</p>
+                    </ng-template>
                     <form [formGroup]="viewForm" #formG="ngForm">
                         <div class="formGroup">
                             <div class="btnEditDesc">
@@ -80,19 +83,35 @@
                                         </button>
                                     </div>                                
                                 </div>
-                                <div class="card-task"*ngFor="let task of tasks[list._id]">
+                                <div class="card-task" *ngFor="let task of tasks[list._id]" [ngClass]="{'completed': task.completed}">
+                                   
                                     <div class="title-task">
-                                        <input type="checkbox" name="task" id="task">
+                                        <input type="checkbox" name="task" id="task" (click)="onTaskClick(task)" formControlName="checkboxI">
                                         <label>{{task.titleTask}}</label>
                                     </div>
-                                    <div class="info-tasks" *ngIf="task.delivery_date; else noDate">
-                                       <button><span class="spanTask">{{task.delivery_date.toLocaleString('pt-BR').substring(0 ,
-                                            10).split('-').reverse().join('/')}}</span></button> 
-                                           <button> <span>{{task.member}}</span></button>
-                                    </div>
+                                    <div class="mat-menu-content">
+                                        <div class="info-tasks" *ngIf="task.delivery_date; else noDate">
+                                            <span class="spanTask">{{task.delivery_date.toLocaleString('pt-BR').substring(0 ,
+                                                 10).split('-').reverse().join('/')}}</span> 
+                                                 <span>{{task.member}}</span>
+                                         </div>
+                                        <div class="mat-menu">
+                                         <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                                             <mat-icon>more_vert</mat-icon>
+                                           </button>
+                                           <mat-menu #menu="matMenu" yPosition="above">
+                                             <button mat-menu-item (click)="openDialogEditTask('400ms', '400ms', task)">                                               
+                                               <span>Editar</span>
+                                             </button>                                      
+                                             <button mat-menu-item (click)="removeTask(list._id, task._id)">                                               
+                                               <span>Excluir</span>
+                                             </button>
+                                           </mat-menu>
+                                        </div>
                                         <ng-template #noDate>                                           
-                                            <button><fa-icon [icon]="faPen"></fa-icon></button>
+                                            <span></span>
                                         </ng-template>
+                                    </div> 
                                 </div>
                                 <div class="addNewList">                                    
                                     <button (click)="openDialogTask('400ms', '400ms', list._id)">
@@ -101,6 +120,7 @@
                                     </button>
                                 </div>
                             </div>
+                            
                         </div>
                     </div>
                         <!-- ARQUIVOS -->
