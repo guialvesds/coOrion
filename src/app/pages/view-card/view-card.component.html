@@ -19,7 +19,7 @@
                 <div class="vewContent">
                     <div class="header">
                         <h3>Data de entrega</h3>
-                        <p *ngIf="cardData.delivery_date; else noData">{{cardData.delivery_date!.toLocaleString('pt-BR').substring(0 ,
+                        <p *ngIf="cardData.delivery_date; else noData">{{cardData.delivery_date!.toLocaleString().substring(0 ,
                             10).split('-').reverse().join('/')}}</p>
                     </div>
                     <ng-template #noData>
@@ -29,7 +29,10 @@
                         <div class="formGroup">
                             <div class="btnEditDesc">
                                 <h2>Descrição</h2>
-                                <button (click)="showDesc()">
+                                <button (click)="showDesc()"
+                                matTooltip="Editar descrição."         
+                                matTooltipHideDelay="100"
+                                >
                                     <fa-icon [icon]="faPen"></fa-icon>
                                 </button>
                             </div>
@@ -44,7 +47,7 @@
                                     <button (click)="putDescription()" type="submit">
                                         <fa-icon [icon]="faFloppyDisk"></fa-icon> Salvar
                                     </button>
-                                    <button (click)="noShowDesc()" type="submit">
+                                    <button (click)="noShowDesc()" type="submit" *ngIf="cardData.description">
                                         <fa-icon [icon]="faXmark"></fa-icon> Cancelar
                                     </button>
                                 </div>
@@ -56,29 +59,20 @@
                             <h2>Checklist</h2>
                             <div class="content-list-task" *ngFor="let list of listData">
                                 <div class="title-list-task">
-                                    <div *ngIf="!showEditList; else editList">
+                                    <div *ngIf="!showEditList">
                                         <h1>{{list.title}}</h1>
-                                    </div>
-                                    <ng-template #editList >
-                                        <div class="editList">
-                                            <input type="text" name="titleList" formControlName="titleList"
-                                        [ngModel]="list.title"
-                                        >
-                                        <div class="buttons">
-                                            <button (click)="editLists(list._id)" type="submit">
-                                                <fa-icon [icon]="faFloppyDisk"></fa-icon> Salvar
-                                            </button>
-                                            <button (click)="noShowEList()" type="submit">
-                                                <fa-icon [icon]="faXmark"></fa-icon> Cancelar
-                                            </button>
-                                        </div>
-                                        </div>                                        
-                                    </ng-template>
+                                    </div>                                    
                                     <div *ngIf="!showEditList" class="buttons-action">
-                                        <button (click)="showEList()">
+                                        <button (click)="openDialogEditList( '400ms', '400ms', list)"
+                                        matTooltip="Editar Lista"         
+                                        matTooltipHideDelay="100"
+                                        >
                                             <fa-icon [icon]="faPen"></fa-icon>
                                         </button>
-                                        <button (click)="deleteList(list._id)">
+                                        <button (click)="deleteList(list._id)"
+                                        matTooltip="Excluir Lista"         
+                                        matTooltipHideDelay="100"
+                                        >
                                             <fa-icon  [icon]="faTrashAlt"></fa-icon>
                                         </button>
                                     </div>                                
@@ -86,8 +80,10 @@
                                 <div class="card-task" *ngFor="let task of tasks[list._id]" [ngClass]="{'completed': task.completed}">
                                    
                                     <div class="title-task">
-                                        <input type="checkbox" name="task" id="task" (click)="onTaskClick(task)" formControlName="checkboxI">
+                                        <!-- <input type="checkbox" name="task" (click)="onTaskClick(task)" formControlName="checkboxI"> -->
+                                        <button (click)="onTaskClick(task)">
                                         <label>{{task.titleTask}}</label>
+                                    </button>
                                     </div>
                                     <div class="mat-menu-content">
                                         <div class="info-tasks" *ngIf="task.delivery_date; else noDate">
@@ -96,10 +92,13 @@
                                                  <span>{{task.member}}</span>
                                          </div>
                                         <div class="mat-menu">
-                                         <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                                         <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu"
+                                         matTooltip="Editar ou excluir tarefa."         
+                                        matTooltipHideDelay="100"
+                                         >
                                              <mat-icon>more_vert</mat-icon>
                                            </button>
-                                           <mat-menu #menu="matMenu" yPosition="above">
+                                           <mat-menu #menu="matMenu" yPosition="above" class="action-task">
                                              <button mat-menu-item (click)="openDialogEditTask('400ms', '400ms', task)">                                               
                                                <span>Editar</span>
                                              </button>                                      
@@ -128,7 +127,7 @@
                             <h1>Arquivos</h1>
                             <div *ngFor="let file of cardData.files" class="file-contianer">
                                 <div class="file-img"
-                                    *ngIf="file.detail.type === '.jpg' || '.png' || '.jpeg'; else noImage">
+                                    *ngIf="file.detail.type !== '.pdf' || '.docx'; else noImage">
                                     <img src="{{file.detail.location}}" alt="Imagem do arquivo">
                                 </div>
                                 <ng-template class="file-contianer" #noImage>
@@ -163,9 +162,9 @@
                                 <button type="submit" (click)="addComments()">
                                     <fa-icon [icon]="faFloppyDisk"></fa-icon> Salvar
                                 </button>
-                                <button type="submit">
+                                <!-- <button type="submit">
                                     <fa-icon [icon]="faXmark"></fa-icon> Cancelar
-                                </button>
+                                </button> -->
                             </div>
                         </div>
                         <div class="commentUsers" *ngFor="let commentUser of cardData.comments">
@@ -211,9 +210,18 @@
                 <!-- MEMBROS -->
                 <div class="addContent">
                     <h3>Adiconar ao Cartão</h3>
-                    <button (click)="openDialogMember('400ms', '400ms')">Membros</button>
-                    <button (click)="openDialogList('400ms', '400ms')">CheckList</button>
-                    <button (click)="openDialogAnexo('400ms', '400ms')">Anexo</button>
+                    <button (click)="openDialogMember('400ms', '400ms')" 
+                    matTooltip="Adicionar membro"         
+                    matTooltipHideDelay="100"
+                    >Membros</button>
+                    <button (click)="openDialogList('400ms', '400ms')"
+                    matTooltip="Adicionar lista de tarefa"         
+                    matTooltipHideDelay="100"
+                    >CheckList</button>
+                    <button (click)="openDialogAnexo('400ms', '400ms')"
+                    matTooltip="Anexar arquivo"         
+                    matTooltipHideDelay="100"
+                    >Anexo</button>
                     <div class="member">
                         <h3>Membros</h3>
                         <div class="memberesConteiner">

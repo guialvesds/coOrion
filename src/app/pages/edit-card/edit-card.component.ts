@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ActivatedRoute, Router } from '@angular/router';
+import { SnackBarComponent } from 'src/app/components/snack-bar/snack-bar.component';
 
 import { Card } from 'src/app/model/Card';
 import { AlertService } from 'src/app/services/alert.service';
@@ -21,7 +22,8 @@ export class EditCardComponent implements OnInit {
     private router: Router,
     private cardServices: CardService,
     private route: ActivatedRoute,
-    private alert: AlertService
+    private alert: AlertService,
+    private snackBar: SnackBarComponent,
   ) {}
 
   ngOnInit(): void {
@@ -35,7 +37,7 @@ export class EditCardComponent implements OnInit {
 
     const codP = this.cardData.code;
 
-    console.log('Editando o produto', codP);
+    console.log(codP);
   }
 
    editP(cardtData: Card) {
@@ -43,7 +45,7 @@ export class EditCardComponent implements OnInit {
 
     const dados = {
       code: cardtData.code,
-      name: cardtData.title,
+      title: cardtData.title,
       tag: cardtData.tag,  
       delivery_date: cardtData.delivery_date,
         
@@ -53,7 +55,7 @@ export class EditCardComponent implements OnInit {
     
 
     this.cardServices.editCard(id!, dados).subscribe();
-    this.alert.add(`produto ${this.cardData.code} alterado com sucesso!`);
+    this.snackBar.openSnackBar(`Card ${this.cardData.code} alterado com sucesso!`);
     this.router.navigate(['/']);
   }
 }

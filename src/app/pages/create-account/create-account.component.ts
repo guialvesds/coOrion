@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 
 import { AlertService } from 'src/app/services/alert.service';
+import { SnackBarComponent } from 'src/app/components/snack-bar/snack-bar.component';
 
 @Component({
   selector: 'app-create-account',
@@ -21,7 +22,8 @@ export class CreateAccountComponent implements OnInit {
     private formBuild: FormBuilder,
     private router: Router,
     private userServices: UserService,
-    private alert: AlertService
+    private alert: AlertService,
+    private snackBar: SnackBarComponent,
   ) {}
 
   ngOnInit(): void {
@@ -52,10 +54,10 @@ export class CreateAccountComponent implements OnInit {
       this.passValidation = true;
       console.log('Senhas não conferem!');
     } else {
-      await this.userServices.creatUser(this.formulario.value);
+      this.userServices.creatUser(this.formulario.value);
 
-      console.log('Usuário cadastrado com sucesso!');
-      this.alert.add('Usuário criado com sucesso!');
+      console.log('Usuário cadastrado com sucesso!');    
+      this.snackBar.openSnackBar('Usuário criado com sucesso!');
 
       setTimeout(() => {
         this.router.navigate(['/login']);

@@ -37,6 +37,8 @@ import { ListComponent } from './pages/view-card/list/list.component';
 import { TaskComponent } from './pages/view-card/task/task.component';
 import {MatIconModule} from '@angular/material/icon';
 import { EditTaskComponent } from './pages/view-card/edit-task/edit-task.component';
+import { EditListComponent } from './pages/view-card/edit-list/edit-list.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,8 @@ import { EditTaskComponent } from './pages/view-card/edit-task/edit-task.compone
     AttachComponent,
     ListComponent,
     TaskComponent,
-    EditTaskComponent
+    EditTaskComponent,
+    EditListComponent
   ],
   imports: [
     BrowserModule,
@@ -76,6 +79,7 @@ import { EditTaskComponent } from './pages/view-card/edit-task/edit-task.compone
     MatSnackBarModule, 
     MatExpansionModule,
     MatIconModule,
+    MatTooltipModule
   ],
   providers: [{provide: MAT_DATE_LOCALE, useValue: 'pt-BR'},
   SnackBarComponent],

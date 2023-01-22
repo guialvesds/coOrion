@@ -34,6 +34,7 @@ import { TaskService } from 'src/app/services/task.service';
 import { Obj } from '@popperjs/core';
 import { TaskComponent } from './task/task.component';
 import { EditTaskComponent } from './edit-task/edit-task.component';
+import { EditListComponent } from './edit-list/edit-list.component';
 
 @Component({
   selector: 'app-view-card',
@@ -41,7 +42,7 @@ import { EditTaskComponent } from './edit-task/edit-task.component';
   styleUrls: ['./view-card.component.css'],
 })
 export class ViewCardComponent implements OnInit, OnDestroy {
-  @Input() cardData!: any;
+  @Input() cardData!: Card | any;
   
   faTimes = faTimes;
   faFloppyDisk = faFloppyDisk;
@@ -74,6 +75,13 @@ export class ViewCardComponent implements OnInit, OnDestroy {
   tasks: any = {};  
   allTasks: any;
 
+  typeArch: string[] = [
+    '.jpg',    
+    '.jpeg',    
+    '.png',    
+    '.gif',
+  ]
+
   private subScriptions: Subscription[] = [];
 
   constructor(
@@ -100,8 +108,9 @@ export class ViewCardComponent implements OnInit, OnDestroy {
       comment: new FormControl(''),
       commentText: new FormControl(),
       titleList: new FormControl(this.listData ? this.listData.title : ''),
-      checkboxI: new FormControl(this.tasks ? this.tasks.completed : false)
-    });   
+      checkboxI: new FormControl()
+    });       
+    
   }
 
   // Destroi as chamadas de subscribe
@@ -128,11 +137,10 @@ export class ViewCardComponent implements OnInit, OnDestroy {
       this.cardData = item.data;
       this.comments = this.cardData.comments;
       this.idUser = this.comments.userId;
-      console.log(this.cardData);      
+      console.log(this.cardData);
     });
   }
-
-
+  
   openDialogMember(
     enterAnimationDuration: string,
     exitAnimationDuration: string
@@ -183,6 +191,19 @@ export class ViewCardComponent implements OnInit, OnDestroy {
     });
   }
 
+  openDialogEditList(
+    enterAnimationDuration: string,
+    exitAnimationDuration: string,
+    list: [],
+  ): void {
+    this.activeModal.open(EditListComponent, {
+      data: list,
+      width: '620px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+  }
+
   openDialogAnexo(
     enterAnimationDuration: string,
     exitAnimationDuration: string
@@ -226,6 +247,7 @@ export class ViewCardComponent implements OnInit, OnDestroy {
     await this.cardServices.addCommentService(id!, dados).subscribe();
     this.snackBar.openSnackBar('Comentário adicionado com sucesso!');
 
+    this.viewForm.reset()
     setTimeout(() => {
       this.refresh();
     }, 500);
@@ -366,17 +388,7 @@ export class ViewCardComponent implements OnInit, OnDestroy {
   noShowEList() {
     return (this.showEditList = false);
   }
-
-  editLists(_id: string) {
-    const titleList = this.viewForm.value;
-    const dados = {
-      title: titleList.titleList,
-    };
-    this.taskService.editListService(_id, dados).subscribe();
-    this.snackBar.openSnackBar('Título alterado com sucesso!');
-    this.showEditList = false;
-    this.refresh();
-  }
+ 
 
   // Tasks item
 
@@ -395,7 +407,7 @@ export class ViewCardComponent implements OnInit, OnDestroy {
 
    onTaskClick(task: Task){
     this.taskService.completeTaskService(task).subscribe(() => {      
-      task.completed = !task.completed;
-    });
+      task.completed = !task.completed; 
+    });  
    }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ɵinitDomAdapter } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { SnackBarComponent } from 'src/app/components/snack-bar/snack-bar.component';
 
 import { Card } from 'src/app/model/Card';
 import { AlertService } from 'src/app/services/alert.service';
@@ -20,7 +21,8 @@ export class NewCardComponent implements OnInit {
   constructor(
     private router: Router,
     private cardServices: CardService,
-    private alert: AlertService
+    private alert: AlertService,
+    private snackBAr: SnackBarComponent
   ) {}
 
   ngOnInit(): void {}
@@ -28,9 +30,7 @@ export class NewCardComponent implements OnInit {
   async createCard(data: Card) {
     
     const codRandon: number =  9999;
-  
-    console.log("value da lista", data.tag);
-    
+   
     try {
       const dados = {
         code:  Math.floor(Math.random() * codRandon),
@@ -43,10 +43,9 @@ export class NewCardComponent implements OnInit {
       
 
       if (data.title) {
-        await this.cardServices.createCard(dados).subscribe();
+        await this.cardServices.createCard(dados).subscribe();    
 
-        this.alert.add('Card cadastrado com sucesso!');
-       
+        this.snackBAr.openSnackBar('Card cadastrado com sucesso!');   
 
         setTimeout(() => {
           this.router.navigate(['/']);

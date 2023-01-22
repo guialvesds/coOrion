@@ -646,12 +646,20 @@ button:hover {
 }
 .title-task h3 {
     font-size: 1em;
-    
+   
 }
 
 .title-task label {
     margin-left: 2px;
-    
+    cursor: pointer;
+}
+
+.title-task button {
+    border: 0;    
+    width: 100%;
+}
+.title-task button:hover{
+    color: #000;    
 }
 
 .complete {
@@ -753,4 +761,10 @@ button:hover {
 
 .mat-menu > button:hover {
     color: #333333;
+}
+.action-task {
+    border: 0;
+    cursor: pointer;
+    background-color: red;
+
 }

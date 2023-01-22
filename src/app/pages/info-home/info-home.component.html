@@ -5,7 +5,10 @@
       <input type="text" name="search" id="" (input)="searchs($event)">
     </div>
     <div class="new">
-      <input type="button" value="+ Adicionar" routerLink="/newCard">
+      <input type="button" value="+ Adicionar" routerLink="/newCard"
+      matTooltip="Adicionar novo card"         
+      matTooltipHideDelay="100"
+      >
     </div>
   </div>
 
@@ -18,7 +21,7 @@
             <tr>
               <th>Código</th>
               <th>Cartão</th>
-              <th>Lista</th>
+              <th>Tag</th>
               <th>Data de Entrega</th>
               <th>ações</th>
             </tr>
@@ -28,7 +31,7 @@
       <div class="tbl-content">
         <table cellpadding="0" cellspacing="0" class="tableBody">
           <tbody id="tabela-contas" *ngIf="cards; else noProducts">
-            <tr *ngFor="let card of cards" class="tr">
+            <tr *ngFor="let card of cards;" class="tr">
               <td>{{card.code}}</td>
               <td>{{card.title}}</td>
               <td>{{card.tag}}</td>
@@ -39,13 +42,22 @@
                 <td><span>--/--/--</span></td>
               </ng-template>
               <td class="action">
-                <button type="button" class="edit" routerLink="card/edit/{{card._id}}">
+                <button type="button" class="edit" routerLink="card/edit/{{card._id}}"
+                matTooltip="Editar"          
+                matTooltipHideDelay="100"
+                >
                   <fa-icon [icon]="editIcon"></fa-icon>
                 </button>
-                <button type="button" class="exclui" (click)="remove(card._id)">
+                <button type="button" class="exclui" (click)="remove(card._id)"
+                matTooltip="Excluir"          
+                matTooltipHideDelay="100"                
+                >
                   <fa-icon [icon]="removeIcon"></fa-icon>
                 </button>
-                <button type="button" class="view" routerLink="card/view/{{card._id}}">
+                <button type="button" class="view" routerLink="card/view/{{card._id}}"
+                matTooltip="Visualizar card"          
+                matTooltipHideDelay="100" 
+                >
                 <!-- <button type="button" class="view" (click)="openDialogMember('400ms', '400ms')"> -->
                   <fa-icon [icon]="vewIcon"></fa-icon>
                 </button>

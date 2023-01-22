@@ -62,12 +62,6 @@ export class MemberComponent implements OnInit {
     console.log(this.cardData);
   }
 
-  // buildUsers() {
-  //   const values = this.userData.map((v: any) => new FormControl(v));
-
-  //   return this.formBuid.array(values);
-  // }
-
   getMembersControls() {
     return this.memberForm.get('memberList')
       ? (<FormArray>this.memberForm.get('memberList')).controls
@@ -79,7 +73,7 @@ export class MemberComponent implements OnInit {
     const value = target.value;
 
     this.userData = this.allUserData.filter(
-      (item: { name: any; email: any }) => {
+      (item: { name: string; email: string }) => {
         return (
           item.name!.toLowerCase().includes(value) ||
           item.email!.toLowerCase().includes(value)
@@ -92,13 +86,11 @@ export class MemberComponent implements OnInit {
     await this.UserService.findUsers().subscribe((item) => {
       this.userData = item;
       this.allUserData = item;
-
-      console.log('userdata', item);
     });
   }
 
   onchange(e: Event, user: User) {
-    let cheched = ((<HTMLInputElement>e.target).checked = true);
+    let checked = ((<HTMLInputElement>e.target).checked = true);
 
     let memberId: string = '';
     let userId: any = '';
@@ -109,10 +101,10 @@ export class MemberComponent implements OnInit {
       memberId = item.userId;
     });
 
-    if (memberId == user._id) {
-      console.log('Ops, membro já existe nesse cartão.');
-    } else if(!cheched && userId !== user._id) {
-      console.log('É necessário selecionar pelo menos uma opção.');
+    if (memberId === user._id) {
+      this.snackBar.openSnackBar('Ops, membro já existe nesse cartão.');
+    } else if(!checked && userId !== user._id) {
+      this.snackBar.openSnackBar('É necessário selecionar pelo menos uma opção.');
     }
 
     let cardId = this.cardData._id;

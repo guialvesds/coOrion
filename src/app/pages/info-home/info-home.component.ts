@@ -15,6 +15,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { ViewCardComponent } from '../view-card/view-card.component';
+import { SnackBarComponent } from 'src/app/components/snack-bar/snack-bar.component';
 
 @Component({
   selector: 'app-info-home',
@@ -30,7 +31,7 @@ export class InfoHomeComponent implements OnInit {
   idCard!: Card;
 
   totalP!: number;
-  search: any = '';
+  search: string = '';
 
   editIcon = faPen;
   removeIcon = faXmark;
@@ -45,6 +46,7 @@ export class InfoHomeComponent implements OnInit {
     private dialogService: MatDialog,
     private route: Router,
     public activeModal: MatDialog,
+    private snackBar: SnackBarComponent,
   ) {}
 
   ngOnInit(): void {
@@ -56,7 +58,7 @@ export class InfoHomeComponent implements OnInit {
         this.cards = data;
         this.allCards = data;
         this.totalP = data.length;
-        console.log(data);
+        console.log(this.cards);
    
       },
       (error) => {
@@ -67,8 +69,7 @@ export class InfoHomeComponent implements OnInit {
       }
     );
 
-    this.userServices.findUsers();
-    
+    this.userServices.findUsers();    
   }
 
   //Pesquisa
@@ -88,16 +89,12 @@ export class InfoHomeComponent implements OnInit {
 
   async remove(id: any) {
     await this.cardServices.removeCard(id).subscribe();
-
-    console.log('Card excluído com sucesso!');
-
     setTimeout(() => {
       this.cardServices.getCard().subscribe((item) => {
         const data = item.data;
         this.cards = data;
-        this.totalP = data.length;
-
-        this.alert.add('Card excluído com sucesso!');
+        this.totalP = data.length;       
+        this.snackBar.openSnackBar('Card excluído com sucesso!');
       });
     }, 600);
   }

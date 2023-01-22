@@ -42,9 +42,6 @@ export class CardFormComponent implements OnInit {
       ),
     });
 
-    // if(!this.productData){
-    //   this.code.disable
-    // }
   }
 
   get code() {

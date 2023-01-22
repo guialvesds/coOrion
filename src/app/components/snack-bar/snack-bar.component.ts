@@ -22,10 +22,10 @@ export class SnackBarComponent implements OnInit {
   }
 
   openSnackBar(message: string) {
-    this._snackBar.open(message, 'Fechar', {
+    this._snackBar.open(message,  'Fechar', {
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,
-      duration: 3500
+      duration: 3500,      
     });
   }
 
