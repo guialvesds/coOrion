@@ -35,6 +35,7 @@ import { Obj } from '@popperjs/core';
 import { TaskComponent } from './task/task.component';
 import { EditTaskComponent } from './edit-task/edit-task.component';
 import { EditListComponent } from './edit-list/edit-list.component';
+import { ViewImageComponent } from './view-image/view-image.component';
 
 @Component({
   selector: 'app-view-card',
@@ -74,13 +75,6 @@ export class ViewCardComponent implements OnInit, OnDestroy {
   listData!: any;
   tasks: any = {};  
   allTasks: any;
-
-  typeArch: string[] = [
-    '.jpg',    
-    '.jpeg',    
-    '.png',    
-    '.gif',
-  ]
 
   private subScriptions: Subscription[] = [];
 
@@ -211,6 +205,19 @@ export class ViewCardComponent implements OnInit, OnDestroy {
     this.activeModal.open(AttachComponent, {
       data: this.cardData,
       width: '420px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+  }
+
+  openDialogImage(
+    enterAnimationDuration: string,
+    exitAnimationDuration: string,
+    image: string
+  ): void {
+    this.activeModal.open(ViewImageComponent, {
+      data: image,
+      width: 'auto',
       enterAnimationDuration,
       exitAnimationDuration,
     });

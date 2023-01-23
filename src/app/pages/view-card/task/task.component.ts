@@ -18,8 +18,7 @@ import {
   faArrowsRotate,
   faTrashAlt,
 } from '@fortawesome/free-solid-svg-icons';
-
-import { MatSnackBar } from '@angular/material/snack-bar';
+;
 import { TaskService } from 'src/app/services/task.service';
 
 @Component({

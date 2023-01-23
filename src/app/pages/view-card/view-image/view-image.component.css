@@ -1,0 +1,11 @@
+.image-div {
+    margin: 0, auto;
+    padding: 0;
+}
+
+.image-div > img {
+    max-width: 1180px;
+    max-height: 550px;
+    width: auto;
+    height: auto;
+}

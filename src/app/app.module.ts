@@ -39,6 +39,8 @@ import {MatIconModule} from '@angular/material/icon';
 import { EditTaskComponent } from './pages/view-card/edit-task/edit-task.component';
 import { EditListComponent } from './pages/view-card/edit-list/edit-list.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { ViewImageComponent } from './pages/view-card/view-image/view-image.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     ListComponent,
     TaskComponent,
     EditTaskComponent,
-    EditListComponent
+    EditListComponent,
+    ViewImageComponent
   ],
   imports: [
     BrowserModule,
@@ -79,7 +82,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatSnackBarModule, 
     MatExpansionModule,
     MatIconModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatProgressSpinnerModule
   ],
   providers: [{provide: MAT_DATE_LOCALE, useValue: 'pt-BR'},
   SnackBarComponent],

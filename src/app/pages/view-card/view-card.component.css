@@ -533,8 +533,8 @@ button:hover {
     padding: 10px 5px;
 }
 
-.file-class h1 {
-    margin-bottom: -10px;
+.file-class > h1 {
+    margin-bottom: -3px;
 }
 
 .file-img {
@@ -546,7 +546,11 @@ button:hover {
 .file-img img {
     width: 5.6rem;
     /* height: 5.6rem; */
+}
 
+.file-img > button {
+   border: 0;
+    /* height: 5.6rem; */
 }
 
 .file-title {
@@ -570,7 +574,7 @@ button:hover {
 }
 
 .file-buttons {
-    width: 45%;
+    width: 30%;
     display: flex;
     justify-content: space-around;
     align-items: center;

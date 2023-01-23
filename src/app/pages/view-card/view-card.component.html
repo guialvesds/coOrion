@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="card">
+    <div class="card" *ngIf="cardData; else noCardData">
         <div class="headerContent">
             <div class="title">
                 <h1>{{cardData.title!}}</h1>
@@ -126,9 +126,10 @@
                         <div class="file-class" *ngIf="cardData.files.length > 0">
                             <h1>Arquivos</h1>
                             <div *ngFor="let file of cardData.files" class="file-contianer">
-                                <div class="file-img"
-                                    *ngIf="file.detail.type !== '.pdf' || '.docx'; else noImage">
-                                    <img src="{{file.detail.location}}" alt="Imagem do arquivo">
+                                <div class="file-img" *ngIf="file.detail.type !== '.pdf' || '.docx'; else noImage">
+                                    <button (click)="openDialogImage('300ms', '300ms', file.detail.location)">
+                                        <img src="{{file.detail.location}}" alt="Imagem do arquivo">
+                                    </button>
                                 </div>
                                 <ng-template class="file-contianer" #noImage>
                                     <div class="file-img">
@@ -145,7 +146,7 @@
                                             }}</h4>
                                         <div class="file-buttons">
                                             <a href="{{file.detail.location}}" target="_blank">Download</a>
-                                            <button>Editar</button>
+                                            <!-- <button>Editar</button> -->
                                             <button
                                                 (click)="deleteArch(file.detail.key, cardData._id, file.idFile)">Excluir</button>
                                         </div>
@@ -237,5 +238,10 @@
                 </div>
             </div>
         </cdk-virtual-scroll-viewport>
+    </div>    
+    <div class="no-card">
+        <ng-template #noCardData>
+            <mat-spinner></mat-spinner>
+        </ng-template>
     </div>
 </div>

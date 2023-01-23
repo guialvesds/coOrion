@@ -30,7 +30,7 @@
       </div>
       <div class="tbl-content">
         <table cellpadding="0" cellspacing="0" class="tableBody">
-          <tbody id="tabela-contas" *ngIf="cards; else noProducts">
+          <tbody id="tabela-contas" *ngIf="cards; else noData">
             <tr *ngFor="let card of cards;" class="tr">
               <td>{{card.code}}</td>
               <td>{{card.title}}</td>
@@ -64,14 +64,17 @@
               </td>
             </tr>
           </tbody>
+          <div class="spin-noData">
+            <ng-template #noData >
+              <mat-spinner style="margin:10rem auto;" 
+              mode="indeterminate"></mat-spinner>
+            </ng-template>
+          </div>
         </table>
       </div>
     </section>
-  </div>
+  </div>  
   <div class="footerProduct">
     <h3 clas>Total de Cartões cadastrados: {{totalP}}</h3>
-  </div>
-  <ng-template #noProducts>
-    <h1>Carregando...</h1>
-  </ng-template>
+  </div>  
 </div>
