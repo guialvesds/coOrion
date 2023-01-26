@@ -35,7 +35,8 @@
               <td>{{card.code}}</td>
               <td>{{card.title}}</td>
               <td>{{card.tag}}</td>
-              <td *ngIf="card.delivery_date; else noDate"><span>{{card.delivery_date.toLocaleString('pt-BR').substring(0
+              <!-- <td [ngStyle]="{'color': dateColor, 'font-weight': 500}" *ngIf="card.delivery_date; else noDate"><span>{{card.delivery_date.toLocaleString('pt-BR').substring(0 -->
+              <td [ngStyle]="{'color': card.color}" *ngIf="card.delivery_date; else noDate"><span>{{card.delivery_date.toLocaleString('pt-BR').substring(0
                   ,
                   10).split('-').reverse().join('/')}}</span></td>
               <ng-template #noDate>

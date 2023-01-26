@@ -31,7 +31,7 @@ import { AttachComponent } from './attach/attach.component';
 import { SnackBarComponent } from 'src/app/components/snack-bar/snack-bar.component';
 import { ListComponent } from './list/list.component';
 import { TaskService } from 'src/app/services/task.service';
-import { Obj } from '@popperjs/core';
+import { Obj, end } from '@popperjs/core';
 import { TaskComponent } from './task/task.component';
 import { EditTaskComponent } from './edit-task/edit-task.component';
 import { EditListComponent } from './edit-list/edit-list.component';
@@ -76,6 +76,8 @@ export class ViewCardComponent implements OnInit, OnDestroy {
   tasks: any = {};  
   allTasks: any;
 
+  dateColor: string = '';
+
   private subScriptions: Subscription[] = [];
 
   constructor(
@@ -95,24 +97,23 @@ export class ViewCardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.refresh();
 
-    this.viewForm = this.formBuild.group({
+    this.viewForm = this.formBuild.group({ //criar metodo e encapsular
       description: new FormControl(
         this.cardData ? this.cardData.description : ''
       ),
       comment: new FormControl(''),
       commentText: new FormControl(),
-      titleList: new FormControl(this.listData ? this.listData.title : ''),
+      titleList: new FormControl(this.listData ? this.listData.title : ''), // criar separademento no metodo de get
       checkboxI: new FormControl()
-    });       
-    
+    });  
   }
 
   // Destroi as chamadas de subscribe
   ngOnDestroy(): void {
-    this.subScriptions.forEach((item) => item.unsubscribe());
+    this.subScriptions.forEach((item) => item.unsubscribe()); // usar com for
   }
 
-  refresh() {
+  refresh(): void {
     this.getCard();
     this.getList();   
   }
@@ -132,6 +133,7 @@ export class ViewCardComponent implements OnInit, OnDestroy {
       this.comments = this.cardData.comments;
       this.idUser = this.comments.userId;
       console.log(this.cardData);
+      this.calculateDate();
     });
   }
   
@@ -144,6 +146,8 @@ export class ViewCardComponent implements OnInit, OnDestroy {
       width: '420px',
       enterAnimationDuration,
       exitAnimationDuration,
+    }).afterClosed().subscribe({
+      next: (res) => console.log(res)  
     });
   }
 
@@ -156,6 +160,8 @@ export class ViewCardComponent implements OnInit, OnDestroy {
       width: '420px',
       enterAnimationDuration,
       exitAnimationDuration,
+    }).afterClosed().subscribe({
+      next: (res) => console.log(res)  
     });
   }
 
@@ -223,7 +229,31 @@ export class ViewCardComponent implements OnInit, OnDestroy {
     });
   }
 
-  async putDescription() {
+  calculateDate(){    
+    const iniDate: any = new Date();
+    const endDate: any = new Date(this.cardData.delivery_date);
+
+     const diffTime = Math.abs(endDate - iniDate);
+     const timeInOneDay = 1000 * 60 * 60 * 24; // milesegundos * segundos * horas dia
+     const diffDays = Math.ceil(diffTime / timeInOneDay); 
+     
+     console.log('datas', iniDate, endDate, diffDays);
+
+     if(diffDays <= 2 ){
+        this.dateColor = 'red';
+        return ;
+     } 
+     if(diffDays >= 3 && diffDays <= 5 ) {
+      this.dateColor = 'orange';
+      return ;
+     } 
+     if(diffDays >= 6) {
+      this.dateColor = 'green';
+      return ;
+     }       
+  }
+
+   putDescription() {
     const id = this.cardData._id;
     const desc = this.viewForm.value;
 
@@ -231,7 +261,7 @@ export class ViewCardComponent implements OnInit, OnDestroy {
       description: desc.description,
     };
 
-    await this.subScriptions.push(
+     this.subScriptions.push(
       this.cardServices.editCard(id!, dados).subscribe()
     );
     this.snackBar.openSnackBar('Descrição adicionada com sucesso!');
@@ -242,7 +272,7 @@ export class ViewCardComponent implements OnInit, OnDestroy {
     this.nShowDesc = false;    
   }
 
-  async addComments() {
+   addComments() {
     const id = this.cardData._id;
 
     const textComemnt = this.viewForm.value;
@@ -251,7 +281,7 @@ export class ViewCardComponent implements OnInit, OnDestroy {
       comment: textComemnt.comment,
     };
 
-    await this.cardServices.addCommentService(id!, dados).subscribe();
+    this.cardServices.addCommentService(id!, dados).subscribe();
     this.snackBar.openSnackBar('Comentário adicionado com sucesso!');
 
     this.viewForm.reset()

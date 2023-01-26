@@ -197,4 +197,14 @@
       box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
   }
 
+  .data-color-red {
+    color: red;
+  }
+
+  .data-color-orange {
+    color: orange;
+  }
+  .data-color-green {
+    color: green;
+  }
 

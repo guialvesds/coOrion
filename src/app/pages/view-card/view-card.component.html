@@ -19,7 +19,7 @@
                 <div class="vewContent">
                     <div class="header">
                         <h3>Data de entrega</h3>
-                        <p *ngIf="cardData.delivery_date; else noData">{{cardData.delivery_date!.toLocaleString().substring(0 ,
+                        <p [ngStyle]="{'color': dateColor}" *ngIf="cardData.delivery_date; else noData">{{cardData.delivery_date!.toLocaleString().substring(0 ,
                             10).split('-').reverse().join('/')}}</p>
                     </div>
                     <ng-template #noData>
@@ -54,7 +54,7 @@
                             </div>
                         </div>
                         <!-- CHECKLIST -->
-                        <div *ngIf="listData.length > 0">
+                        <div *ngIf="listData.length">
                         <div class="formGroup" >
                             <h2>Checklist</h2>
                             <div class="content-list-task" *ngFor="let list of listData">

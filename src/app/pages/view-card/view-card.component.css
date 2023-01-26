@@ -6,16 +6,15 @@
     align-items: center;
     flex-direction: column;
     background-color: white;
-
 }
 
 .card {
     background-color: #ececec;
     width: 70%;
+    height: 95%;
     padding: 1rem;
     border-radius: .5rem;
-    box-shadow: 2px 3px 5px #52525252;
-    /* background-color: #a5a5a552; */
+    box-shadow: 2px 3px 5px #52525252;    
 }
 
 .headerContent {
@@ -80,6 +79,7 @@ button:hover {
     background-color: #ebebeb;
     width: 90px;
     text-align: center;
+    font-weight: 500;
 }
 
 .addContent {
