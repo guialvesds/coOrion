@@ -126,11 +126,15 @@
 
     td{
       padding: 8px 15px;
-      font-weight: 300;
+      font-weight: 500;
       font-size: 14px;
       color: rgb(75, 75, 75);
       border: 5px;  
       border-bottom: solid 1px rgb(240, 240, 240);
+    }
+
+    td > a {
+      color: rgb(75, 75, 75);
     }
 
     /* td:first-child{

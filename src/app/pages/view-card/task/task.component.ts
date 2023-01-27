@@ -78,7 +78,7 @@ export class TaskComponent implements OnInit {
         this.titleFormat = false;
         setTimeout(() => {
           this.closeDialog();
-        }, 1000);
+        }, 350);
       },
       (err) => {
         console.log(err);

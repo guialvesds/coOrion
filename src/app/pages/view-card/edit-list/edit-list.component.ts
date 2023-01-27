@@ -67,7 +67,7 @@ export class EditListComponent implements OnInit {
     this.snackBar.openSnackBar('Título alterado com sucesso!'); 
         setTimeout(() => {
           this.closeDialog();   
-        }, 1000);       
+        }, 350);       
   }
 }
 

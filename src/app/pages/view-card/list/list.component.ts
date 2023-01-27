@@ -60,7 +60,7 @@ export class ListComponent implements OnInit {
       title: new FormControl(),
     });
 
-    console.log('dados Card', this.cardData);
+    console.log('dados Card', this.cardData._id);
   }
 
   closeDialog() {
@@ -68,7 +68,7 @@ export class ListComponent implements OnInit {
   }
 
   createList() {
-    const idCard = this.cardData._id;
+    const idCard: any = this.cardData._id;
 
     const dados = {
       title: this.listForm.value.title,
@@ -83,10 +83,10 @@ export class ListComponent implements OnInit {
       this.taskService.createListService(idCard, dados).subscribe(
         () => {
           this.snackBar.openSnackBar('Lista criada com sucesso!');
-          this.titleFormat = false;
-          setTimeout(() => {
+          this.titleFormat = false;          
+          setTimeout(() => {           
             this.closeDialog();
-          }, 1000);
+          }, 350);
         },
         (err) => {
           console.log(err);

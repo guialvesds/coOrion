@@ -83,7 +83,7 @@ export class EditTaskComponent implements OnInit {
 
     setTimeout(() => {
       this.closeDialog();
-    }, 1200);
+    }, 350);
     
    }
 

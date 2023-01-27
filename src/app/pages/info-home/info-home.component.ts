@@ -18,13 +18,6 @@ import { ViewCardComponent } from '../view-card/view-card.component';
 import { SnackBarComponent } from 'src/app/components/snack-bar/snack-bar.component';
 import { map } from 'rxjs';
 
-export enum StatusCard{
-  APPROVED = 'APPROVED',
-  WARNING = 'WARNING',
-  CANCEL = 'CANCEL',  
-  DEFEAULT = 'DEFEAULT',
-}
-
 @Component({
   selector: 'app-info-home',
   templateUrl: './info-home.component.html',
@@ -47,18 +40,6 @@ export class InfoHomeComponent implements OnInit {
 
   dateDelivery!: any;
 
-  dateColor: any = {
-    red: 'red',
-    defeaut: 'green',
-    orange: 'orange',
-  };
-
-statusColor: any = {
-    approved: this.getColorApproved,
-    warning: this.getColorWarning,
-    cancel:  this.getColorCancel,
-  };
-
   constructor(
     private cardServices: CardService,
     private alert: AlertService,
@@ -76,7 +57,7 @@ statusColor: any = {
       .pipe(
         map((card) => ({
           ...card,
-          data: card.data.map((c: any) => this.novo(c)),
+          data: card.data.map((c: any) => this.refDateColor(c)),
         }))
       )
       .subscribe({
@@ -100,61 +81,25 @@ statusColor: any = {
     this.userServices.findUsers();
   }
 
-  novo(c: any) {
-    // this.statusColor[this.validDiftoDayApproved(this.getDiffDate(c)).toLowerCase()]();
-
-    c.status = this.validDiftoDayApproved(this.getDiffDate(c));
-    
-    if (this.validDiftoDays(this.getDiffDate(c))) {
-      // c.color = 'data-color-red';
+  refDateColor(c: any) {
+    if (this.validRed(this.getDiffDate(c))) {
       c.color = 'red';
     }
-    if (this.validDiftoDaysT(this.getDiffDate(c))) {
+    if (this.validOrange(this.getDiffDate(c))) {
       c.color = 'orange';
-    } else if (this.validDiftoDaysN(this.getDiffDate(c))) {
+    } else if (this.validGreen(this.getDiffDate(c))) {
       c.color = 'green';
     }
-    // console.log(this.statusColor[this.validDiftoDayApproved(this.getDiffDate(c)).toLowerCase()]());
-    
     return c;
   }
 
-  // trueDate(): string {
-  //   if(this.validDiftoDays(this.getDiffDate(c))){
-  //     return this.dateColor.red;
-  //   }
-
-  //   return
-  // }
-
-  validDiftoDayApproved(diffDays: number): String {
-    return diffDays <= 2 ? StatusCard.APPROVED : StatusCard.DEFEAULT
-  }
-   validDiftoDaysTWarning(diffDays: number): string {
-    return diffDays >= 3 && diffDays <= 5 ? StatusCard.WARNING : StatusCard.DEFEAULT;
-  }
-  validDiftoDaysCancel(diffDays: number): string {
-    return diffDays >= 6 ? StatusCard.CANCEL : StatusCard.DEFEAULT;
-  }
-
-  getColorApproved(){
-    return this.dateColor.green
-  }
-  getColorWarning(){
-    return this.dateColor.orange
-  }  
-  getColorCancel(){
-    return this.dateColor.red
-  }
-  
-
-  validDiftoDays(diffDays: number): boolean {
+  validRed(diffDays: number): boolean {
     return diffDays <= 2;
   }
-  validDiftoDaysT(diffDays: number): boolean {
+  validOrange(diffDays: number): boolean {
     return diffDays >= 3 && diffDays <= 5;
   }
-  validDiftoDaysN(diffDays: number): boolean {
+  validGreen(diffDays: number): boolean {
     return diffDays >= 6;
   }
 
@@ -180,19 +125,21 @@ statusColor: any = {
         tag: string;
         code: { toString: () => string | string[] };
         delivery_date: { toString: () => string | string[] };
+        description: { toString: () => string | string[] };
       }) => {
         return (
           item.title!.toLowerCase().includes(value) ||
           item.tag!.toLowerCase().includes(value) ||
           item.code?.toString().includes(value) ||
-          item.delivery_date?.toString().includes(value)
+          item.delivery_date?.toString().includes(value) ||
+          item.description?.toString().includes(value)
         );
       }
     );
   }
 
-  async remove(id: any) {
-    await this.cardServices.removeCard(id).subscribe();
+  remove(id: any) {
+    this.cardServices.removeCard(id).subscribe();
     setTimeout(() => {
       this.cardServices.getCard().subscribe((item) => {
         const data = item.data;
@@ -212,27 +159,6 @@ statusColor: any = {
       // width: '820px',
       enterAnimationDuration,
       exitAnimationDuration,
-    });
-  }
-
-  calculateDate() {
-    this.cards.forEach((item: { delivery_date: string | number | Date }) => {
-      const endDate: any = new Date(item.delivery_date);
-      const iniDate: any = new Date();
-
-      const diffTime = Math.abs(iniDate - endDate);
-      const timeDay = 1000 * 60 * 60 * 24; // milesegundos * segundos * horas dia
-      const diffDays = Math.ceil(diffTime / timeDay);
-
-      console.log('datas', iniDate, endDate, diffDays);
-
-      if (diffDays <= 2) {
-        return 'data-color-red';
-      }
-      if (diffDays >= 3 && diffDays <= 5) {
-        return 'data-color-orange';
-      }
-      return 'data-color-green';
     });
   }
 }

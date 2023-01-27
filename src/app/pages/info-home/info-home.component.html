@@ -33,7 +33,7 @@
           <tbody id="tabela-contas" *ngIf="cards; else noData">
             <tr *ngFor="let card of cards;" class="tr">
               <td>{{card.code}}</td>
-              <td>{{card.title}}</td>
+              <td><a routerLink="card/view/{{card._id}}">{{card.title}}</a></td>
               <td>{{card.tag}}</td>
               <!-- <td [ngStyle]="{'color': dateColor, 'font-weight': 500}" *ngIf="card.delivery_date; else noDate"><span>{{card.delivery_date.toLocaleString('pt-BR').substring(0 -->
               <td [ngStyle]="{'color': card.color}" *ngIf="card.delivery_date; else noDate"><span>{{card.delivery_date.toLocaleString('pt-BR').substring(0
@@ -58,8 +58,7 @@
                 <button type="button" class="view" routerLink="card/view/{{card._id}}"
                 matTooltip="Visualizar card"          
                 matTooltipHideDelay="100" 
-                >
-                <!-- <button type="button" class="view" (click)="openDialogMember('400ms', '400ms')"> -->
+                >      
                   <fa-icon [icon]="vewIcon"></fa-icon>
                 </button>
               </td>
