@@ -94,8 +94,9 @@ export class ViewCardComponent implements OnInit, OnDestroy {
     
   }
 
-  ngOnInit(): void {
-    this.refresh();
+  ngOnInit(): void {   
+    this.getCard();
+    this.getList()
 
     this.viewForm = this.formBuild.group({ //criar metodo e encapsular
       description: new FormControl(
@@ -114,8 +115,7 @@ export class ViewCardComponent implements OnInit, OnDestroy {
   }
 
   refresh(): void {
-    this.getCard();
-    this.getList();   
+   window.location.reload();
   }
 
   get description() {
@@ -175,6 +175,8 @@ export class ViewCardComponent implements OnInit, OnDestroy {
       width: '620px',
       enterAnimationDuration,
       exitAnimationDuration,
+    }).afterClosed().subscribe({
+      next: (res) => console.log(res)  
     });
   }
 
@@ -188,6 +190,8 @@ export class ViewCardComponent implements OnInit, OnDestroy {
       width: '620px',
       enterAnimationDuration,
       exitAnimationDuration,
+    }).afterClosed().subscribe({
+      next: (res) => console.log(res)  
     });
   }
 
@@ -201,6 +205,8 @@ export class ViewCardComponent implements OnInit, OnDestroy {
       width: '620px',
       enterAnimationDuration,
       exitAnimationDuration,
+    }).afterClosed().subscribe({
+      next: (res) => console.log(res)  
     });
   }
 
@@ -213,6 +219,8 @@ export class ViewCardComponent implements OnInit, OnDestroy {
       width: '420px',
       enterAnimationDuration,
       exitAnimationDuration,
+    }).afterClosed().subscribe({
+      next: (res) => console.log(res)  
     });
   }
 
@@ -226,6 +234,8 @@ export class ViewCardComponent implements OnInit, OnDestroy {
       width: 'auto',
       enterAnimationDuration,
       exitAnimationDuration,
+    }).afterClosed().subscribe({
+      next: (res) => console.log(res)  
     });
   }
 
@@ -267,7 +277,7 @@ export class ViewCardComponent implements OnInit, OnDestroy {
     this.snackBar.openSnackBar('Descrição adicionada com sucesso!');
 
     setTimeout(() => {
-      this.refresh();
+      this.getCard();
     }, 500);
     this.nShowDesc = false;    
   }
@@ -286,7 +296,7 @@ export class ViewCardComponent implements OnInit, OnDestroy {
 
     this.viewForm.reset()
     setTimeout(() => {
-      this.refresh();
+      this.getCard();
     }, 500);
 
     this.nShowDesc = false;    

@@ -121,5 +121,6 @@ export class MemberComponent implements OnInit {
 
   closeDialog(){
     this.dialogRef.close();
+    window.location.reload();
   }
 }

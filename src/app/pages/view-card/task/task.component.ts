@@ -72,20 +72,26 @@ export class TaskComponent implements OnInit {
       member: member.memberTask,
       delivery_date: this.taskForm.value.delivery_date
     }
-    this.taskService.addTasksServices(listId, dados).subscribe(
-      () => {
-        this.snackBar.openSnackBar('Tarefa criada com sucesso!');
-        this.titleFormat = false;
-        setTimeout(() => {
-          this.closeDialog();
-        }, 350);
-      },
-      (err) => {
-        console.log(err);
-        this.snackBar.openSnackBar(
-          'Ops, não foi possível criar a sua Tarefa!'
-        );
-      }
-    );
+
+    if(title.titleTask == null){
+      this.titleFormat = true;
+    } else {
+      this.taskService.addTasksServices(listId, dados).subscribe(
+        () => {
+          this.snackBar.openSnackBar('Tarefa criada com sucesso!');
+          this.titleFormat = false;
+          setTimeout(() => {
+            this.closeDialog();
+            window.location.reload();
+          }, 350);
+        },
+        (err) => {
+          console.log(err);
+          this.snackBar.openSnackBar(
+            'Ops, não foi possível criar a sua Tarefa!'
+          );
+        }
+      );
+    }  
   }
 }

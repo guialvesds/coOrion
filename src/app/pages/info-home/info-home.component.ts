@@ -66,7 +66,7 @@ export class InfoHomeComponent implements OnInit {
 
           this.cards = data;
           this.allCards = data;
-          this.totalP = data.length;
+          this.totalP = data.length;        
 
           // this.calculateDate();
         },

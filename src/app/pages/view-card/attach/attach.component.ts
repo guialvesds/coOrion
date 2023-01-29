@@ -79,6 +79,7 @@ export class AttachComponent implements OnInit {
 
       this.snackBar.openSnackBar('Arquivo adicionado com sucesso!');
       this.closeDialog();
+      window.location.reload();
     } catch (error) {
       this.snackBar.openSnackBar('Ops! Tente novamente.');
     }

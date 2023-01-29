@@ -22,6 +22,7 @@
               <th>Código</th>
               <th>Cartão</th>
               <th>Tag</th>
+              <!-- <th>Membros</th> -->
               <th>Data de Entrega</th>
               <th>ações</th>
             </tr>
@@ -35,6 +36,7 @@
               <td>{{card.code}}</td>
               <td><a routerLink="card/view/{{card._id}}">{{card.title}}</a></td>
               <td>{{card.tag}}</td>
+              <!-- <td>{{card.members.MemberName}}</td> -->
               <!-- <td [ngStyle]="{'color': dateColor, 'font-weight': 500}" *ngIf="card.delivery_date; else noDate"><span>{{card.delivery_date.toLocaleString('pt-BR').substring(0 -->
               <td [ngStyle]="{'color': card.color}" *ngIf="card.delivery_date; else noDate"><span>{{card.delivery_date.toLocaleString('pt-BR').substring(0
                   ,
