@@ -128,12 +128,12 @@
                             <div *ngFor="let file of cardData.files" class="file-contianer">
                                 <div class="file-img">
                                     <button (click)="openDialogImage('300ms', '300ms', file.detail.location)">
-                                        <img src="{{file.detail.location}}" alt="Imagem do arquivo" *ngIf="file.detail.type; else noImage">
+                                        <img src="{{file.detail.location}}" alt="Imagem do arquivo">
                                     </button>
                                 </div>
-                                <ng-template class="file-contianer" #noImage>                                    
+                                <!-- <ng-template class="file-contianer" #noImage>                                    
                                         <img src="../../../assets/Arquivo.jpg" alt="Imagem do arquivo">                                    
-                                </ng-template>
+                                </ng-template> -->
                                 <div class="file-content">
                                     <div class="file-title">
                                         <h2>{{file.detail.originalname}}</h2>
