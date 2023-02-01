@@ -66,7 +66,7 @@ export class AttachComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  upload(idCard: string) {
+  upload(idCard: any) {
     try {
       const idC = idCard;
       const dados = new FormData();
