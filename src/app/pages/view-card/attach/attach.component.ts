@@ -45,10 +45,7 @@ export class AttachComponent implements OnInit {
     this.cardData = data;
   }
 
-  ngOnInit(): void {
-    this.memberForm = this.formBuid.group({
-      uploadArq: new FormControl(),
-    });
+  ngOnInit(): void {    
   }
 
   onFileSelected(e: Event) {
@@ -69,7 +66,7 @@ export class AttachComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  upload(idCard: any) {
+  upload(idCard: string) {
     try {
       const idC = idCard;
       const dados = new FormData();
@@ -79,7 +76,7 @@ export class AttachComponent implements OnInit {
 
       this.snackBar.openSnackBar('Arquivo adicionado com sucesso!');
       this.closeDialog();
-      window.location.reload();
+      // window.location.reload();
     } catch (error) {
       this.snackBar.openSnackBar('Ops! Tente novamente.');
     }
