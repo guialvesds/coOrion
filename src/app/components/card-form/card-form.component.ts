@@ -30,6 +30,9 @@ export class CardFormComponent implements OnInit {
     'Concluído 🎉',
   ];
 
+  validation: boolean = false;
+  validationText: string = '';
+
   constructor(private formBuild: FormBuilder, private router: Router) {}
 
   ngOnInit(): void {
@@ -51,13 +54,15 @@ export class CardFormComponent implements OnInit {
     return this.cardForm.get('title')!;
   }
 
-  submit() {
-    // if(!this.name.valid){
-    //     return;
-    // }
-    console.log(this.cardForm.value);
-    this.onsubmit.emit(this.cardForm.value);
-    console.log(this.cardForm.value);
+  submit() { 
+    const inputValue =  this.cardForm.value;
+    const valueInput = inputValue.title;
+    if(valueInput == null){
+      this.validation = true;
+      this.validationText = "Título é obrigatório!"
+    } else {
+      this.onsubmit.emit(this.cardForm.value);    
+    }
   }
 
   back() {

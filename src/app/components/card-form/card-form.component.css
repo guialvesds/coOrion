@@ -100,3 +100,14 @@ mat-select {
     /* background-color: #297d80; */
     box-shadow: 5px 5px 10px grey;
 }
+
+.validation  {
+    border-left: solid 2.5px red;
+    height: 16px;
+    margin: 3px;
+}
+
+.validation p {
+    color: red;
+    margin-left: 5px;
+}

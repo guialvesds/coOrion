@@ -10,10 +10,9 @@ import { CardService } from 'src/app/services/card.service';
 @Component({
   selector: 'app-new-card',
   templateUrl: './new-card.component.html',
-  styleUrls: ['./new-card.component.css']
+  styleUrls: ['./new-card.component.css'],
 })
 export class NewCardComponent implements OnInit {
-
   btnText = 'Cadastrar';
 
   title = 'Novo Cartão';
@@ -27,39 +26,30 @@ export class NewCardComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  async createCard(data: Card) {
-    
-    const codRandon: number =  9999;
-   
+  createCard(data: Card) {
+    const codRandon: number = 9999;
+
     try {
       const dados = {
-        code:  Math.floor(Math.random() * codRandon),
+        code: Math.floor(Math.random() * codRandon),
         title: data.title,
-        tag: data.tag, 
+        tag: data.tag,
         delivery_date: data.delivery_date,
       };
 
-      console.log("Data", dados);
-      
-
       if (data.title) {
-        await this.cardServices.createCard(dados).subscribe();    
+        this.cardServices.createCard(dados).subscribe();
 
-        this.snackBAr.openSnackBar('Card cadastrado com sucesso!');   
+        this.snackBAr.openSnackBar('Card cadastrado com sucesso!');
 
         setTimeout(() => {
           this.router.navigate(['/']);
         }, 1000);
-
-        console.log('Card cadastrado com sucesso!');
       } else {
         this.alert.add('Campos title é obrigatórios!');
       }
     } catch (error) {
       this.alert.add('Error ao cadastrar Card!');
-
-      console.log('Erro ao cadastrar Card.', error);
     }
   }
 }
-
