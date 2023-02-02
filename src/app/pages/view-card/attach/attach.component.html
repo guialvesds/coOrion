@@ -5,10 +5,13 @@
         <fa-icon [icon]="faXmark"></fa-icon>
     </button>
   </div>
-  <form [formGroup]="memberForm">
+  <form>
     <div >
+      <div class="validation" *ngIf="validation">
+        <p>{{validationText}}</p>
+      </div>
       <div class="conteinerFile">
-          <input type="file" formControlName="uploadArq" (change)="onFileSelected($event)">
+          <input type="file"  (change)="onFileSelected($event)">
       </div> 
       <div  *ngIf="hasFile()" class="importedTilte">
         <h2>Arquivo importado!</h2> 

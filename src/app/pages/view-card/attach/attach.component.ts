@@ -33,6 +33,9 @@ export class AttachComponent implements OnInit {
 
   file!: File;
 
+  validation: boolean = false;
+  validationText: string = '';
+
   constructor(
     private router: Router,
     private snackBar: SnackBarComponent,
@@ -45,8 +48,7 @@ export class AttachComponent implements OnInit {
     this.cardData = data;
   }
 
-  ngOnInit(): void {    
-  }
+  ngOnInit(): void {}
 
   onFileSelected(e: Event) {
     if (!e?.target) {
@@ -67,18 +69,24 @@ export class AttachComponent implements OnInit {
   }
 
   upload(idCard: any) {
-    try {
-      const idC = idCard;
-      const dados = new FormData();
-      dados.append('uploads', this.file);
+    const idC = idCard;
+    const dados = new FormData();
+    dados.append('uploads', this.file);
 
-      this.cardServices.uploadArq(idC, dados).subscribe();
-
-      this.snackBar.openSnackBar('Arquivo adicionado com sucesso!');
-      this.closeDialog();
-      // window.location.reload();
-    } catch (error) {
-      this.snackBar.openSnackBar('Ops! Tente novamente.');
-    }
+    this.cardServices
+      .uploadArq(idC, dados)
+      .pipe()
+      .subscribe({
+        next: () => {
+          this.snackBar.openSnackBar('Arquivo adicionado com sucesso!');
+          this.closeDialog();
+          window.location.reload();
+        },
+        error: (err) => {
+          console.log('erro importação de arquivo', err);
+          this.validation = true;
+          this.validationText =
+            'Ops, não foi possível enviar o arquivo, tente novamente!';        },
+      });
   }
 }

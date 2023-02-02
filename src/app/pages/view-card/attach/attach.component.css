@@ -57,8 +57,7 @@ button {
   .conteinerFile input {
     width: 100%;
     border: none;
-    outline: none;
-    
+    outline: none;    
   }
 
   .conteinerFile label {
@@ -89,9 +88,20 @@ button {
     outline: none;
     background-color: rgb(63, 114, 63);
     color: rgb(255, 255, 255);
+    cursor: pointer;
   }
 
   .importedTilte > button:hover {
     background-color: rgb(52, 90, 52);
   }
 
+  .validation  {
+    border-left: solid 2.5px red;
+    height: 16px;
+    margin: 3px;
+}
+
+.validation p {
+    color: red;
+    margin-left: 5px;
+}
