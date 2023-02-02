@@ -92,8 +92,10 @@ mat-select {
     cursor: pointer;
 }
 .button input:last-child {
-    background-color: #b85a5a;
-    color: white;
+    background-color: #ffffff;
+    border: solid 1px #000;
+    color: #000;
+    font-weight: 500;
 }
 
 .button input:hover {    
