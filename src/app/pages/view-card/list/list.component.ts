@@ -86,7 +86,6 @@ export class ListComponent implements OnInit {
           this.titleFormat = false;          
           setTimeout(() => {           
             this.closeDialog();
-            window.location.reload();
           }, 350);
         },
         (err) => {

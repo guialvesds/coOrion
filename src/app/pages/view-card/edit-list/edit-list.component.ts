@@ -66,8 +66,7 @@ export class EditListComponent implements OnInit {
     this.taskService.editListService(id, dados).subscribe();
     this.snackBar.openSnackBar('Título alterado com sucesso!'); 
         setTimeout(() => {
-          this.closeDialog();  
-          window.location.reload(); 
+          this.closeDialog();            
         }, 350);       
   }
 }

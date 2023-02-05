@@ -95,9 +95,6 @@ export class ViewCardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {   
-    this.getCard();
-    this.getList()
-
     this.viewForm = this.formBuild.group({ //criar metodo e encapsular
       description: new FormControl(
         this.cardData ? this.cardData.description : ''
@@ -106,7 +103,9 @@ export class ViewCardComponent implements OnInit, OnDestroy {
       commentText: new FormControl(),
       titleList: new FormControl(this.listData ? this.listData.title : ''), // criar separademento no metodo de get
       checkboxI: new FormControl()
-    });  
+    }); 
+    
+    this.refresh();
   }
 
   // Destroi as chamadas de subscribe
@@ -115,7 +114,12 @@ export class ViewCardComponent implements OnInit, OnDestroy {
   }
 
   refresh(): void {
-   window.location.reload();
+    this.getCard();
+    this.getList();
+  }
+
+  refreshPage(): void {
+    window.location.reload();
   }
 
   get description() {

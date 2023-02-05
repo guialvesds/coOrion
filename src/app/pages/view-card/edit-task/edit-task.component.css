@@ -106,7 +106,10 @@ button {
  }
 
  .buttons button:last-child {
-  background-color: #b65b5b;
+  background-color: #ffffff;
+  border: solid 1px #000;
+  color: #000;
+  font-weight: 500;
  }
  .buttons button:hover {
   box-shadow: 1px 1px 3px rgb(110, 110, 110);
@@ -124,28 +127,29 @@ button {
 }
 
 .form-group {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin: 5px;
-    width: 60%;
-    height: 70%; 
-    /* background-color: red; */
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 5px;
+  width: 90%;
+  height: 70%; 
+  /* background-color: red; */
 }
 
 .form-group input, select{
-   margin-left: 10px;
-    background-color: #bebebe52;
-    width: 60%;
-    height: 40px;
-    margin-top: 5px;
-    padding-left: 9px;
-    padding-right: 9px;
-    border: 0;
-    margin: 6px;
-    outline: 0;   
+ margin-left: 10px;
+  background-color: #bebebe52;
+  width: 90%;
+  height: 40px;
+  margin-top: 5px;
+  padding-left: 9px;
+  padding-right: 9px;
+  border: 0;
+  margin: 6px;
+  outline: 0;   
 
 }
- .form-group .datePicker {
-    width: 47%;
+.form-group .datePicker {
+  width: 40%;
+  margin-left: 5px;
 }

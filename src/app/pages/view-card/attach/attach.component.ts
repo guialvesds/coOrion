@@ -80,7 +80,6 @@ export class AttachComponent implements OnInit {
         next: () => {
           this.snackBar.openSnackBar('Arquivo adicionado com sucesso!');
           this.closeDialog();
-          window.location.reload();
         },
         error: (err) => {
           console.log('erro importação de arquivo', err);
