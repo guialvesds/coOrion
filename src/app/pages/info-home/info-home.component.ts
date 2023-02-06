@@ -62,13 +62,9 @@ export class InfoHomeComponent implements OnInit {
       )
       .subscribe({
         next: ({ data }) => {
-          console.log(data);
-
           this.cards = data;
           this.allCards = data;
           this.totalP = data.length;        
-
-          // this.calculateDate();
         },
         error: (error) => {
           const dataError = error.statusText;
@@ -159,6 +155,8 @@ export class InfoHomeComponent implements OnInit {
       // width: '820px',
       enterAnimationDuration,
       exitAnimationDuration,
+    }).afterClosed().subscribe({
+      next: (res) => console.log(res)  
     });
   }
 }

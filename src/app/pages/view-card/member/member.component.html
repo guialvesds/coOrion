@@ -5,6 +5,9 @@
       <fa-icon [icon]="faXmark"></fa-icon>
   </button>
 </div>
+<div class="validation" *ngIf="validation">
+  <p>{{validationText}}</p>
+</div>  
 <div class="search">
     <input type="text" name="search" id="" (input)="searchs($event)" placeholder="Pesquise por um membro.">
 </div>

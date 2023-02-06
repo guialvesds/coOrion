@@ -135,8 +135,7 @@ export class ViewCardComponent implements OnInit, OnDestroy {
     this.cardServices.findProducts(id!).subscribe((item: { data: any; }) => {
       this.cardData = item.data;
       this.comments = this.cardData.comments;
-      this.idUser = this.comments.userId;
-      console.log(this.cardData);
+      this.idUser = this.comments.userId;     
       this.calculateDate();
     });
   }
@@ -250,8 +249,6 @@ export class ViewCardComponent implements OnInit, OnDestroy {
      const diffTime = Math.abs(endDate - iniDate);
      const timeInOneDay = 1000 * 60 * 60 * 24; // milesegundos * segundos * horas dia
      const diffDays = Math.ceil(diffTime / timeInOneDay); 
-     
-     console.log('datas', iniDate, endDate, diffDays);
 
      if(diffDays <= 2 ){
         this.dateColor = 'red';
@@ -317,15 +314,12 @@ export class ViewCardComponent implements OnInit, OnDestroy {
     try {
       const idCard = this.cardData._id;
 
-      const idC = idComment;
-
-      console.log('commentário id', idComment);
+      const idC = idComment;    
        this.cardServices.deleteComeentService(idCard, idC).subscribe(
         () => {
           this.snackBar.openSnackBar('Comentário removido com sucesso!');
         },
         (err) => {        
-
           const message = err.error.message;
           this.snackBar.openSnackBar(message);
         }
@@ -357,9 +351,6 @@ export class ViewCardComponent implements OnInit, OnDestroy {
       const dados = {
         comment: textComemnt.comment,
       };
-
-      console.log(dados);
-
       this.cardServices
         .editCommentService(idCard, idC, dados)
         .subscribe();

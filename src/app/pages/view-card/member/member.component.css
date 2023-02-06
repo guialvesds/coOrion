@@ -63,3 +63,14 @@ button {
     font-size: 1.3em;
     font-weight: 400;
   }
+
+  .validation  {
+    border-left: solid 2.5px red;
+    height: 16px;
+    margin: 3px;
+}
+
+.validation p {
+    color: red;
+    margin-left: 5px;
+}

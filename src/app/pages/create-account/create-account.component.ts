@@ -40,25 +40,19 @@ export class CreateAccountComponent implements OnInit {
 
   async submit() {
     if (
-      this.formulario.value.name == null &&
-      this.formulario.value.sname == null &&
-      this.formulario.value.email == null &&
-      this.formulario.value.password == null
+      this.formulario.value.name == null ||
+      this.formulario.value.email == null ||
+      this.formulario.value.password == null    
     ) {
-      this.validation = true;
-      console.log('Todos os campos são obrigatórios!');
+      this.validation = true;    
     } else if (
       this.formulario.value.password !== this.formulario.value.rPassword
     ) {
       this.validation = false;
-      this.passValidation = true;
-      console.log('Senhas não conferem!');
+      this.passValidation = true;      
     } else {
-      this.userServices.creatUser(this.formulario.value);
-
-      console.log('Usuário cadastrado com sucesso!');    
+      this.userServices.creatUser(this.formulario.value);   
       this.snackBar.openSnackBar('Usuário criado com sucesso!');
-
       setTimeout(() => {
         this.router.navigate(['/login']);
       }, 2000);

@@ -36,13 +36,12 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  async submit() {
+   submit() {
     try {
-      await this.UserServices.login(this.formulario.value).subscribe(
+       this.UserServices.login(this.formulario.value).subscribe(
         (response) => {      
           window.localStorage.setItem('token', response.body.token);
-          this.router.navigate(['/']);
-          console.log('entrou');
+          this.router.navigate(['/']);          
         }, (err) => {
             this.errorMessage = err.message;
             console.log(err);
