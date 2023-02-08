@@ -33,7 +33,7 @@ export class CreateAccountComponent implements OnInit {
       email: [null],
       password: [null],
       rPassword: [null],
-      member: [false],
+      member: [true],
       selected: [false]
     });
   }

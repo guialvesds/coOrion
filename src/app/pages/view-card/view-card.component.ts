@@ -104,8 +104,8 @@ export class ViewCardComponent implements OnInit, OnDestroy {
       titleList: new FormControl(this.listData ? this.listData.title : ''), // criar separademento no metodo de get
       checkboxI: new FormControl()
     }); 
+    this.refresh();    
     
-    this.refresh();
   }
 
   // Destroi as chamadas de subscribe
@@ -122,6 +122,7 @@ export class ViewCardComponent implements OnInit, OnDestroy {
     window.location.reload();
   }
 
+
   get description() {
     return this.viewForm.get('description')!;
   }
@@ -137,6 +138,8 @@ export class ViewCardComponent implements OnInit, OnDestroy {
       this.comments = this.cardData.comments;
       this.idUser = this.comments.userId;     
       this.calculateDate();
+
+      console.log(this.cardData);
     });
   }
   
@@ -262,6 +265,10 @@ export class ViewCardComponent implements OnInit, OnDestroy {
       this.dateColor = 'green';
       return ;
      }       
+  }
+
+  public getInitialCharacter(m: any): any {
+      return m.name.charAt(0).toUpperCase();
   }
 
    putDescription() {

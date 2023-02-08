@@ -49,7 +49,7 @@ button {
     box-shadow: 1px 1px 3px rgb(110, 110, 110);
   }
 
-  .conteiner {
+  .conteiner-for {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -152,4 +152,13 @@ button {
 .form-group .datePicker {
     width: 40%;
     margin-left: 13px;
+}
+
+.example-additional-selection {
+  opacity: 0.75;
+  font-size: 0.75em;
+}
+
+mat-form-field {
+  margin-left: -11.3rem;
 }

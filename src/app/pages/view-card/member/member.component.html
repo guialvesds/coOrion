@@ -14,20 +14,9 @@
 <form [formGroup]="memberForm">
   <div >
     <div class="conteinerMember" *ngFor="let item of userData">
-      <label>
-        <input type="checkbox" formControlName="memberList" (change)="onchange($event, item)"> {{item.name}} {{item.sname}}
+      <label *ngIf="item.member">
+        <input type="checkbox" formControlName="memberList" (change)="onchange($event, item)"> {{item.name}}
       </label>
     </div>   
   </div>
-<!-- <div mat-dialog-content > 
-    <mat-selection-list formControlName="memberList" *ngFor="let item of userData">
-        <mat-list-option  checkboxPosition="before" >
-         <p >{{item.name}}</p>
-        </mat-list-option>
-      </mat-selection-list>
-</div> -->
-<!-- <div mat-dialog-actions>
-  <button type="submit">Adicionar</button>
-  <button mat-button mat-dialog-close cdkFocusInitial>Cancelar</button>
-</div> -->
 </form>

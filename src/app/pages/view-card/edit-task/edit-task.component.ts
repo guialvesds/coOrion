@@ -34,6 +34,7 @@ export class EditTaskComponent implements OnInit {
   titleFormat: Boolean = false;
 
   taskData: any = [];
+  public member = new FormControl('');
 
   constructor(
     private route: Router,
@@ -58,6 +59,21 @@ export class EditTaskComponent implements OnInit {
 
     console.log(this.taskData);
     
+  }
+
+  public getName(s: FormControl): String {
+    if (this.getValidValueMember(s)) {
+      return '';
+    }
+    return s.value[0].name;
+  }
+  
+  public getValidValueMember(f: FormControl): boolean {
+    return !f.value && f.value === '';
+  }
+
+  public validSizeMemberInDisplay(f: FormControl): boolean {
+    return (f.value?.length || 0) > 1;
   }
 
   closeDialog() {

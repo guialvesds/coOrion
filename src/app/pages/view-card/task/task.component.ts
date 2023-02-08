@@ -3,11 +3,10 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ViewCardComponent } from '../view-card.component';
 
 import { UserService } from 'src/app/services/user.service';
-import { CardService } from 'src/app/services/card.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { SnackBarComponent } from 'src/app/components/snack-bar/snack-bar.component';
 
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 import {
   faTimes,
@@ -18,8 +17,9 @@ import {
   faArrowsRotate,
   faTrashAlt,
 } from '@fortawesome/free-solid-svg-icons';
-;
 import { TaskService } from 'src/app/services/task.service';
+import { User } from 'src/app/model/User';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-task',
@@ -27,70 +27,102 @@ import { TaskService } from 'src/app/services/task.service';
   styleUrls: ['./task.component.css'],
 })
 export class TaskComponent implements OnInit {
-  taskForm!: FormGroup;
-  faXmark = faXmark;
+  public taskForm!: FormGroup;
+  public faXmark = faXmark;
 
-  titleFormat: Boolean = false;
+  public titleFormat: Boolean = false;
 
-  listData!: string;
+  public userList!: User[] | any;
+  public member = new FormControl('');
+  public memberEmail: string = '';
+
+  private listData!: string;
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data: string,
+    public dialogRef: MatDialogRef<ViewCardComponent>,
     private route: Router,
     private taskService: TaskService,
     private snackBar: SnackBarComponent,
-    private cardServices: CardService,
     private formBuid: FormBuilder,
-    private UserService: UserService,
-    public dialogRef: MatDialogRef<ViewCardComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: string
-  ) {
-    this.listData = data;
-  }
+    private UserService: UserService
+  ) {}
 
   ngOnInit(): void {
-    this.taskForm = this.formBuid.group({
-      titleTask: new FormControl(),
-      memberTask: new FormControl(),
-      delivery_date: new FormControl(),
-    });
-
-    console.log(this.listData);
-    
+    this.fillData();
+    this.getUsers();
+    this.initFor();
   }
 
-  closeDialog() {
+  public closeDialog(): void {
     this.dialogRef.close();
   }
 
-  addTask(){
-    const listId = this.listData;
-    const title = this.taskForm.value;
-    const member = this.taskForm.value
+  public get getTitleTask() {
+    return this.taskForm.value.titleTask;
+  } // metodo acessor
+  public get getMemberTask() {
+    return this.member.value;
+  } // metodo acessor
+  public get getDeliveryDate() {
+    return this.taskForm.value.delivery_date;
+  } // metodo acessor
 
-    const dados = {
-      titleTask:  title.titleTask,
-      member: member.memberTask,
-      delivery_date: this.taskForm.value.delivery_date
+  public addTask(): void {
+    this.taskService
+      .addTasksServices({
+        id: this.listData,
+        titleTask: this.getTitleTask,
+        member: this.getMemberTask,
+        delivery_date: this.getDeliveryDate,
+      })
+      .subscribe({
+        next: () => this.showSnackBar('Tarefa criada com sucesso!'),
+        error: () => this.showSnackBar('Ops, não foi possível criar a sua Tarefa!', true),
+      });
+
+      console.log(this.member.value);      
+  }
+
+
+  public getName(s: FormControl): String {
+    if (this.getValidValueMember(s)) {
+      return '';
     }
+    return s.value[0].name;
+  }
 
-    if(title.titleTask == null){
-      this.titleFormat = true;
-    } else {
-      this.taskService.addTasksServices(listId, dados).subscribe(
-        () => {
-          this.snackBar.openSnackBar('Tarefa criada com sucesso!');
-          this.titleFormat = false;
-          setTimeout(() => {
-            this.closeDialog();
-          }, 350);
-        },
-        (err) => {
-          console.log(err);
-          this.snackBar.openSnackBar(
-            'Ops, não foi possível criar a sua Tarefa!'
-          );
-        }
-      );
-    }  
+  public getValidValueMember(f: FormControl): boolean {
+    return !f.value && f.value === '';
+  }
+
+  public getUsers(): void {
+    this.UserService.findUsers().subscribe((item) => this.userList = item)
+  }
+
+  public validSizeMemberInDisplay(f: FormControl): boolean {
+    return (f.value?.length || 0) > 1;
+  }
+
+  private initFor(): void {
+    this.taskForm = this.formBuid.group({
+      titleTask: [''],
+      memberTask: [''],
+      delivery_date: [''],
+    });
+  }
+
+  private fillData(): void {
+    this.listData = this.data;
+  }
+  
+  private showSnackBar(m: string, isError: boolean = false): void {
+    this.snackBar.openSnackBar(m);
+    this.titleFormat = false;
+    setTimeout(() => {
+      if (isError) {
+        this.closeDialog();
+      }
+    }, 350);
   }
 }

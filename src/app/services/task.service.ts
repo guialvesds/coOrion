@@ -49,8 +49,8 @@ export class TaskService {
     return this.http.get<Response<Task[]>>(url, {headers: this.head_obj})
   }
 
-  addTasksServices(listId: string, dados: Object){
-    const url = `${this.apiUrl}/${listId}/task`;
+  addTasksServices( dados: any){
+    const url = `${this.apiUrl}/${dados.id}/task`;
     return this.http.post(url, dados, {headers: this.head_obj})
   }
 

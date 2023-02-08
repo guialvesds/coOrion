@@ -26,7 +26,7 @@
             <!-- <input type="date" name="deliveryDate" id="deliveryDate" formControlName="deliveryDate" /> -->
 
             <!-- <mat-label>Data de Entrega</mat-label> -->
-            <input class="datePicker" matInput [matDatepicker]="picker" formControlName="delivery_date">
+            <input class="datePicker" readonly="true" matInput [matDatepicker]="picker" formControlName="delivery_date">
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
 

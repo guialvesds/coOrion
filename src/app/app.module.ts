@@ -41,6 +41,7 @@ import { EditListComponent } from './pages/view-card/edit-list/edit-list.compone
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { ViewImageComponent } from './pages/view-card/view-image/view-image.component';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { ViewImageComponent } from './pages/view-card/view-image/view-image.comp
     ViewImageComponent
   ],
   imports: [
+    PickerModule,
     BrowserModule,
     AppRoutingModule,
     MatDialogModule,

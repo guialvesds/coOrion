@@ -153,3 +153,7 @@ button {
   width: 40%;
   margin-left: 5px;
 }
+
+mat-form-field {
+  margin-left: -8rem;
+}

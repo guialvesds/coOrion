@@ -31,6 +31,9 @@ export class MemberComponent implements OnInit {
   validation: boolean = false;
   validationText: string = '';
 
+  toppings = new FormControl('');
+
+
   constructor(
     private snackBar: SnackBarComponent,
     private cardServices: CardService,
@@ -45,7 +48,7 @@ export class MemberComponent implements OnInit {
   ngOnInit(): void {
     this.getUsers();
     this.memberForm = this.formBuid.group({
-      memberList: new FormControl(),
+      memberList: new FormControl(''),      
     });
   }
 
@@ -71,7 +74,7 @@ export class MemberComponent implements OnInit {
   }
 
   onchange(e: Event, user: User): void {
-    // let checked = ((<HTMLInputElement>e.target).checked);
+    let checked = ((<HTMLInputElement>e.target).checked);
     let cardId = this.cardData._id;
 
     let dados = {
@@ -86,7 +89,7 @@ export class MemberComponent implements OnInit {
       this.memberEmail = m.memberEmail;
     }
 
-    if (this.memberEmail !== user.email) {
+    if (this.memberEmail !== user.email && checked === true) {
       this.cardServices.addMmeber(cardId, dados).subscribe({
         next: ({}) => {
           this.snackBar.openSnackBar('Membro adicionado com sucesso!');

@@ -72,7 +72,7 @@ export class ListComponent implements OnInit {
         () => {
           this.snackBar.openSnackBar('Lista criada com sucesso!');
           this.titleFormat = false;  
-              this.requesteService.getCard(idCard);
+              this.requesteService.getList(idCard);
           setTimeout(() => {           
             this.closeDialog();
           }, 350);
