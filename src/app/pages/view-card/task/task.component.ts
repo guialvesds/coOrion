@@ -79,9 +79,7 @@ export class TaskComponent implements OnInit {
       .subscribe({
         next: () => this.showSnackBar('Tarefa criada com sucesso!'),
         error: () => this.showSnackBar('Ops, não foi possível criar a sua Tarefa!', true),
-      });
-
-      console.log(this.member.value);      
+      });   
   }
 
 
@@ -120,7 +118,7 @@ export class TaskComponent implements OnInit {
     this.snackBar.openSnackBar(m);
     this.titleFormat = false;
     setTimeout(() => {
-      if (isError) {
+      if (!isError) {
         this.closeDialog();
       }
     }, 350);

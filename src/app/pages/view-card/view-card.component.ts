@@ -25,13 +25,10 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MemberComponent } from './member/member.component';
 import { Subscription } from 'rxjs';
 
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-
 import { AttachComponent } from './attach/attach.component';
 import { SnackBarComponent } from 'src/app/components/snack-bar/snack-bar.component';
 import { ListComponent } from './list/list.component';
 import { TaskService } from 'src/app/services/task.service';
-import { Obj, end } from '@popperjs/core';
 import { TaskComponent } from './task/task.component';
 import { EditTaskComponent } from './edit-task/edit-task.component';
 import { EditListComponent } from './edit-list/edit-list.component';
@@ -44,7 +41,7 @@ import { ViewImageComponent } from './view-image/view-image.component';
 })
 export class ViewCardComponent implements OnInit, OnDestroy {
   @Input() cardData!: Card | any;
-  
+
   faTimes = faTimes;
   faFloppyDisk = faFloppyDisk;
   faArrowsRotate = faArrowsRotate;
@@ -73,10 +70,12 @@ export class ViewCardComponent implements OnInit, OnDestroy {
   typesOfShoes: string[] = ['Boots'];
 
   listData!: any;
-  tasks: any = {};  
+  tasks: any = {};
   allTasks: any;
 
   dateColor: string = '';
+
+  progress!: any;
 
   private subScriptions: Subscription[] = [];
 
@@ -89,23 +88,21 @@ export class ViewCardComponent implements OnInit, OnDestroy {
     private router: Router,
     public activeModal: MatDialog,
     private formBuild: FormBuilder
+  ) {}
 
-  ) {
-    
-  }
-
-  ngOnInit(): void {   
-    this.viewForm = this.formBuild.group({ //criar metodo e encapsular
+  ngOnInit(): void {
+    this.viewForm = this.formBuild.group({
+      //criar metodo e encapsular
       description: new FormControl(
         this.cardData ? this.cardData.description : ''
       ),
       comment: new FormControl(''),
       commentText: new FormControl(),
       titleList: new FormControl(this.listData ? this.listData.title : ''), // criar separademento no metodo de get
-      checkboxI: new FormControl()
-    }); 
-    this.refresh();    
-    
+      checkboxI: new FormControl(),
+    });
+    this.refresh();
+    console.log(this.tasks);
   }
 
   // Destroi as chamadas de subscribe
@@ -122,7 +119,6 @@ export class ViewCardComponent implements OnInit, OnDestroy {
     window.location.reload();
   }
 
-
   get description() {
     return this.viewForm.get('description')!;
   }
@@ -132,43 +128,49 @@ export class ViewCardComponent implements OnInit, OnDestroy {
   }
 
   getCard() {
-    const id = String(this.route.snapshot.paramMap.get('id'));    
-    this.cardServices.findProducts(id!).subscribe((item: { data: any; }) => {
+    const id = String(this.route.snapshot.paramMap.get('id'));
+    this.cardServices.findProducts(id!).subscribe((item: { data: any }) => {
       this.cardData = item.data;
       this.comments = this.cardData.comments;
-      this.idUser = this.comments.userId;     
+      this.idUser = this.comments.userId;
       this.calculateDate();
 
       console.log(this.cardData);
     });
   }
-  
+
   openDialogMember(
     enterAnimationDuration: string,
     exitAnimationDuration: string
   ): void {
-    this.activeModal.open(MemberComponent, {
-      data: this.cardData,
-      width: '420px',
-      enterAnimationDuration,
-      exitAnimationDuration,
-    }).afterClosed().subscribe({
-      next: (res) => console.log(res)  
-    });
+    this.activeModal
+      .open(MemberComponent, {
+        data: this.cardData,
+        width: '420px',
+        enterAnimationDuration,
+        exitAnimationDuration,
+      })
+      .afterClosed()
+      .subscribe({
+        next: (res) => console.log(res),
+      });
   }
 
   openDialogList(
     enterAnimationDuration: string,
     exitAnimationDuration: string
   ): void {
-    this.activeModal.open(ListComponent, {
-      data: this.cardData,
-      width: '420px',
-      enterAnimationDuration,
-      exitAnimationDuration,
-    }).afterClosed().subscribe({
-      next: (res) => console.log(res)  
-    });
+    this.activeModal
+      .open(ListComponent, {
+        data: this.cardData,
+        width: '420px',
+        enterAnimationDuration,
+        exitAnimationDuration,
+      })
+      .afterClosed()
+      .subscribe({
+        next: (res) => console.log(res),
+      });
   }
 
   openDialogTask(
@@ -176,58 +178,70 @@ export class ViewCardComponent implements OnInit, OnDestroy {
     exitAnimationDuration: string,
     listId: string
   ): void {
-    this.activeModal.open(TaskComponent, {
-      data: listId,
-      width: '620px',
-      enterAnimationDuration,
-      exitAnimationDuration,
-    }).afterClosed().subscribe({
-      next: (res) => console.log(res)  
-    });
+    this.activeModal
+      .open(TaskComponent, {
+        data: listId,
+        width: '620px',
+        enterAnimationDuration,
+        exitAnimationDuration,
+      })
+      .afterClosed()
+      .subscribe({
+        next: (res) => console.log(res),
+      });
   }
 
   openDialogEditTask(
     enterAnimationDuration: string,
     exitAnimationDuration: string,
-    task: [],
+    task: []
   ): void {
-    this.activeModal.open(EditTaskComponent, {
-      data: task,
-      width: '620px',
-      enterAnimationDuration,
-      exitAnimationDuration,
-    }).afterClosed().subscribe({
-      next: (res) => console.log(res)  
-    });
+    this.activeModal
+      .open(EditTaskComponent, {
+        data: task,
+        width: '620px',
+        enterAnimationDuration,
+        exitAnimationDuration,
+      })
+      .afterClosed()
+      .subscribe({
+        next: (res) => console.log(res),
+      });
   }
 
   openDialogEditList(
     enterAnimationDuration: string,
     exitAnimationDuration: string,
-    list: [],
+    list: []
   ): void {
-    this.activeModal.open(EditListComponent, {
-      data: list,
-      width: '620px',
-      enterAnimationDuration,
-      exitAnimationDuration,
-    }).afterClosed().subscribe({
-      next: (res) => console.log(res)  
-    });
+    this.activeModal
+      .open(EditListComponent, {
+        data: list,
+        width: '620px',
+        enterAnimationDuration,
+        exitAnimationDuration,
+      })
+      .afterClosed()
+      .subscribe({
+        next: (res) => console.log(res),
+      });
   }
 
   openDialogAnexo(
     enterAnimationDuration: string,
     exitAnimationDuration: string
   ): void {
-    this.activeModal.open(AttachComponent, {
-      data: this.cardData,
-      width: '420px',
-      enterAnimationDuration,
-      exitAnimationDuration,
-    }).afterClosed().subscribe({
-      next: (res) => console.log(res)  
-    });
+    this.activeModal
+      .open(AttachComponent, {
+        data: this.cardData,
+        width: '420px',
+        enterAnimationDuration,
+        exitAnimationDuration,
+      })
+      .afterClosed()
+      .subscribe({
+        next: (res) => console.log(res),
+      });
   }
 
   openDialogImage(
@@ -235,43 +249,46 @@ export class ViewCardComponent implements OnInit, OnDestroy {
     exitAnimationDuration: string,
     image: string
   ): void {
-    this.activeModal.open(ViewImageComponent, {
-      data: image,
-      width: 'auto',
-      enterAnimationDuration,
-      exitAnimationDuration,
-    }).afterClosed().subscribe({
-      next: (res) => console.log(res)  
-    });
+    this.activeModal
+      .open(ViewImageComponent, {
+        data: image,
+        width: 'auto',
+        enterAnimationDuration,
+        exitAnimationDuration,
+      })
+      .afterClosed()
+      .subscribe({
+        next: (res) => console.log(res),
+      });
   }
 
-  calculateDate(){    
+  calculateDate() {
     const iniDate: any = new Date();
     const endDate: any = new Date(this.cardData.delivery_date);
 
-     const diffTime = Math.abs(endDate - iniDate);
-     const timeInOneDay = 1000 * 60 * 60 * 24; // milesegundos * segundos * horas dia
-     const diffDays = Math.ceil(diffTime / timeInOneDay); 
+    const diffTime = Math.abs(endDate - iniDate);
+    const timeInOneDay = 1000 * 60 * 60 * 24; // milesegundos * segundos * horas dia
+    const diffDays = Math.ceil(diffTime / timeInOneDay);
 
-     if(diffDays <= 2 ){
-        this.dateColor = 'red';
-        return ;
-     } 
-     if(diffDays >= 3 && diffDays <= 5 ) {
+    if (diffDays <= 2) {
+      this.dateColor = 'red';
+      return;
+    }
+    if (diffDays >= 3 && diffDays <= 5) {
       this.dateColor = 'orange';
-      return ;
-     } 
-     if(diffDays >= 6) {
+      return;
+    }
+    if (diffDays >= 6) {
       this.dateColor = 'green';
-      return ;
-     }       
+      return;
+    }
   }
 
   public getInitialCharacter(m: any): any {
-      return m.name.charAt(0).toUpperCase();
+    return m.name.charAt(0).toUpperCase();
   }
 
-   putDescription() {
+  putDescription() {
     const id = this.cardData._id;
     const desc = this.viewForm.value;
 
@@ -279,18 +296,16 @@ export class ViewCardComponent implements OnInit, OnDestroy {
       description: desc.description,
     };
 
-     this.subScriptions.push(
-      this.cardServices.editCard(id!, dados).subscribe()
-    );
+    this.subScriptions.push(this.cardServices.editCard(id!, dados).subscribe());
     this.snackBar.openSnackBar('Descrição adicionada com sucesso!');
 
     setTimeout(() => {
       this.getCard();
     }, 500);
-    this.nShowDesc = false;    
+    this.nShowDesc = false;
   }
 
-   addComments() {
+  addComments() {
     const id = this.cardData._id;
 
     const textComemnt = this.viewForm.value;
@@ -302,12 +317,12 @@ export class ViewCardComponent implements OnInit, OnDestroy {
     this.cardServices.addCommentService(id!, dados).subscribe();
     this.snackBar.openSnackBar('Comentário adicionado com sucesso!');
 
-    this.viewForm.reset()
+    this.viewForm.reset();
     setTimeout(() => {
       this.getCard();
     }, 500);
 
-    this.nShowDesc = false;    
+    this.nShowDesc = false;
   }
 
   showDesc() {
@@ -317,16 +332,16 @@ export class ViewCardComponent implements OnInit, OnDestroy {
     this.nShowDesc = false;
   }
 
-   deleteComment(idComment: any) {
+  deleteComment(idComment: any) {
     try {
       const idCard = this.cardData._id;
 
-      const idC = idComment;    
-       this.cardServices.deleteComeentService(idCard, idC).subscribe(
+      const idC = idComment;
+      this.cardServices.deleteComeentService(idCard, idC).subscribe(
         () => {
           this.snackBar.openSnackBar('Comentário removido com sucesso!');
         },
-        (err) => {        
+        (err) => {
           const message = err.error.message;
           this.snackBar.openSnackBar(message);
         }
@@ -348,7 +363,7 @@ export class ViewCardComponent implements OnInit, OnDestroy {
     this.showComment = false;
   }
 
-   editComment(idComment: any) {
+  editComment(idComment: any) {
     try {
       const idCard = this.cardData._id;
 
@@ -358,9 +373,7 @@ export class ViewCardComponent implements OnInit, OnDestroy {
       const dados = {
         comment: textComemnt.comment,
       };
-      this.cardServices
-        .editCommentService(idCard, idC, dados)
-        .subscribe();
+      this.cardServices.editCommentService(idCard, idC, dados).subscribe();
 
       setTimeout(() => {
         this.refresh();
@@ -406,17 +419,18 @@ export class ViewCardComponent implements OnInit, OnDestroy {
 
         // Get Tasks
 
-        const lists = this.listData; 
-      
-        for (let i of lists) {
+        const lists = this.listData;
 
+        for (let i of lists) {
           const listId = i._id;
 
-          console.log('for', listId);        
+          console.log('for', listId);
 
           this.taskService.getTasksService(listId).subscribe((tasks) => {
             this.tasks[listId] = tasks.data;
-            this.allTasks = tasks.data;            
+            this.allTasks = tasks.data;
+
+            this.progreesBar(this.tasks[listId]);
           });
         }
       });
@@ -437,26 +451,38 @@ export class ViewCardComponent implements OnInit, OnDestroy {
   noShowEList() {
     return (this.showEditList = false);
   }
- 
 
   // Tasks item
 
-   removeTask(listId: string, taskId: string){
-
+  removeTask(listId: string, taskId: string) {
     this.taskService.removeTaskservice(listId, taskId).subscribe(
       () => {
-        this.snackBar.openSnackBar('Tarefa removida com sucesso!');  
-        this.getList();            
+        this.snackBar.openSnackBar('Tarefa removida com sucesso!');
+        this.getList();
       },
       (err) => {
-        console.log(err);        
+        console.log(err);
       }
     );
-   } 
+  }
 
-   onTaskClick(task: Task){
-    this.taskService.completeTaskService(task).subscribe(() => {      
-      task.completed = !task.completed; 
-    });  
-   }
+  onTaskClick(task: Task) {
+    this.taskService.completeTaskService(task).subscribe(() => {
+      task.completed = !task.completed;
+      this.getList();
+    });
+
+  }
+
+  progreesBar(dados: any) {
+    const total = dados.length;
+    const completed = dados.reduce(
+      (done: number, task: { completed: any }) =>
+        (done += Number(task.completed)),
+      0
+    );
+    this.progress = completed / total * 100;
+    console.log(total, completed, this.progress);
+    
+  }
 }

@@ -35,9 +35,14 @@
                                 'outros'}})
                             </span>
                         </mat-select-trigger>
-                        <div *ngFor="let member of taskData.member">
-                            <mat-option  [value]="member">{{member.name}}</mat-option>
+                        <div *ngIf="taskData.member; else noMember">
+                            <mat-option *ngFor="let member of taskData.member" [value]="member">{{member.name}}</mat-option>
                         </div>
+                        <ng-template #noMember>
+                            <div *ngFor="let users of user">
+                                <mat-option  [value]="users">{{users.name}}</mat-option>
+                            </div>
+                        </ng-template>
                     </mat-select>
                 </mat-form-field>
             </div>

@@ -36,7 +36,7 @@
               <td>{{card.code}}</td>
               <td><a routerLink="card/view/{{card._id}}">{{card.title}}</a></td>
               <td>{{card.tag}}</td>
-              <!-- <td>{{card.members.MemberName}}</td> -->
+              <!-- <td *ngFor="let member of cards.members">{{card.member.idMember}}</td> -->
               <!-- <td [ngStyle]="{'color': dateColor, 'font-weight': 500}" *ngIf="card.delivery_date; else noDate"><span>{{card.delivery_date.toLocaleString('pt-BR').substring(0 -->
               <td [ngStyle]="{'color': card.color}" *ngIf="card.delivery_date; else noDate"><span>{{card.delivery_date.toLocaleString('pt-BR').substring(0
                   ,

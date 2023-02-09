@@ -46,8 +46,6 @@ export class EditListComponent implements OnInit {
     this.listForm = this.formBuid.group({
       title: new FormControl( this.listData ? this.listData.title : ''),
     });
-
-    console.log('dados Card', this.listData);
   }
 
   closeDialog() {
@@ -55,8 +53,7 @@ export class EditListComponent implements OnInit {
   }
 
   editList() {
-    const id = this.listData._id;  
-
+    const id = this.listData._id; 
     const titleList = this.listForm.value;
 
     const dados = {

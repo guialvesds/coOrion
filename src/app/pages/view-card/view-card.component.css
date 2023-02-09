@@ -616,12 +616,29 @@ button:hover {
    }
 
    .completed {
-    background-color: #b3e0ce98;    
+    /* background-color: #b3e0ce98;     */
     text-decoration: line-through;
    }
    /* .card-task > ng-template {
     background-color: red;
    } */
+   .progress-bar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   }
+
+   .progress-bar > mat-progress-bar {
+    width: 90%;
+    height: 0.4rem;
+    background-color: #038c53;
+   }
+
+   .progress-bar > span {
+        font-weight: 400;
+        font-size: 0.9em;
+   }
 
 .title-list-task {    
     display: flex;    
@@ -791,4 +808,10 @@ button:hover {
     flex-direction: row;
     align-items: center;
 }
+.no-member {
+    color: #6d6d6d;
+    margin-left: 0.4rem;
+}
+
+
 

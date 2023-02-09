@@ -59,7 +59,7 @@
                                     <div class="title-list-task">
                                         <div *ngIf="!showEditList">
                                             <h1>{{list.title}}</h1>
-                                        </div>
+                                        </div>                                        
                                         <div *ngIf="!showEditList" class="buttons-action">
                                             <button (click)="openDialogEditList( '400ms', '400ms', list)"
                                                 matTooltip="Editar Lista" matTooltipHideDelay="100">
@@ -69,25 +69,27 @@
                                                 matTooltipHideDelay="100">
                                                 <fa-icon [icon]="faTrashAlt"></fa-icon>
                                             </button>
-                                        </div>
-                                    </div>
+                                        </div>                                        
+                                    </div>    
+                                    <div class="progress-bar" >
+                                      <span>0%</span><mat-progress-bar mode="determinate" [value]="progress" ></mat-progress-bar><span>100%</span> 
+                                    </div>                                
                                     <div class="card-task" *ngFor="let task of tasks[list._id]"
                                         [ngClass]="{'completed': task.completed}">
 
                                         <div class="title-task">
-                                            <!-- <input type="checkbox" name="task" (click)="onTaskClick(task)" formControlName="checkboxI"> -->
                                             <button (click)="onTaskClick(task)">
                                                 <label>{{task.titleTask}}</label>
                                             </button>
                                         </div>
                                         <div class="mat-menu-content">
-                                            <div class="info-tasks" *ngIf="task.delivery_date; else noDate">
-                                                <span
+                                            <div class="info-tasks">
+                                                <span *ngIf="task.delivery_date; else noDate"
                                                     class="spanTask">{{task.delivery_date.toLocaleString('pt-BR').substring(0
                                                     ,
                                                     10).split('-').reverse().join('/')}}</span>
                                                 <div class="container-member" *ngFor="let member of task.member">
-                                                    <button *ngIf="task.member"
+                                                    <button *ngIf="member; else noMember"
                                                         [matTooltip]="member.name">{{getInitialCharacter(member)}}</button>
                                                 </div>
                                             </div>
@@ -108,7 +110,14 @@
                                                 </mat-menu>
                                             </div>
                                             <ng-template #noDate>
-                                                <span></span>
+                                                <div class="no-member">
+                                                    <fa-icon [icon]="faClock"></fa-icon>
+                                                </div>
+                                            </ng-template>
+                                            <ng-template #noMember>
+                                                <div class="no-member">
+                                                    <fa-icon [icon]="faUser"></fa-icon>
+                                                </div>
                                             </ng-template>
                                         </div>
                                     </div>
@@ -154,9 +163,9 @@
                         </div>
                         <!-- COMENTÁRIOS -->
                         <div class="formGroup">
-                            <h2>Comentários - {{cardData.comments.length}}</h2>                            
-                                <input type="text" placeholder="Escreva uma comentário..." class="comment"
-                                    formControlName="comment"/>                            
+                            <h2>Comentários - {{cardData.comments.length}}</h2>
+                            <input type="text" placeholder="Escreva uma comentário..." class="comment"
+                                formControlName="comment" />
                             <div class="buttons">
                                 <button type="submit" (click)="addComments()">
                                     <fa-icon [icon]="faFloppyDisk"></fa-icon> Salvar

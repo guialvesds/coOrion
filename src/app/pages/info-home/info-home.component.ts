@@ -64,7 +64,9 @@ export class InfoHomeComponent implements OnInit {
         next: ({ data }) => {
           this.cards = data;
           this.allCards = data;
-          this.totalP = data.length;        
+          this.totalP = data.length; 
+          console.log(this.cards);
+                 
         },
         error: (error) => {
           const dataError = error.statusText;

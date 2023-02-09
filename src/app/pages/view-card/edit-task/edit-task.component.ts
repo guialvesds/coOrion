@@ -21,6 +21,7 @@ import {
 
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TaskService } from 'src/app/services/task.service';
+import { User } from 'src/app/model/User';
 @Component({
   selector: 'app-edit-task',
   templateUrl: './edit-task.component.html',
@@ -35,6 +36,7 @@ export class EditTaskComponent implements OnInit {
 
   taskData: any = [];
   public member = new FormControl('');
+  public user!: User[] | any
 
   constructor(
     private route: Router,
@@ -56,9 +58,13 @@ export class EditTaskComponent implements OnInit {
       memberTask: new FormControl(this.taskData ? this.taskData.member : ''),
       delivery_date: new FormControl(this.taskData ? this.taskData.delivery_date : ''),
     });
+    this.getUser();
 
     console.log(this.taskData);
     
+  }
+  public getUser(){
+    this.UserService.findUsers().subscribe((item) => this.user = item)
   }
 
   public getName(s: FormControl): String {
@@ -87,11 +93,13 @@ export class EditTaskComponent implements OnInit {
     const taskId = this.taskData._id
     
     const dados = {
-
       titleTask: value.titleTask,
-      memberTask: value.memberTask,
+      member: this.member.value,
       delivery_date: value.delivery_date,
     }
+
+    console.log(FormControl);
+    
 
     this.taskService.editTaskservice(listId, taskId, dados).subscribe();
     

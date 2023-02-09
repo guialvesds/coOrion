@@ -42,6 +42,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { ViewImageComponent } from './pages/view-card/view-image/view-image.component';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -85,7 +86,8 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
     MatExpansionModule,
     MatIconModule,
     MatTooltipModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatProgressBarModule
   ],
   providers: [{provide: MAT_DATE_LOCALE, useValue: 'pt-BR'},
   SnackBarComponent],
