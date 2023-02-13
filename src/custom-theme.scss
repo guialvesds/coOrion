@@ -28,8 +28,13 @@ $coOrion-theme: mat.define-light-theme((
   )
 ));
 
+.infoUser-padding-dialof .mat-dialog-container{
+  padding: 10px;
+}
+
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include mat.all-component-themes($coOrion-theme);
+
 

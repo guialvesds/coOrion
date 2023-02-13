@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="header-action">       
+        <button class="clear" (click)="closeDialog()">
+            <fa-icon [icon]="faXmark"></fa-icon>
+        </button>
+    </div>
+    <div class="name-user">
+        <h1>{{userData.name}}</h1>
+    </div>
+    <div class="user-image" *ngIf="avatarUser; else noAvatar">
+        <img  src="{{avatarUser}}" alt="Foto perfil">
+        <div class="input-container">
+            <input type="file" (change)="uploadAvatar($event,userData._id, keyAvatar)">
+            <mat-icon>add_photo_alternate</mat-icon>
+        </div>
+    </div>
+    <ng-template #noAvatar>
+        <div class="user-image">
+        <img  src="../../../assets/663338.png" alt="Foto perfil">
+        <div class="input-container">
+            <input type="file" (change)="uploadAvatar($event,userData._id, keyAvatar)">
+            <mat-icon>add_photo_alternate</mat-icon>
+        </div>
+    </div>
+    </ng-template>
+    <div class="user-dados">
+        <p>{{nameArquivo}}</p>
+        <p>Email: {{userData.email}}</p>
+        <p>Criado em: {{userData.creatred_At.toLocaleString('pt-BR').substring(0,10).split('-').reverse().join('/')}}</p>
+    </div>
+</div>

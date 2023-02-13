@@ -15,6 +15,29 @@
     height: 2.5rem;
   }
   
+  .nav-bar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    /* width: 60%; */
+  }
+
+  .container-logo-user {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .hallo-user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: 400;
+    margin-bottom: -1rem;
+    margin-left: 1.5rem;
+  }
   nav {
     margin-right: 10px;
   }

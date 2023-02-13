@@ -43,6 +43,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { ViewImageComponent } from './pages/view-card/view-image/view-image.component';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { UserInfoComponent } from './components/user-info/user-info.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     TaskComponent,
     EditTaskComponent,
     EditListComponent,
-    ViewImageComponent
+    ViewImageComponent,
+    UserInfoComponent
   ],
   imports: [
     PickerModule,

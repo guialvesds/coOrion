@@ -36,20 +36,22 @@ export class LoginComponent implements OnInit {
     });
   }
 
-   submit() {
+  submit() {
     try {
-       this.UserServices.login(this.formulario.value).subscribe(
-        (response) => {      
+      this.UserServices.login(this.formulario.value).subscribe(
+        (response) => {
           window.localStorage.setItem('token', response.body.token);
-          this.router.navigate(['/']);          
-        }, (err) => {
-            this.errorMessage = err.message;
-            console.log(err);
+          window.sessionStorage.setItem('loged', response.body.userId);
+          this.router.navigate(['/']);
+        },
+        (err) => {
+          this.errorMessage = err.message;
+          console.log(err);
 
-            if(err.status !== 200){              
-                this.validation = true;
-                this.validationText = err.error.message;              
-            }            
+          if (err.status !== 200) {
+            this.validation = true;
+            this.validationText = err.error.message;
+          }
         }
       );
     } catch (error) {

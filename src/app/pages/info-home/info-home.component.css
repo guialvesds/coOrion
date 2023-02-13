@@ -212,3 +212,6 @@
     color: green;
   }
 
+  .infoUser-padding-dialof .mat-dialog-container{
+    padding: 10px;
+  }

@@ -485,4 +485,6 @@ export class ViewCardComponent implements OnInit, OnDestroy {
     console.log(total, completed, this.progress);
     
   }
+
+
 }

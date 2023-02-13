@@ -9,6 +9,7 @@ export class User {
     created_At?: Date;
     member?: Boolean;
     selected?: Boolean;
+    avatar!: Array<User>;
   
   }
   

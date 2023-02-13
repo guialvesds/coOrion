@@ -334,12 +334,12 @@ button:hover {
  * Avatar
  ---------------------------*/
 .comment-avatar {
-    width: 50px;
-    height: 50px;
+    width: 5rem;
+    height: 5rem;
     position: relative;
     z-index: 99;
     float: left;
-    border: 3px solid #FFF;
+    border: 1.3px solid #038c53;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
@@ -347,6 +347,7 @@ button:hover {
     -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     overflow: hidden;
+    margin-right: 1.4rem;
 }
 
 .comment-avatar img {

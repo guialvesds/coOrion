@@ -17,6 +17,7 @@ import { Router } from '@angular/router';
 import { ViewCardComponent } from '../view-card/view-card.component';
 import { SnackBarComponent } from 'src/app/components/snack-bar/snack-bar.component';
 import { map } from 'rxjs';
+import { Token } from '@angular/compiler';
 
 @Component({
   selector: 'app-info-home',
@@ -39,6 +40,8 @@ export class InfoHomeComponent implements OnInit {
   vewIcon = faNoteSticky;
 
   dateDelivery!: any;
+
+  userLoged!: any;
 
   constructor(
     private cardServices: CardService,
@@ -77,6 +80,13 @@ export class InfoHomeComponent implements OnInit {
       });
 
     this.userServices.findUsers();
+    this.getUserLoged();
+  }
+
+  public getUserLoged(){
+    this.userLoged = window.sessionStorage.getItem('loged')
+
+    console.log('Token home', this.userLoged);
   }
 
   refDateColor(c: any) {
@@ -153,8 +163,8 @@ export class InfoHomeComponent implements OnInit {
     exitAnimationDuration: string
   ): void {
     this.activeModal.open(ViewCardComponent, {
+      panelClass: 'infoUser-padding-dialof',
       data: this.cardData,
-      // width: '820px',
       enterAnimationDuration,
       exitAnimationDuration,
     }).afterClosed().subscribe({

@@ -1,19 +1,25 @@
 <app-alert></app-alert>
 <div class="containerNav">
-  <a routerLink="/" class="title">
-  <div class="img" >
-      <img src="../../../assets/icon.png" alt="logo">
-  <h3>Orion</h3>
-  </div>  
-</a>  
-  <nav>
-      <a routerLink="/">Início</a>
-      <!-- <a routerLink="/sobre">Sobre</a> -->
-      <a (click)="sair()" >Sair</a>
+  <div class="container-logo-user">
+    <a routerLink="/" class="title">
+      <div class="img">
+        <img src="../../../assets/icon.png" alt="logo">
+        <h3>Orion</h3>
+      </div>
+    </a>
+    <!-- <div class="hallo-user">
+      <p>Olá, {{userLoged.name}}!</p>
+    </div> -->
+  </div>
+  <nav class="nav-bar">
+    <a (click)="openDialogMember('400ms', '400ms')">Olá, {{userLoged.name}}!</a>
+    <a routerLink="/">Início</a>
+    <!-- <a routerLink="/sobre">Sobre</a> -->
+    <a (click)="sair()">Sair</a>
   </nav>
 </div>
 <main class="container">
- <router-outlet></router-outlet>
+  <router-outlet></router-outlet>
 </main>
 <footer>
   <p>Orion <span>@ 2023</span></p>

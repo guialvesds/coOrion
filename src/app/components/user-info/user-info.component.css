@@ -1,0 +1,97 @@
+.container {  
+    width: auto;  
+    height: auto;    
+    max-height: 100rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: -15px;
+}
+
+.name-user > h1 {
+    letter-spacing: 0.2rem;
+    font-weight: 500;
+}
+
+ .input-container {  
+    position: absolute;  
+    margin-left: 13.9rem;
+    margin-top: -2rem;
+    border: solid 1px #cecece; 
+    background-color: mediumseagreen;
+    color: white;
+    outline: 0;   
+    border-radius: 5px 1px 25px;
+    width: 2rem;
+    height: 2.1rem; 
+    padding: 0; 
+    cursor: pointer;
+    /* opacity: 0;   */
+}
+
+.input-container > input {
+    position: absolute;
+    width: 40px;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.input-container > mat-icon {
+    cursor: pointer;
+}
+
+
+.input-container > button:hover {    
+    background-color: rgb(2, 190, 118);   
+}
+
+
+.user-image > img {
+    max-width: 16rem;
+    max-height: 19rem;
+    width: auto;
+    height: 15rem;
+    border-radius: 20%;
+    margin-bottom: -7px;
+    margin-right: -3px;
+    box-shadow: 3px 2px 5px rgb(104, 104, 104);
+}
+
+.user-dados {
+    margin-top: 1.2rem;
+}
+
+.user-dados > p {
+    letter-spacing: 0.2rem;
+    font-weight: 500;
+}
+
+.header-action {
+    display: flex;
+    flex-direction: row;
+    width: 100%;  
+    justify-content: end;
+    align-items: center;
+  }
+
+  .header-action button {
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+    cursor: pointer;
+    outline: 0;
+    border: none;
+    /* margin-top: -15px; */
+    background-color: rgb(228, 228, 228);
+}
+
+.header-action button:hover {
+  box-shadow: 1px 1px 3px rgb(110, 110, 110);
+}
+
+.clear fa-icon {
+    font-size: 1.5em;
+    color: #535353;
+}

@@ -176,9 +176,15 @@
                             <div class="container-comment">
                                 <div class="comment-main-level">
                                     <!-- Avatar -->
-                                    <div class="comment-avatar"><img src="../../../assets/663338.png" alt=""></div>
+                                    <div class="comment-avatar" *ngIf="commentUser.avatar; else noAvatar">
+                                        <img src="{{commentUser.avatar[0].detail.location}}" alt="">
+                                    </div>
                                     <!-- Container do comentário -->
-
+                                    <ng-template #noAvatar class="comment-avatar" >
+                                        <div class="comment-avatar" >
+                                        <img src="../../../assets/663338.png" alt="">
+                                    </div>
+                                    </ng-template>
                                 </div>
                                 <div class="comment-box">
                                     <div class="comment-head">

@@ -17,6 +17,9 @@ export class UserService {
   private baseAPiUrl: string = environment.baseApiUrl;
   private apiUrl = `${this.baseAPiUrl}/user`;
 
+  private token = window.localStorage.getItem('token');
+  private head_obj = new HttpHeaders().set('Authorization', 'Bearer ' + this.token);
+
   usuarios: User[] = [];
 
   constructor(private http: HttpClient) { }
@@ -44,11 +47,14 @@ export class UserService {
     });
   }
 
+  uploadAvatarService(userId: string, fileName: string, dados: FormData){
+    const url = `${this.apiUrl}/upload/${userId}/${fileName}`
+    return this.http.post(url, dados, {headers: this.head_obj});
+  }
+
   getToken(){
     return this.http.get<any>(this.apiUrl).subscribe((item) =>{
-     item.token;
-     console.log(item.token);
-     
+     item.token; 
     });
   }
 
